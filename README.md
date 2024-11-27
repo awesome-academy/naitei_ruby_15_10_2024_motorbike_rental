@@ -1,0 +1,1 @@
+# naitei_ruby_15_10_2024_motorbike_rental
