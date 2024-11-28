@@ -1,0 +1,195 @@
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (21.7ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (23.1ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK('6699375033163432305', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (5.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateUsers (20241127083536)
+  [1m[35m (23.6ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `email` varchar(255), `password_digest` varchar(255), `phone_number` varchar(255), `role` int, `status` int, `provider` varchar(255), `uid` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (16.6ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email` ON `users` (`email`)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083536')[0m
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRentals (20241127083608)
+  [1m[35m (29.3ms)[0m  [1m[35mCREATE TABLE `rentals` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `name` varchar(255), `phone_number` varchar(255), `delivery_location` varchar(255), `decline_reason` text, `start_datetime` datetime(6), `end_datetime` datetime(6), `return_datetime` datetime(6), `status` int, `total_price` decimal, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_rentals_on_user_id` (`user_id`), CONSTRAINT `fk_rails_2c7010c082`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083608')[0m
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRentalVehicles (20241127083618)
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE `rental_vehicles` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rental_id` bigint NOT NULL, `vehicle_detail_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_rental_vehicles_on_rental_id` (`rental_id`), INDEX `index_rental_vehicles_on_vehicle_detail_id` (`vehicle_detail_id`), CONSTRAINT `fk_rails_70046369cd`
+FOREIGN KEY (`rental_id`)
+  REFERENCES `rentals` (`id`)
+, CONSTRAINT `fk_rails_01d0b56ffb`
+FOREIGN KEY (`vehicle_detail_id`)
+  REFERENCES `vehicle_details` (`id`)
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6699375033163432305')[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK('6699375033163432305', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateVehicleDetails (20241127083607)
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE `vehicle_details` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `model_id` bigint NOT NULL, `number` varchar(255), `vehicle_type` int, `engine_capacity` int, `price_per_day` decimal, `available` tinyint(1), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_vehicle_details_on_model_id` (`model_id`), CONSTRAINT `fk_rails_8f662b43d2`
+FOREIGN KEY (`model_id`)
+  REFERENCES `models` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('6699375033163432305')[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.5ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2024-11-27 08:46:43.502338', '2024-11-27 08:46:43.502338')[0m
+  [1m[36mTRANSACTION (10.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (51.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS `naitei_ruby_15_10_2024_motorbike_rental_development`[0m
+  [1m[35m (5.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS `naitei_ruby_15_10_2024_motorbike_rental_test`[0m
+  [1m[35m (15.2ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (30.9ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (23.4ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK('6699375033163432305', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateUsers (20241127083536)
+  [1m[35m (25.0ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `email` varchar(255), `password_digest` varchar(255), `phone_number` varchar(255), `role` int, `status` int, `provider` varchar(255), `uid` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (19.1ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email` ON `users` (`email`)[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083536')[0m
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateVehicleDetails (20241127083607)
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE `vehicle_details` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `model_id` bigint NOT NULL, `number` varchar(255), `vehicle_type` int, `engine_capacity` int, `price_per_day` decimal, `available` tinyint(1), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_vehicle_details_on_model_id` (`model_id`), CONSTRAINT `fk_rails_8f662b43d2`
+FOREIGN KEY (`model_id`)
+  REFERENCES `models` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('6699375033163432305')[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.7ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2024-11-27 08:47:42.317491', '2024-11-27 08:47:42.317491')[0m
+  [1m[36mTRANSACTION (9.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (33.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS `naitei_ruby_15_10_2024_motorbike_rental_development`[0m
+  [1m[35m (4.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS `naitei_ruby_15_10_2024_motorbike_rental_test`[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (28.9ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (19.7ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK('6699375033163432305', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateUsers (20241127083536)
+  [1m[35m (22.1ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `email` varchar(255), `password_digest` varchar(255), `phone_number` varchar(255), `role` int, `status` int, `provider` varchar(255), `uid` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (37.9ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email` ON `users` (`email`)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083536')[0m
+  [1m[36mTRANSACTION (17.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateVehicleDetails (20241127083607)
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE `vehicle_details` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `model_id` bigint NOT NULL, `number` varchar(255), `vehicle_type` int, `engine_capacity` int, `price_per_day` decimal, `available` tinyint(1), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_vehicle_details_on_model_id` (`model_id`), CONSTRAINT `fk_rails_8f662b43d2`
+FOREIGN KEY (`model_id`)
+  REFERENCES `models` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('6699375033163432305')[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2024-11-27 08:49:41.131767', '2024-11-27 08:49:41.131767')[0m
+  [1m[36mTRANSACTION (9.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (54.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS `naitei_ruby_15_10_2024_motorbike_rental_development`[0m
+  [1m[35m (5.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS `naitei_ruby_15_10_2024_motorbike_rental_test`[0m
+  [1m[35m (10.2ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (9.5ms)[0m  [1m[35mCREATE DATABASE `naitei_ruby_15_10_2024_motorbike_rental_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (61.5ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (55.5ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK('6699375033163432305', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateBrands (20241127083300)
+  [1m[35m (88.8ms)[0m  [1m[35mCREATE TABLE `brands` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `logo` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083300')[0m
+  [1m[36mTRANSACTION (6.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateModels (20241127083400)
+  [1m[35m (27.8ms)[0m  [1m[35mCREATE TABLE `models` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `logo` varchar(255), `brand_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_models_on_brand_id` (`brand_id`), CONSTRAINT `fk_rails_ec6eb36a24`
+FOREIGN KEY (`brand_id`)
+  REFERENCES `brands` (`id`)
+)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083400')[0m
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateVehicleDetails (20241127083500)
+  [1m[35m (31.4ms)[0m  [1m[35mCREATE TABLE `vehicle_details` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `model_id` bigint NOT NULL, `number` varchar(255), `vehicle_type` int, `engine_capacity` int, `price_per_day` decimal, `available` tinyint(1), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_vehicle_details_on_model_id` (`model_id`), CONSTRAINT `fk_rails_8f662b43d2`
+FOREIGN KEY (`model_id`)
+  REFERENCES `models` (`id`)
+)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083500')[0m
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20241127083536)
+  [1m[35m (24.4ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `email` varchar(255), `password_digest` varchar(255), `phone_number` varchar(255), `role` int, `status` int, `provider` varchar(255), `uid` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (18.1ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email` ON `users` (`email`)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083536')[0m
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRentals (20241127083608)
+  [1m[35m (32.9ms)[0m  [1m[35mCREATE TABLE `rentals` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `name` varchar(255), `phone_number` varchar(255), `delivery_location` varchar(255), `decline_reason` text, `start_datetime` datetime(6), `end_datetime` datetime(6), `return_datetime` datetime(6), `status` int, `total_price` decimal, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_rentals_on_user_id` (`user_id`), CONSTRAINT `fk_rails_2c7010c082`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083608')[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRentalVehicles (20241127083618)
+  [1m[35m (65.1ms)[0m  [1m[35mCREATE TABLE `rental_vehicles` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rental_id` bigint NOT NULL, `vehicle_detail_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_rental_vehicles_on_rental_id` (`rental_id`), INDEX `index_rental_vehicles_on_vehicle_detail_id` (`vehicle_detail_id`), CONSTRAINT `fk_rails_70046369cd`
+FOREIGN KEY (`rental_id`)
+  REFERENCES `rentals` (`id`)
+, CONSTRAINT `fk_rails_01d0b56ffb`
+FOREIGN KEY (`vehicle_detail_id`)
+  REFERENCES `vehicle_details` (`id`)
+)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083618')[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCartItems (20241127083626)
+  [1m[35m (38.7ms)[0m  [1m[35mCREATE TABLE `cart_items` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `vehicle_detail_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_cart_items_on_user_id` (`user_id`), INDEX `index_cart_items_on_vehicle_detail_id` (`vehicle_detail_id`), CONSTRAINT `fk_rails_fcb2cbf0bc`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+, CONSTRAINT `fk_rails_881cac9ff9`
+FOREIGN KEY (`vehicle_detail_id`)
+  REFERENCES `vehicle_details` (`id`)
+)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083626')[0m
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProofs (20241127083641)
+  [1m[35m (39.3ms)[0m  [1m[35mCREATE TABLE `proofs` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `image_url` varchar(255), `storage_type` int, `user_id` bigint NOT NULL, `rental_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_proofs_on_user_id` (`user_id`), INDEX `index_proofs_on_rental_id` (`rental_id`), CONSTRAINT `fk_rails_9717a34ee7`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+, CONSTRAINT `fk_rails_ac3b22f5fd`
+FOREIGN KEY (`rental_id`)
+  REFERENCES `rentals` (`id`)
+)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20241127083641')[0m
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2024-11-27 08:49:51.294380', '2024-11-27 08:49:51.294380')[0m
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('6699375033163432305')[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
