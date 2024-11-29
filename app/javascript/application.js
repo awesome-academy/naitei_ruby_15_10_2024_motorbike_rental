@@ -3,3 +3,4 @@ import "controllers";
 import "popper";
 import "bootstrap";
 import "vehicle_detail_form";
+import "./controllers";

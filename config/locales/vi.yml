@@ -1,4 +1,16 @@
 vi:
+  sessions:
+    login: "Đăng nhập"
+    email_or_phone_placeholder: "Nhập email hoặc số điện thoại"
+    password_placeholder: "Nhập mật khẩu"
+    login_button: "Đăng nhập"
+    forgot_password: "Quên mật khẩu?"
+    invalid_credentials: "Sai thông tin đăng nhập."
+    login_success: "Đăng nhâp thành công."
+    logout_success: "Đăng xuất thành công."
+    remember_me: "Ghi nhớ tôi"
+  roles:
+    unauthorized: "Bạn không có quyền truy cập trang này."
   edit: "Sửa"
   delete: "Xóa"
   confirm_delete: "Bạn có chắc muốn xóa"
@@ -10,6 +22,7 @@ vi:
       home: "Trang chủ"
       register: "Đăng ký"
       login: "Đăng nhập"
+      logout: "Đăng xuất"
       contact: "Liên hệ"
       vehicle_list: "Danh sách xe"
       model_list: "Danh sách dòng xe"

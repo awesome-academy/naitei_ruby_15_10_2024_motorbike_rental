@@ -2,6 +2,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 gem "active_storage_validations"
+gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "bootstrap", "~> 5.3.0"
 gem "config"
