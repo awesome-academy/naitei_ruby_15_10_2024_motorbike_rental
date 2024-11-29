@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/StringLiterals
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
@@ -25,4 +24,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-# rubocop:enable Style/StringLiterals
