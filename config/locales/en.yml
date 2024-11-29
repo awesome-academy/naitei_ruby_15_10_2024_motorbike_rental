@@ -1,12 +1,12 @@
 en:
   edit: "Edit"
   delete: "Delete"
-  confirm_delete: "Are you sure you want to delete?"
+  confirm_delete: "Are you sure you want to delete"
   title:
-    page_title: "Cau Ut Rental"
+    page_title: "Uncle Ut's Rental"
   views:
     navbar:
-      app_name: "Cau Ut Rental"
+      app_name: "Uncle Ut's Rental"
       home: "Home"
       register: "Register"
       login: "Login"
@@ -14,21 +14,20 @@ en:
       vehicle_list: "Vehicle List"
       model_list: "Model List"
       brand_list: "Brand List"
-
     static_pages:
       home:
         slide:
-          welcome: "Welcome to Cau Ut Rental"
-          accompany: "We accompany you on every road."
+          welcome: "Welcome to Uncle Ut's Rental"
+          accompany: "Accompanying you on every journey."
           service_quality: "Service Quality"
-          service_commitment: "We commit to providing the best quality vehicles."
-          reasonable_price: "Reasonable Pricing"
-          competitive_price: "Competitive prices suitable for everyone."
+          service_commitment: "Committed to providing the best quality vehicles."
+          reasonable_price: "Reasonable Prices"
+          competitive_price: "Competitive pricing suitable for everyone."
           previous: "Previous"
           next: "Next"
       contact:
         title: "Contact"
-        address: "204 Pham Van Dong, An Hai Bac Ward, Son Tra District, Da Nang City"
+        address: "204 Pham Van Dong, An Hai Bac, Son Tra, Da Nang"
         phone: "091 105 91 45"
         email: "thuexecauut@gmail.com"
     vehicle_detail:
@@ -36,7 +35,7 @@ en:
       model: "Model"
       brand: "Brand"
       number: "Vehicle Number"
-      type: "Vehicle Type"
+      type: "Type"
       price_per_day: "Price per Day"
       availability: "Availability"
       new:
@@ -49,13 +48,13 @@ en:
           number: "Vehicle Number"
           vehicle_type: "Vehicle Type"
           engine_capacity: "Engine Capacity"
-          price_per_day: "Price per Day"
+          price_per_day: "Rental Price per Day"
           color: "Color"
           image: "Vehicle Image"
           available: "Available"
         placeholders:
           number: "Enter vehicle number"
-          price_per_day: "Enter price per day"
+          price_per_day: "Enter rental price per day"
           color: "Enter color"
         prompts:
           select_brand: "Select Brand"
@@ -71,25 +70,36 @@ en:
         vehicle_types:
           scooter: "Scooter"
           manual: "Manual"
-          moto: "Clutch/Motorcycle"
+          moto: "Motorbike/Moto"
         buttons:
           submit: "Submit"
-      index:
+      index: 
         title: "Vehicle List"
-      edit:
-        title: "Edit Vehicle Details"
+      edit: 
+        title: "Edit Vehicle Information"
+    models: 
+      index:
+        title: "Vehicle Models"
+        select_brand: "Select Brand"
+        filter: "Filter"
+        price_per_day: "Price per Day"
+        vehicle_count: "Vehicle Count"
+        vehicles: "vehicles"
+        out_of_stock: "Out of Stock"
+        view_details: "View Details"
+        image_alt: "Image for %{model_name}"
   controller:
     vehicle_detail:
       create:
-        success: "Vehicle details have been successfully added"
+        success: "Vehicle information has been successfully added"
       destroy:
-        success: "Vehicle details have been successfully deleted"
-      update:
-        success: "Vehicle details have been successfully updated"
-      not_found: "Bike not found"
+        success: "Vehicle information has been successfully deleted"
+      update: 
+        success: "Vehicle information has been successfully updated"
+      not_found: "Vehicle information not found"
   activerecord:
     models:
-      vehicle_detail: "Vehicle Detail"
+      vehicle_detail: "Vehicle Information"
       attributes:
         vehicle_detail:
           model: "Model"
@@ -98,15 +108,26 @@ en:
         number: "Vehicle Number"
         vehicle_type: "Vehicle Type"
         engine_capacity: "Engine Capacity"
-        price_per_day: "Price per Day"
+        price_per_day: "Daily Rental Price"
         color: "Color"
         model_id: "Model"
+      model:
+        vehicle_types:
+          scooter: "Scooter"
+          manual: "Manual"
+          moto: "Motorbike/Moto"
+        engine_capacities:
+          under_50cc: "Under 50cc"
+          from_50_to_100cc: "50 - 100cc"
+          from_100_to_175cc: "100 - 175cc"
+          over_175cc: "Over 175cc"
+          unknown: "Unknown"
     errors:
       template:
         header:
-          one: "1 error prohibited this record from being saved:"
-          other: "%{count} errors prohibited this record from being saved:"
-        body: "Please check the errors below and try again:"
+          one: "1 error occurred:"
+          other: "%{count} errors occurred:"
+        body: "Please check the following errors and try again:"
       models:
         vehicle_detail:
           attributes:

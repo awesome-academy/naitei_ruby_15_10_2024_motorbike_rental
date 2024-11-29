@@ -14,7 +14,6 @@ vi:
       vehicle_list: "Danh sách xe"
       model_list: "Danh sách dòng xe"
       brand_list: "Danh sách hãng xe"
-
     static_pages:
       home:
         slide:
@@ -78,6 +77,17 @@ vi:
         title: "Danh sách xe"
       edit: 
         title: "Sửa thông tin xe"
+    models: 
+      index:
+        title: "Các mẫu xe"
+        select_brand: "Chọn hãng xe"
+        filter: "Lọc"
+        price_per_day: "Giá theo ngày"
+        vehicle_count: "Số lượng"
+        vehicles: "xe"
+        out_of_stock: "Hết xe"
+        view_details: "Xem chi tiết"
+        image_alt: "Hình ảnh cho %{model_name}"
   controller:
     vehicle_detail:
       create:
@@ -101,6 +111,17 @@ vi:
         price_per_day: "Giá thuê hàng ngày"
         color: "Màu sắc"
         model_id: "Dòng xe"
+      model:
+        vehicle_types:
+          scooter: "Xe ga"
+          manual: "Xe số"
+          moto: "Tay côn/Moto"
+        engine_capacities:
+          under_50cc: "Dưới 50 cc"
+          from_50_to_100cc: "50 - 100 cc"
+          from_100_to_175cc: "100 - 175 cc"
+          over_175cc: "Trên 175 cc"
+          unknown: "Không rõ"
     errors:
       template:
         header:

@@ -1,0 +1,8 @@
+<%= provide :title, t("views.models.index.title") %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4"><%= t "views.models.index.title" %></h1>
+  <div class="row">
+    <%= render partial: "model_card", collection: @models, as: :model %>
+  </div>
+</div>

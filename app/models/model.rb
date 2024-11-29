@@ -11,4 +11,14 @@ class Model < ApplicationRecord
 
   scope :empty, -> { none }
   scope :by_brand, ->(brand_id) { where(brand_id: brand_id) if brand_id.present? }
+  scope :ordered_by_vehicle_count, lambda {
+    left_joins(:vehicle_details)
+      .group("models.id")
+      .order(Arel.sql("COUNT(CASE WHEN vehicle_details.available = true THEN 1 END) DESC"))
+  }
+  scope :available, -> { joins(:vehicle_details).where(vehicle_details: { available: true }) }
+
+  def vehicle_details_count
+    vehicle_details.available.count
+  end
 end

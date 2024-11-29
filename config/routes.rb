@@ -11,5 +11,6 @@ Rails.application.routes.draw do
         get "models"
       end
     end
+    resources :models
   end
 end
