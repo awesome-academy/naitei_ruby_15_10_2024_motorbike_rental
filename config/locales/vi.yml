@@ -1,0 +1,26 @@
+vi:
+  title:
+    page_title: "Thuê xe Cậu Út"
+  view:
+    navbar:
+      app_name: "Thuê xe Cậu Út"
+      home: "Trang chủ"
+      register: "Đăng ký"
+      login: "Đăng nhập"
+      contact: "Liên hệ"
+    static_pages:
+      home: 
+        slide: 
+          welcome: "Chào mừng đến với Thuê xe Cậu Út"
+          accompany: "Đồng hành cùng bạn trên mọi nẻo đường."
+          service_quality: "Chất lượng dịch vụ"
+          service_commitment: "Cam kết chất lượng xe tốt nhất."
+          reasonable_price: "Giá cả hợp lý"
+          competitive_price: "Giá cả cạnh tranh, phù hợp với mọi đối tượng."
+          previous: "Previous"
+          next: "Next"
+      contact:
+        title: "Liên hệ"
+        address: "204 Phạm Văn Đồng, P. An Hải Bắc, Q. Sơn Trà, TP. Đà Nẵng"
+        phone: "091 105 91 45"
+        email: "thuexecauut@gmail.com"
