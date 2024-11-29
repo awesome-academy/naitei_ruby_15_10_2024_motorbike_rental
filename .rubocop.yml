@@ -20,3 +20,5 @@ Metrics/BlockLength:
   Enabled: false
 Style/NumericLiterals:
   Enabled: false
+Metrics/AbcSize:
+  Enabled: false
