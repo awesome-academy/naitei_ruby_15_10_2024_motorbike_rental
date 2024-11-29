@@ -1,4 +1,7 @@
 en:
+  edit: "Edit"
+  delete: "Delete"
+  confirm_delete: "Are you sure you want to delete?"
   title:
     page_title: "Cau Ut Rental"
   views:
@@ -8,6 +11,10 @@ en:
       register: "Register"
       login: "Login"
       contact: "Contact"
+      vehicle_list: "Vehicle List"
+      model_list: "Model List"
+      brand_list: "Brand List"
+
     static_pages:
       home:
         slide:
@@ -24,9 +31,17 @@ en:
         address: "204 Pham Van Dong, An Hai Bac Ward, Son Tra District, Da Nang City"
         phone: "091 105 91 45"
         email: "thuexecauut@gmail.com"
-    vehicle_detail: 
-      new: 
+    vehicle_detail:
+      image: "Image"
+      model: "Model"
+      brand: "Brand"
+      number: "Vehicle Number"
+      type: "Vehicle Type"
+      price_per_day: "Price per Day"
+      availability: "Availability"
+      new:
         title: "Add New Vehicle"
+        button: "Add Vehicle"
       form:
         labels:
           brand: "Brand"
@@ -43,35 +58,47 @@ en:
           price_per_day: "Enter price per day"
           color: "Enter color"
         prompts:
-          select_brand: "Select a Brand"
-          select_model: "Select a Model"
+          select_brand: "Select Brand"
+          select_model: "Select Model"
           select_vehicle_type: "Select Vehicle Type"
           select_engine_capacity: "Select Engine Capacity"
         engine_capacities:
-          under_50_cc: "Under 50cc"
-          from50_to_100cc: "50 - 100cc"
+          under_50cc: "Under 50cc"
+          from_50_to_100cc: "50 - 100cc"
           from_100_to_175cc: "100 - 175cc"
-          over_175_cc: "Over 175cc"
+          over_175cc: "Over 175cc"
           unknown: "Unknown"
         vehicle_types:
           scooter: "Scooter"
           manual: "Manual"
           moto: "Clutch/Motorcycle"
         buttons:
-          submit: "Create Vehicle"
-  controller: 
-    vehicle: 
-      create: 
-        success: "Vehicle detail was successfully created"
+          submit: "Submit"
+      index:
+        title: "Vehicle List"
+      edit:
+        title: "Edit Vehicle Details"
+  controller:
+    vehicle_detail:
+      create:
+        success: "Vehicle details have been successfully added"
+      destroy:
+        success: "Vehicle details have been successfully deleted"
+      update:
+        success: "Vehicle details have been successfully updated"
+      not_found: "Bike not found"
   activerecord:
     models:
       vehicle_detail: "Vehicle Detail"
+      attributes:
+        vehicle_detail:
+          model: "Model"
     attributes:
       vehicle_detail:
-        number: "Vehicle number"
-        vehicle_type: "Vehicle type"
-        engine_capacity: "Engine capacity"
-        price_per_day: "Daily rental price"
+        number: "Vehicle Number"
+        vehicle_type: "Vehicle Type"
+        engine_capacity: "Engine Capacity"
+        price_per_day: "Price per Day"
         color: "Color"
         model_id: "Model"
     errors:
@@ -79,10 +106,12 @@ en:
         header:
           one: "1 error prohibited this record from being saved:"
           other: "%{count} errors prohibited this record from being saved:"
-        body: "There were problems with the following fields:"
+        body: "Please check the errors below and try again:"
       models:
         vehicle_detail:
           attributes:
+            model:
+              required: "must be selected"
             number:
               blank: "cannot be blank"
               taken: "must be unique"
