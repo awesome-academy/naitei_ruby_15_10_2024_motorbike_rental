@@ -1,0 +1,58 @@
+<%= form_with model: @vehicle_detail, url: vehicle_details_path, class: "vehicle-form bg-light p-4 rounded shadow-sm" do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+
+  <div class="mb-3">
+    <%= f.label :brand_id, t("views.vehicle_detail.form.labels.brand"), class: "form-label fw-bold" %>
+    <%= f.collection_select :brand_id, @brands, :id, :name, 
+        { prompt: t("views.vehicle_detail.form.prompts.select_brand") }, 
+        { class: "form-select", id: "brand-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :model_id, t("views.vehicle_detail.form.labels.model"), class: "form-label fw-bold" %>
+    <%= f.collection_select :model_id, @models, :id, :name, 
+        { prompt: t("views.vehicle_detail.form.prompts.select_model") }, 
+        { class: "form-select", id: "model-select", disabled: true } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :number, t("views.vehicle_detail.form.labels.number"), class: "form-label fw-bold" %>
+    <%= f.text_field :number, class: "form-control", placeholder: t("views.vehicle_detail.form.placeholders.number") %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label(:engine_capacity, t("views.vehicle_detail.form.labels.engine_capacity"), class: "form-label fw-bold") %>
+    <%= enum_select(f, :engine_capacity, VehicleDetail.engine_capacities,"views.vehicle_detail.form.engine_capacities",
+                  "views.vehicle_detail.form.prompts.select_engine_capacity") %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label(:vehicle_type, t("views.vehicle_detail.form.labels.vehicle_type"), class: "form-label fw-bold") %>
+    <%= enum_select(f, :vehicle_type, VehicleDetail.vehicle_types, "views.vehicle_detail.form.vehicle_types",
+                  "views.vehicle_detail.form.prompts.select_vehicle_type") %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :price_per_day, t("views.vehicle_detail.form.labels.price_per_day"), class: "form-label fw-bold" %>
+    <%= f.number_field :price_per_day, step: 0.01, class: "form-control", placeholder: t("views.vehicle_detail.form.placeholders.price_per_day") %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :color, t("views.vehicle_detail.form.labels.color"), class: "form-label fw-bold" %>
+    <%= f.text_field :color, class: "form-control", placeholder: t("views.vehicle_detail.form.placeholders.color") %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :image, t("views.vehicle_detail.form.labels.image"), class: "form-label fw-bold" %>
+    <%= f.file_field :image, class: "form-control", accept: "image/png,image/jpeg,image/jpg"%>
+  </div>
+
+  <div class="mb-3 form-check">
+    <%= f.check_box :available, class: "form-check-input" %>
+    <%= f.label :available, t("views.vehicle_detail.form.labels.available"), class: "form-check-label" %>
+  </div>
+
+  <div class="d-grid">
+    <%= f.submit t("views.vehicle_detail.form.buttons.submit"), class: "btn btn-primary btn-lg" %>
+  </div>
+<% end %>
