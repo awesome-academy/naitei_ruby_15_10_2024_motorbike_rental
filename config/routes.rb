@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get "rental_vehicles/new"
+  get "rental_vehicles/create"
+  get "rentals/new"
+  get "rentals/create"
   scope "(:locale)", locale: /en|vi/ do
     root "static_pages#home"
 

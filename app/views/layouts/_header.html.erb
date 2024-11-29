@@ -38,10 +38,13 @@
           </ul>
         </li>
       </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <%= link_to "#", class: "nav-link" do %>
+            <ul class="navbar-nav">
+        <li class="nav-item cart-icon">
+          <%= link_to cart_items_path, class: "nav-link" do %>
             <i class="bi bi-cart" style="font-size: 1.5rem;"></i>
+            <% if current_user&.cart_items %>
+              <span class="cart-count"><%= current_user&.cart_items&.sum(:quantity) || 0 %></span>
+            <% end %>
           <% end %>
         </li>
       </ul>

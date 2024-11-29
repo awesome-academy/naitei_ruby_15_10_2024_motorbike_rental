@@ -24,3 +24,6 @@ Metrics/AbcSize:
   Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/controllers/**/*'

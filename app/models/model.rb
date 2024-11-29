@@ -36,6 +36,10 @@ class Model < ApplicationRecord
     vehicle_details.count
   end
 
+  def vehicle_free_count(start_datetime, end_datetime)
+    vehicle_details.free_in_time_range(start_datetime, end_datetime).count
+  end
+
   def available_image
     images = vehicle_details.map(&:image)
     images.find(&:attached?)
