@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_09_074415) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_13_091928) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -33,7 +33,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_09_074415) do
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
-
   create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci",
                                                  force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -50,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_09_074415) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "vehicle_detail_id", null: false
+    t.decimal "quantity", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_cart_items_on_user_id"
@@ -115,6 +115,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_09_074415) do
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_token"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

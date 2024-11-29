@@ -1,6 +1,8 @@
 class VehicleDetailsController < ApplicationController
   before_action :init_new, only: %i[new create edit]
   before_action :load_vehicle_detail, only: %i[destroy update edit]
+  before_action :authorize_admin
+
   def index
     @pagy, @vehicle_details = pagy(
       VehicleDetail.includes(model: :brand).ordered_by_newest
@@ -63,5 +65,9 @@ class VehicleDetailsController < ApplicationController
 
     flash[:error] = t "controller.vehicle_detail.not_found"
     redirect_to vehicle_details_path
+  end
+
+  def authorize_admin
+    redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
   end
 end

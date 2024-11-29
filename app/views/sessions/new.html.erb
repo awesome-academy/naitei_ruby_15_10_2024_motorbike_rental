@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4"><%= t("sessions.login") %></h1>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+      <%= form_with url: session_path, method: :post, class: "card p-4" do |f| %>
+        <div class="mb-3">
+          <%= f.text_field :login, class: "form-control", placeholder: t("sessions.email_or_phone_placeholder") %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.password_field :password, class: "form-control", placeholder: t("sessions.password_placeholder") %>
+        </div>
+
+        <div class="form-check mb-3">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, t("sessions.remember_me"), class: "form-check-label" %>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= f.submit t("sessions.login_button"), class: "btn btn-primary" %>
+          </div>
+          <div>
+            <%= link_to t("sessions.forgot_password"), '#', class: "btn btn-link" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

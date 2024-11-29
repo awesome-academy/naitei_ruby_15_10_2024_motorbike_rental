@@ -20,8 +20,10 @@
               ₫<%= number_with_delimiter(@model.price_per_day, delimiter: ".") %>
             </span>
           </h3>
-          <%= link_to edit_model_path(@model), class: "btn btn-primary btn-sm mt-2" do %>
-            <i class="fas fa-edit"></i> <%= t "views.models.edit.update_button" %>
+            <% if current_user&.admin? %>
+            <%= link_to edit_model_path(@model), class: "btn btn-primary btn-sm mt-2" do %>
+              <i class="fas fa-edit"></i> <%= t "views.models.edit.update_button" %>
+            <% end %>
           <% end %>
         </div>
 
