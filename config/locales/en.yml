@@ -88,6 +88,17 @@ en:
         out_of_stock: "Out of Stock"
         view_details: "View Details"
         image_alt: "Image for %{model_name}"
+      show: 
+        title: "%{name} - %{brand}"
+        rent_now: "Rent Now"
+        related: "Related Vehicles"
+      edit:
+        title: "Edit Price for %{name}"
+        price_per_day: "Price Per Day"
+        price_placeholder: "Enter the price per day"
+        price_invalid_feedback: "Price per day is required and must be a valid number."
+        back: "Back to Model"
+        update_button: "Update Price"
   controller:
     vehicle_detail:
       create:
@@ -97,6 +108,11 @@ en:
       update: 
         success: "Vehicle information has been successfully updated"
       not_found: "Vehicle information not found"
+    model: 
+      not_found: "Model not found"
+      update:
+        success: "Price updated successfully!"
+        error: "Failed to update price."
   activerecord:
     models:
       vehicle_detail: "Vehicle Information"

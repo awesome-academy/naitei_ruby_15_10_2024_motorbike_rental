@@ -1,9 +1,10 @@
 <% vehicle_details_count = model.vehicle_details_count %>
+<% vehicle_details_available_count = model.vehicle_details_available_count %>
 
 <% if vehicle_details_count > 0 %>
   <div class="col-md-4 mb-4">
     <div class="card shadow-sm">
-      <%= image_tag model.model_image || "placeholder_image.jpg", class: "card-img-top img-fluid", alt: t("views.models.index.image_alt", model_name: model.name) %>
+      <%= image_tag model.available_image || "placeholder_image.jpg", class: "card-img-top img-fluid", alt: t("views.models.index.image_alt", model_name: model.name) %>
       
       <div class="card-body d-flex flex-column justify-content-between">
         <div>
@@ -15,15 +16,15 @@
             </span>
           </p>
 
-          <% if vehicle_details_count > 0 %>
+          <% if vehicle_details_available_count > 0 %>
             <p class="card-text text-muted">
               <strong><%= t "views.models.index.vehicle_count" %>:</strong>
-              <%= vehicle_details_count %> <%= t "views.models.index.vehicles" %>
+              <%= vehicle_details_available_count %> <%= t "views.models.index.vehicles" %>
             </p>
           <% end %>
         </div>
 
-        <% if vehicle_details_count.zero? %>
+        <% if vehicle_details_available_count.zero? %>
           <%= link_to t("views.models.index.out_of_stock"), model_path(model), class: "btn btn-outline-danger btn-sm btn-block" %>
         <% else %>
           <%= link_to t("views.models.index.view_details"), model_path(model), class: "btn btn-outline-primary btn-sm btn-block" %>

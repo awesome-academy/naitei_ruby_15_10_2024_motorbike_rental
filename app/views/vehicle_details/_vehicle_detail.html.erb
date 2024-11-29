@@ -24,9 +24,9 @@
     <% end %>
   </td>
   <td class="border p-2 text-center">
-    <%= link_to t("edit"), edit_vehicle_detail_path(vehicle), class: "btn btn-sm btn-secondary", aria: { label: "#{t('edit')} #{vehicle.model.name}" } %>
+    <%= link_to t("edit"), edit_vehicle_detail_path(vehicle), class: "btn btn-sm btn-secondary", aria: { label: "#{t("edit")} #{vehicle.model.name}" } %>
     <%= link_to t("delete"), vehicle_detail_path(vehicle), 
-        data: {turbo_method: :delete, confirm: "#{t('confirm_delete')} #{vehicle.model.name}?" }, 
+        data: {turbo_method: :delete, confirm: "#{t("confirm_delete")} #{vehicle.model.name}?" }, 
         class: "btn btn-sm btn-danger" %>
   </td>
 </tr>

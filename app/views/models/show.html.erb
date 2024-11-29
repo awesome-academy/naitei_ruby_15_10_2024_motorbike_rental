@@ -1,0 +1,70 @@
+<%= provide :title, t("views.models.show.title", name: @model.name, brand: @model.brand.name) %>
+<% vehicle_details_available_count = @model.vehicle_details_available_count %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 slider-container">
+      <%= render "slider" %>
+    </div>
+
+    <div class="col-md-5">
+      <div class="model-details">
+        <h1 class="mb-3">
+          <%= @model.name %> 
+          <small class="text-muted">- <%= @model.brand.name %></small>
+        </h1>
+
+        <div class="pricing mb-4">
+          <h3 class="text">
+            <strong><%= t "views.models.index.price_per_day" %>:</strong>
+            <span style="color: red; font-weight: bold;">
+              ₫<%= number_with_delimiter(@model.price_per_day, delimiter: ".") %>
+            </span>
+          </h3>
+          <%= link_to edit_model_path(@model), class: "btn btn-primary btn-sm mt-2" do %>
+            <i class="fas fa-edit"></i> <%= t "views.models.edit.update_button" %>
+          <% end %>
+        </div>
+
+        <div class="model-specs">
+          <table class="table table-borderless">
+            <tr>
+              <th><%= t "views.vehicle_detail.type" %></th>
+              <td><%= @model.vehicle_type_name %></td>
+            </tr>
+            <tr>
+              <th><%= t "views.models.show.engine_capacity" %></th>
+              <td><%= @model.engine_capacity_name %></td>
+            </tr>
+            <tr>
+              <th><%= t "views.models.index.vehicle_count" %></th>
+              <td>
+                <span class="badge bg-success">
+                  <%= vehicle_details_available_count %> <%= t "views.models.index.vehicles" %>
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="actions mt-4">
+          <% if vehicle_details_available_count > 0 %>
+            <%= link_to new_vehicle_detail_path(model_id: @model.id), class: "btn btn-success btn-lg w-100" do %>
+              <i class="fas fa-motorcycle"></i> <%= t "views.models.show.rent_now" %>
+            <% end %>
+          <% else %>
+            <button class="btn btn-danger btn-lg w-100 disabled">
+              <%= t "views.models.index.out_of_stock" %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-models mt-5">
+    <h3 class="mb-4"><%= t "views.models.show.related" %></h3>
+    <div class="row">
+      <%= render partial: "model_card", collection: @related_models, as: :model %>
+    </div>
+  </div>
+</div>

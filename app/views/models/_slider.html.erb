@@ -1,0 +1,41 @@
+<div id="vehicleCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <% @model.vehicle_details.each_with_index do |vehicle, index| %>
+      <button 
+        type="button" 
+        data-bs-target="#vehicleCarousel" 
+        data-bs-slide-to="<%= index %>" 
+        class="<%= index.zero? ? "active" : "" %>" 
+        aria-current="<%= index.zero? ? "true" : "false" %>">
+      </button>
+    <% end %>
+  </div>
+
+  <div class="carousel-inner">
+    <% @model.vehicle_details.each_with_index do |vehicle, index| %>
+      <div class="carousel-item <%= index.zero? ? "active" : "" %>">
+        <%= image_tag(vehicle.image.presence || "placeholder_image.jpg", class: "d-block w-100", alt: "#{@model.name} - #{vehicle.id}") %>
+        <div class="carousel-caption d-none d-md-block">
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <button 
+    class="carousel-control-prev" 
+    type="button" 
+    data-bs-target="#vehicleCarousel" 
+    data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden"><%= t "views.static_pages.home.slide.previous" %></span>
+  </button>
+
+  <button 
+    class="carousel-control-next" 
+    type="button" 
+    data-bs-target="#vehicleCarousel" 
+    data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden"><%= t "views.static_pages.home.slide.next" %></span>
+  </button>
+</div>

@@ -16,9 +16,28 @@ class Model < ApplicationRecord
       .group("models.id")
       .order(Arel.sql("COUNT(CASE WHEN vehicle_details.available = true THEN 1 END) DESC"))
   }
-  scope :available, -> { joins(:vehicle_details).where(vehicle_details: { available: true }) }
+  scope :related_to, lambda { |model_id, brand_id, vehicle_type|
+    where("id != ? AND (brand_id = ? OR vehicle_type = ?)", model_id, brand_id, vehicle_type)
+      .limit(Rails.application.config_for(:settings).dig(:model, :related_to_limit))
+  }
+  def vehicle_type_name
+    I18n.t("activerecord.attributes.model.vehicle_types.#{vehicle_type}")
+  end
+
+  def engine_capacity_name
+    I18n.t("activerecord.attributes.model.engine_capacities.#{engine_capacity}")
+  end
+
+  def vehicle_details_available_count
+    vehicle_details.available.count
+  end
 
   def vehicle_details_count
-    vehicle_details.available.count
+    vehicle_details.count
+  end
+
+  def available_image
+    images = vehicle_details.map(&:image)
+    images.find(&:attached?)
   end
 end
