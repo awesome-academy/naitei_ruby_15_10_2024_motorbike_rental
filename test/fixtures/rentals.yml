@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  name: MyString
+  phone_number: MyString
+  delivery_location: MyString
+  decline_reason: MyText
+  start_datetime: 2024-11-27 15:36:08
+  end_datetime: 2024-11-27 15:36:08
+  return_datetime: 2024-11-27 15:36:08
+  status: 1
+  total_price: 9.99
+
+two:
+  user: two
+  name: MyString
+  phone_number: MyString
+  delivery_location: MyString
+  decline_reason: MyText
+  start_datetime: 2024-11-27 15:36:08
+  end_datetime: 2024-11-27 15:36:08
+  return_datetime: 2024-11-27 15:36:08
+  status: 1
+  total_price: 9.99

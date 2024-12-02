@@ -1,0 +1,112 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'rubygems'
+
+m = Module.new do
+  module_function
+
+  def invoked_as_script?
+    File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
+  end
+
+  def env_var_version
+    ENV['BUNDLER_VERSION']
+  end
+
+  def cli_arg_version
+    return unless invoked_as_script? # Don't hijack other binstubs
+    return unless 'update'.start_with?(ARGV.first || ' ') # Running `bundle update`?
+
+    find_bundler_version
+  end
+
+  def find_bundler_version
+    bundler_version = nil
+    update_index = nil
+    ARGV.each_with_index do |arg, index|
+      bundler_version = detect_bundler_version(arg, index, update_index)
+      next unless arg =~ /\A--bundler(?:[= ](#{Gem::Version::VERSION_PATTERN}))?\z/
+
+      bundler_version = Regexp.last_match(1)
+      update_index = index
+    end
+    bundler_version
+  end
+
+  def detect_bundler_version(arg, index, update_index)
+    return unless update_index && update_index.succ == index
+
+    arg if arg =~ Gem::Version::ANCHORED_VERSION_PATTERN
+  end
+
+  def gemfile
+    gemfile = ENV['BUNDLE_GEMFILE']
+    gemfile.empty? ? default_gemfile : gemfile
+  end
+
+  def default_gemfile
+    File.expand_path('../Gemfile', __dir__)
+  end
+
+  def lockfile
+    case File.basename(gemfile)
+    when 'gems.rb' then gemfile.sub(/\.rb$/, '.locked')
+    else "#{gemfile}.lock"
+    end
+  end
+
+  def lockfile_version
+    return unless File.file?(lockfile)
+
+    lockfile_contents = File.read(lockfile)
+    extract_lockfile_version(lockfile_contents)
+  end
+
+  def extract_lockfile_version(contents)
+    return unless contents =~ /\n\nBUNDLED WITH\n\s{2,}(#{Gem::Version::VERSION_PATTERN})\n/
+
+    Regexp.last_match(1)
+  end
+
+  def bundler_requirement
+    @bundler_requirement ||= env_var_version || cli_arg_version || bundler_requirement_for(lockfile_version)
+  end
+
+  def bundler_requirement_for(version)
+    version ? Gem::Version.new(version).approximate_recommendation : "#{Gem::Requirement.default}.a"
+  end
+
+  def load_bundler!
+    ENV['BUNDLE_GEMFILE'] ||= gemfile
+    activate_bundler
+  end
+
+  def activate_bundler
+    gem_error = handle_activation_error { gem 'bundler', bundler_requirement }
+    return if gem_error.nil?
+
+    require_error = handle_activation_error { require 'bundler/version' }
+    if require_error.nil? && Gem::Requirement.new(bundler_requirement).satisfied_by?(Gem::Version.new(Bundler::VERSION))
+      return
+    end
+
+    warn_bundler_activation_failure(gem_error)
+    exit 42
+  end
+
+  def handle_activation_error
+    yield
+    nil
+  rescue StandardError, LoadError => e
+    e
+  end
+
+  def warn_bundler_activation_failure(gem_error)
+    warn "Activating bundler (#{bundler_requirement}) failed:\n#{gem_error.message}\n\nTo install the version of bundler
+     this project requires, run `gem install bundler -v '#{bundler_requirement}'`"
+  end
+end
+
+m.load_bundler!
+load Gem.bin_path('bundler', 'bundle') if m.invoked_as_script?
