@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Proof < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :rental, optional: true

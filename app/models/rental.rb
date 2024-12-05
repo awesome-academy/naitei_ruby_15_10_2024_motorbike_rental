@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Rental < ApplicationRecord
   has_many :rental_vehicles, dependent: :destroy
   has_many :proofs, dependent: :destroy
