@@ -6,8 +6,8 @@
 # from ApplicationMailer to apply these settings and define email content.
 class ApplicationMailer < ActionMailer::Base
   # Set the default "from" email address for all emails sent by the app
-  default from: 'from@example.com'
+  default from: "from@example.com"
 
   # Specify the default layout to be used for email views
-  layout 'mailer'
+  layout "mailer"
 end

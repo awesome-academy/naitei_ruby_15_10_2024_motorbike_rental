@@ -6,6 +6,7 @@ gem "bootstrap", "~> 5.3.0"
 gem "dotenv-rails"
 gem "importmap-rails"
 gem "jbuilder"
+gem "mimemagic", "~> 0.4.0"
 gem "mysql2", "~> 0.5"
 gem "pagy"
 gem "puma", "~> 5.0"
@@ -19,6 +20,7 @@ gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "pry-rails"
 end
 group :development do
   gem "web-console"
@@ -27,3 +29,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "hotwire-rails", "~> 0.1.3"

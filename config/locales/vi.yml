@@ -1,7 +1,7 @@
 vi:
   title:
     page_title: "Thuê xe Cậu Út"
-  view:
+  views:
     navbar:
       app_name: "Thuê xe Cậu Út"
       home: "Trang chủ"
@@ -9,18 +9,98 @@ vi:
       login: "Đăng nhập"
       contact: "Liên hệ"
     static_pages:
-      home: 
-        slide: 
+      home:
+        slide:
           welcome: "Chào mừng đến với Thuê xe Cậu Út"
           accompany: "Đồng hành cùng bạn trên mọi nẻo đường."
           service_quality: "Chất lượng dịch vụ"
-          service_commitment: "Cam kết chất lượng xe tốt nhất."
+          service_commitment: "Cam kết cung cấp những chiếc xe chất lượng tốt nhất."
           reasonable_price: "Giá cả hợp lý"
           competitive_price: "Giá cả cạnh tranh, phù hợp với mọi đối tượng."
-          previous: "Previous"
-          next: "Next"
+          previous: "Trước"
+          next: "Sau"
       contact:
         title: "Liên hệ"
         address: "204 Phạm Văn Đồng, P. An Hải Bắc, Q. Sơn Trà, TP. Đà Nẵng"
         phone: "091 105 91 45"
         email: "thuexecauut@gmail.com"
+    vehicle_detail:
+      new:
+        title: "Thêm xe mới"
+      form:
+        labels:
+          brand: "Hãng xe"
+          model: "Dòng xe"
+          number: "Biển số xe"
+          vehicle_type: "Loại xe"
+          engine_capacity: "Dung tích động cơ"
+          price_per_day: "Giá thuê mỗi ngày"
+          color: "Màu sắc"
+          image: "Ảnh xe"
+          available: "Có sẵn"
+        placeholders:
+          number: "Nhập biển số xe"
+          price_per_day: "Nhập giá thuê mỗi ngày"
+          color: "Nhập màu sắc"
+        prompts:
+          select_brand: "Chọn hãng xe"
+          select_model: "Chọn dòng xe"
+          select_vehicle_type: "Chọn loại xe"
+          select_engine_capacity: "Chọn dung tích động cơ"
+        engine_capacities:
+          under_50cc: "Dưới 50 cc"
+          from_50_to_100cc: "50 - 100cc"
+          from_100_to_175cc: "100 - 175cc"
+          over_175cc: "Trên 175cc"
+          unknown: "Không rõ"
+        vehicle_types:
+          scooter: "Xe số"
+          manual: "Xe ga"
+          moto: "Tay côn/Moto"
+        buttons:
+          submit: "Thêm xe"
+  controller:
+    vehicle:
+      create:
+        success: "Thông tin xe đã được thêm thành công"
+  activerecord:
+    models:
+      vehicle_detail: "Thông tin xe"
+      attributes:
+        vehicle_detail:
+          model: "Dòng xe"
+    attributes:
+      vehicle_detail:
+        number: "Biển số xe"
+        vehicle_type: "Loại xe"
+        engine_capacity: "Dung tích động cơ"
+        price_per_day: "Giá thuê hàng ngày"
+        color: "Màu sắc"
+        model_id: "Dòng xe"
+    errors:
+      template:
+        header:
+          one: "Có 1 lỗi xảy ra:"
+          other: "Có %{count} lỗi xảy ra:"
+        body: "Vui lòng kiểm tra các lỗi sau và thử lại:"
+      models:
+        vehicle_detail:
+          attributes:
+            model:
+              required: "phải được chọn"
+            number:
+              blank: "không được để trống"
+              taken: "phải là duy nhất"
+            vehicle_type:
+              blank: "phải được chọn"
+            engine_capacity:
+              blank: "phải được xác định"
+            price_per_day:
+              blank: "không được để trống"
+              not_a_number: "phải là một số dương"
+              greater_than: "phải lớn hơn 0"
+            color:
+              blank: "không được để trống"
+            model_id:
+              blank: "phải được chọn"
+          base:

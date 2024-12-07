@@ -1,6 +1,16 @@
-Style/Documentation:
-  Enabled: false
+Style/QuotedSymbols:
+  Enabled: true
+  EnforcedStyle: single_quotes
+  Include:
+    - '**/*.js'
+    - '**/*.html'
+    - '**/*.css'
 Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  Include:
+    - '**/*.rb'
+    - '**/*.html.rb'
+Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false

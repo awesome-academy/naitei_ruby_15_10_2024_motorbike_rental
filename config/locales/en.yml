@@ -1,7 +1,7 @@
 en:
   title:
     page_title: "Cau Ut Rental"
-  view:
+  views:
     navbar:
       app_name: "Cau Ut Rental"
       home: "Home"
@@ -24,3 +24,78 @@ en:
         address: "204 Pham Van Dong, An Hai Bac Ward, Son Tra District, Da Nang City"
         phone: "091 105 91 45"
         email: "thuexecauut@gmail.com"
+    vehicle_detail: 
+      new: 
+        title: "Add New Vehicle"
+      form:
+        labels:
+          brand: "Brand"
+          model: "Model"
+          number: "Vehicle Number"
+          vehicle_type: "Vehicle Type"
+          engine_capacity: "Engine Capacity"
+          price_per_day: "Price per Day"
+          color: "Color"
+          image: "Vehicle Image"
+          available: "Available"
+        placeholders:
+          number: "Enter vehicle number"
+          price_per_day: "Enter price per day"
+          color: "Enter color"
+        prompts:
+          select_brand: "Select a Brand"
+          select_model: "Select a Model"
+          select_vehicle_type: "Select Vehicle Type"
+          select_engine_capacity: "Select Engine Capacity"
+        engine_capacities:
+          under_50_cc: "Under 50cc"
+          from50_to_100cc: "50 - 100cc"
+          from_100_to_175cc: "100 - 175cc"
+          over_175_cc: "Over 175cc"
+          unknown: "Unknown"
+        vehicle_types:
+          scooter: "Scooter"
+          manual: "Manual"
+          moto: "Clutch/Motorcycle"
+        buttons:
+          submit: "Create Vehicle"
+  controller: 
+    vehicle: 
+      create: 
+        success: "Vehicle detail was successfully created"
+  activerecord:
+    models:
+      vehicle_detail: "Vehicle Detail"
+    attributes:
+      vehicle_detail:
+        number: "Vehicle number"
+        vehicle_type: "Vehicle type"
+        engine_capacity: "Engine capacity"
+        price_per_day: "Daily rental price"
+        color: "Color"
+        model_id: "Model"
+    errors:
+      template:
+        header:
+          one: "1 error prohibited this record from being saved:"
+          other: "%{count} errors prohibited this record from being saved:"
+        body: "There were problems with the following fields:"
+      models:
+        vehicle_detail:
+          attributes:
+            number:
+              blank: "cannot be blank"
+              taken: "must be unique"
+            vehicle_type:
+              blank: "must be selected"
+            engine_capacity:
+              blank: "must be specified"
+            price_per_day:
+              blank: "cannot be blank"
+              not_a_number: "must be a positive number"
+              greater_than: "must be greater than 0"
+            color:
+              blank: "cannot be blank"
+            model_id:
+              blank: "must be selected"
+          base:
