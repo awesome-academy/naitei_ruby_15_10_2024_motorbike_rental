@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
     get "/home", to: "static_pages#home"
     get "/contact", to: "static_pages#contact"
-    resources :vehicle_detail
-    resources :vehicle_details, only: %i[new create]
+    resources :vehicle_details do
+      collection do
+        get "models"
+      end
+    end
   end
 end

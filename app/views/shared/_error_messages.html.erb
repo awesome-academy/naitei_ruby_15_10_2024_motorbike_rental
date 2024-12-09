@@ -1,0 +1,13 @@
+<% if @vehicle_detail.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      <%= t("activerecord.errors.template.header", count: @vehicle_detail.errors.count) %>
+    </div>
+    <p><%= t("activerecord.errors.template.body") %></p>
+    <ul>
+      <% @vehicle_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
