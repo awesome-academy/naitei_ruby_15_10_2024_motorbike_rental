@@ -1,9 +1,12 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
+gem "active_storage_validations"
 gem "bootsnap", require: false
 gem "bootstrap", "~> 5.3.0"
+gem "config"
 gem "dotenv-rails"
+gem "image_processing", "~> 1.2"
 gem "importmap-rails"
 gem "jbuilder"
 gem "mimemagic", "~> 0.4.0"

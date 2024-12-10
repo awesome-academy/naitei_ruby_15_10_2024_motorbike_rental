@@ -1,3 +1,14 @@
-default:
-  href : 
-    home_href: "/home"
+default: &default
+  image_upload:
+    resize_to_limit: [240, 240]
+    max_size_mb: 5
+    allowed_types:
+      - "image/png"
+      - "image/jpeg"
+      - "image/jpg"
+
+development:
+  <<: *default
+
+production:
+  <<: *default
