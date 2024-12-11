@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
   const brandSelect = document.getElementById("brand-select");
   const modelSelect = document.getElementById("model-select");
 
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`/vehicle_details/models?brand_id=${brandId}`)
           .then((response) => response.json())
           .then((models) => {
-            modelSelect.innerHTML = '<option value="">Select a Model</option>';
+            modelSelect.innerHTML = '<option value=""></option>';
 
             models.forEach((model) => {
               const option = document.createElement("option");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             modelSelect.disabled = true;
           });
       } else {
-        modelSelect.innerHTML = '<option value="">Select a Model</option>';
+        modelSelect.innerHTML = '<option value=""></option>';
         modelSelect.disabled = true;
       }
     });

@@ -11,29 +11,29 @@ brands_and_models = [
   {
     name: "Honda",
     models: [
-      { name: "Wave Alpha", engine_capacity: :from_50_to_100cc, vehicle_type: :manual },
-      { name: "Future", engine_capacity: :from_50_to_100cc, vehicle_type: :manual },
-      { name: "Vision", engine_capacity: :from_50_to_100cc, vehicle_type: :scooter },
-      { name: "Lead", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter },
-      { name: "SH Mode", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter },
-      { name: "Winner X", engine_capacity: :over_175cc, vehicle_type: :moto }
+      { name: "Wave Alpha", engine_capacity: :from_50_to_100cc, vehicle_type: :manual, price_per_day: 100000 },
+      { name: "Future", engine_capacity: :from_50_to_100cc, vehicle_type: :manual, price_per_day: 120000 },
+      { name: "Vision", engine_capacity: :from_50_to_100cc, vehicle_type: :scooter, price_per_day: 150000 },
+      { name: "Lead", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter, price_per_day: 180_000 },
+      { name: "SH Mode", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter, price_per_day: 200_000 },
+      { name: "Winner X", engine_capacity: :over_175cc, vehicle_type: :moto, price_per_day: 300_000 }
     ]
   },
   {
     name: "Yamaha",
     models: [
-      { name: "Exciter", engine_capacity: :from_100_to_175cc, vehicle_type: :manual },
-      { name: "Sirius", engine_capacity: :from_50_to_100cc, vehicle_type: :manual },
-      { name: "NVX", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter },
-      { name: "Grande", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter }
+      { name: "Exciter", engine_capacity: :from_100_to_175cc, vehicle_type: :manual, price_per_day: 180_000 },
+      { name: "Sirius", engine_capacity: :from_50_to_100cc, vehicle_type: :manual, price_per_day: 100_000 },
+      { name: "NVX", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter, price_per_day: 200_000 },
+      { name: "Grande", engine_capacity: :from_100_to_175cc, vehicle_type: :scooter, price_per_day: 220_000 }
     ]
   },
   {
     name: "Suzuki",
     models: [
-      { name: "Raader", engine_capacity: :from_100_to_175cc, vehicle_type: :manual },
-      { name: "Satria", engine_capacity: :from_100_to_175cc, vehicle_type: :moto },
-      { name: "Address", engine_capacity: :from_50_to_100cc, vehicle_type: :scooter }
+      { name: "Raider", engine_capacity: :from_100_to_175cc, vehicle_type: :manual, price_per_day: 170_000 },
+      { name: "Satria", engine_capacity: :from_100_to_175cc, vehicle_type: :moto, price_per_day: 250_000 },
+      { name: "Address", engine_capacity: :from_50_to_100cc, vehicle_type: :scooter, price_per_day: 90_000 }
     ]
   }
 ]
@@ -43,9 +43,13 @@ brands_and_models.each do |brand_data|
   brand = Brand.create!(name: brand_data[:name])
 
   brand_data[:models].each do |model_data|
+    # Create model with price_per_day
     model = Model.create!(
       name: model_data[:name],
-      brand: brand
+      brand: brand,
+      price_per_day: model_data[:price_per_day],
+      vehicle_type: model_data[:vehicle_type],
+      engine_capacity: model_data[:engine_capacity]
     )
 
     # Create multiple vehicle details for each model
@@ -53,16 +57,7 @@ brands_and_models.each do |brand_data|
       VehicleDetail.create!(
         model: model,
         number: "#{brand.name.upcase}-#{model.name.upcase}-#{i + 1}",
-        vehicle_type: model_data[:vehicle_type],
-        engine_capacity: model_data[:engine_capacity],
-        price_per_day: case model_data[:engine_capacity]
-                       when :under_50cc then rand(50000..100000)
-                       when :from_50_to_100cc then rand(100000..150000)
-                       when :from_100_to_175cc then rand(150000..250000)
-                       when :over_175cc then rand(250000..400000)
-                       else rand(100000..300000)
-                       end,
-        available: true, # Explicitly set to true instead of using .sample
+        available: true,
         color: %w[Red Black White Blue Silver].sample
       )
     end

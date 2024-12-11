@@ -1,4 +1,7 @@
 vi:
+  edit: "Sửa"
+  delete: "Xóa"
+  confirm_delete: "Bạn có chắc muốn xóa"
   title:
     page_title: "Thuê xe Cậu Út"
   views:
@@ -8,6 +11,10 @@ vi:
       register: "Đăng ký"
       login: "Đăng nhập"
       contact: "Liên hệ"
+      vehicle_list: "Danh sách xe"
+      model_list: "Danh sách dòng xe"
+      brand_list: "Danh sách hãng xe"
+
     static_pages:
       home:
         slide:
@@ -25,8 +32,16 @@ vi:
         phone: "091 105 91 45"
         email: "thuexecauut@gmail.com"
     vehicle_detail:
+      image: "Hình ảnh"
+      model: "Dòng xe"
+      brand: "Hãng xe"
+      number: "Biển số xe"
+      type: "Loai xe"
+      price_per_day: "Giá theo ngày"
+      availability: "Tình trạng"
       new:
         title: "Thêm xe mới"
+        button: "Thêm xe"
       form:
         labels:
           brand: "Hãng xe"
@@ -58,11 +73,20 @@ vi:
           manual: "Xe ga"
           moto: "Tay côn/Moto"
         buttons:
-          submit: "Thêm xe"
+          submit: "Xác nhận"
+      index: 
+        title: "Danh sách xe"
+      edit: 
+        title: "Sửa thông tin xe"
   controller:
-    vehicle:
+    vehicle_detail:
       create:
         success: "Thông tin xe đã được thêm thành công"
+      destroy:
+        success: "Thông tin xe đã được xóa thành công"
+      update: 
+        success: "Thông tin xe đã được cập nhật thành công"
+      not_found: "Không thấy thông tin xe"
   activerecord:
     models:
       vehicle_detail: "Thông tin xe"
