@@ -13,18 +13,26 @@
         <li class="nav-item">
           <%= link_to t("views.navbar.contact"), contact_path, class: "nav-link" %>
         </li>
-        <li class="nav-item">
-          <%= link_to t("views.navbar.register"), "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to t("views.navbar.login"), "#", class: "nav-link" %>
-        </li>
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to t("views.navbar.logout"), session_path, data: {turbo_method: :delete }, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to t("views.navbar.login"), new_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t("views.navbar.register"), "#", class: "nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="carDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= t "views.navbar.vehicle_list" %>
           </a>
           <ul class="dropdown-menu" aria-labelledby="carDropdown">
-            <li><%= link_to t("views.navbar.vehicle_list"), vehicle_details_path, class: "dropdown-item" %></li>
+            <% if current_user&.admin? %>
+              <li><%= link_to t("views.navbar.vehicle_list"), vehicle_details_path, class: "dropdown-item" %></li>
+            <% end %>
             <li><%= link_to t("views.navbar.model_list"), models_path, class: "dropdown-item" %></li>
             <li><%= link_to t("views.navbar.brand_list"), "#", class: "dropdown-item" %></li>
           </ul>
