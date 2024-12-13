@@ -6,6 +6,8 @@ default: &default
       - "image/png"
       - "image/jpeg"
       - "image/jpg"
+  model:
+    related_to_limit: 3
 
 development:
   <<: *default

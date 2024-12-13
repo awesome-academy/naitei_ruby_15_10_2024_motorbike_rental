@@ -18,6 +18,7 @@ class VehicleDetail < ApplicationRecord
             size: { less_than: Rails.application.config_for(:settings).dig(:image_upload, :max_size_mb).megabytes },
             if: :image_attached?
   scope :ordered_by_newest, -> { order(created_at: :desc) }
+  scope :available, -> { where(available: true) }
   PERMITTED_PARAMS = %i[
     model_id
     number

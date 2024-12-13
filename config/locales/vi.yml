@@ -88,6 +88,18 @@ vi:
         out_of_stock: "Hết xe"
         view_details: "Xem chi tiết"
         image_alt: "Hình ảnh cho %{model_name}"
+      show: 
+        title: "%{name} - %{brand}"
+        engine_capacity: "Dung tích động cơ"
+        rent_now: "Thuê xe"
+        related: "Các xe tương tự"
+      edit:
+        title: "Chỉnh sửa giá cho %{name}"
+        price_per_day: "Giá thuê theo ngày"
+        price_placeholder: "Nhập giá thuê theo ngày"
+        price_invalid_feedback: "Giá thuê là bắt buộc và phải là một số hợp lệ."
+        back: "Quay lại"
+        update_button: "Cập nhật giá"
   controller:
     vehicle_detail:
       create:
@@ -96,7 +108,12 @@ vi:
         success: "Thông tin xe đã được xóa thành công"
       update: 
         success: "Thông tin xe đã được cập nhật thành công"
-      not_found: "Không thấy thông tin xe"
+        not_found: "Không thấy thông tin xe"
+    model: 
+      not_found: "Không tìm thấy dòng xe"
+      update:
+        success: "Cập nhật giá thành công!"
+        error: "Cập nhật giá thất bại."
   activerecord:
     models:
       vehicle_detail: "Thông tin xe"
