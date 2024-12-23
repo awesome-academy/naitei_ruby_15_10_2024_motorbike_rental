@@ -1,4 +1,16 @@
 en:
+  sessions:
+    login: "Login"
+    email_or_phone_placeholder: "Enter your email or phone number"
+    password_placeholder: "Enter your password"
+    login_button: "Login"
+    forgot_password: "Forgot your password?"
+    invalid_credentials: "Invalid email or password."
+    login_success: "Logged in successfully."
+    logout_success: "Logged out successfully."
+    remember_me: "Remember me"
+  roles:
+    unauthorized: "You are not authorized to access this page."
   edit: "Edit"
   delete: "Delete"
   confirm_delete: "Are you sure you want to delete"

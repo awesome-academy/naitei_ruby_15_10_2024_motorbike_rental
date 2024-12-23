@@ -1,6 +1,8 @@
 class ModelsController < ApplicationController
   include Pagy::Backend
   before_action :load_model, only: %i[update edit show]
+  before_action :authorize_admin, only: %i[update edit]
+
   def index
     @pagy, @models = pagy(Model.ordered_by_vehicle_count)
   end
@@ -34,5 +36,9 @@ class ModelsController < ApplicationController
 
   def model_params
     params.require(:model).permit(:price_per_day)
+  end
+
+  def authorize_admin
+    redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
   end
 end
