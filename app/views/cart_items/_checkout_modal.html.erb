@@ -1,0 +1,38 @@
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutModalLabel"><%= t("views.cart_items.checkout.title") %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(url: user_rentals_path, method: :post, scope: :rental, id: "checkout-form", local: true) do |f| %>
+          <div class="mb-3">
+            <label for="rental_name" class="form-label"><%= t("views.cart_items.checkout.name") %></label>
+            <%= f.text_field :name, class: "form-control", id: "rental_name", required: true %>
+          </div>
+          
+          <div class="mb-3">
+            <label for="rental_phone_number" class="form-label"><%= t("views.cart_items.checkout.phone_number") %></label>
+            <%= f.telephone_field :phone_number, class: "form-control", id: "rental_phone_number", required: true %>
+          </div>
+          
+          <div class="mb-3">
+            <label for="rental_delivery_location" class="form-label"><%= t("views.cart_items.checkout.delivery_location") %></label>
+            <%= f.text_area :delivery_location, class: "form-control", id: "rental_delivery_location", rows: 3, required: true %>
+          </div>
+
+          <%= f.hidden_field :start_datetime, value: @start_datetime %>
+          <%= f.hidden_field :end_datetime, value: @end_datetime %>
+          <%= f.hidden_field :total_price, value: @total_price %>
+          <div class="text-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <%= t("views.cart_items.checkout.cancel") %>
+            </button>
+            <%= f.submit t("views.cart_items.checkout.confirm"), class: "btn btn-success ms-2" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

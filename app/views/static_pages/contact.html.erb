@@ -4,17 +4,14 @@
     <h1 class="display-5 fw-bold text-dark"><%= t "views.static_pages.contact.title" %></h1>
   </div>
   <div class="list-group">
-    <!-- Địa chỉ -->
     <div class="list-group-item d-flex align-items-center">
       <i class="bi bi-geo-alt fs-4 me-3 text-dark"></i>
       <span class="fs-5 text-dark"><%= t "views.static_pages.contact.address" %></span>
     </div>
-    <!-- Số điện thoại -->
     <div class="list-group-item d-flex align-items-center">
       <i class="bi bi-telephone fs-4 me-3 text-dark"></i>
       <%= link_to t("views.static_pages.contact.phone"), "tel:0911059145", class: "fs-5 text-dark text-decoration-none" %>
     </div>
-    <!-- Email -->
     <div class="list-group-item d-flex align-items-center">
       <i class="bi bi-envelope fs-4 me-3 text-dark"></i>
       <%= link_to t("views.static_pages.contact.email"), "mailto:thuexecauut@gmail.com", class: "fs-5 text-dark text-decoration-none" %>

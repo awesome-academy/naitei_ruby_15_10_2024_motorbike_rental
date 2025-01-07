@@ -27,6 +27,7 @@ vi:
       vehicle_list: "Danh sách xe"
       model_list: "Danh sách dòng xe"
       brand_list: "Danh sách hãng xe"
+      rentals: "Đơn đặt xe"
     static_pages:
       home:
         slide:
@@ -48,7 +49,7 @@ vi:
       model: "Dòng xe"
       brand: "Hãng xe"
       number: "Biển số xe"
-      type: "Loai xe"
+      type: "Loại xe"
       price_per_day: "Giá theo ngày"
       availability: "Tình trạng"
       new:
@@ -93,19 +94,34 @@ vi:
     models: 
       index:
         title: "Các mẫu xe"
-        select_brand: "Chọn hãng xe"
-        filter: "Lọc"
+        select_brand: "Hãng xe"
+        filter: "Tìm xe"
         price_per_day: "Giá theo ngày"
-        vehicle_count: "Số lượng"
+        vehicle_count: "Số lượng sẵn có"
         vehicles: "xe"
         out_of_stock: "Hết xe"
         view_details: "Xem chi tiết"
         image_alt: "Hình ảnh cho %{model_name}"
+        rental_start: "Nhận xe"
+        rental_end: "Trả xe"
+        min_price: 0đ
+        max_price: 5000.000đ
+        select_vehicle_type: Loại xe
+        select_engine_capacity: Dung tích
+        min_engine_capacity: 0
+        max_engine_capacity: 0
       show: 
         title: "%{name} - %{brand}"
         engine_capacity: "Dung tích động cơ"
-        rent_now: "Thuê xe"
+        rent_now: "Thuê xe ngay"
+        add_to_cart: "Thêm vào giỏ hàng"
         related: "Các xe tương tự"
+        rental_start: "Nhận xe"
+        rental_end: "Trả xe"
+        rental_duration: "Số ngày thuê"
+        quantity: "Số lượng xe thuê"
+        days: "Ngày"
+        total_price: "Tổng giá"
       edit:
         title: "Chỉnh sửa giá cho %{name}"
         price_per_day: "Giá thuê theo ngày"
@@ -113,6 +129,73 @@ vi:
         price_invalid_feedback: "Giá thuê là bắt buộc và phải là một số hợp lệ."
         back: "Quay lại"
         update_button: "Cập nhật giá"
+    cart_items:
+      index:
+        title: "Giỏ hàng của bạn"
+        start_datetime: "Nhận xe:"
+        end_datetime: "Trả xe:"
+        not_specified: "Chưa xác định"
+        model_image: "Hình ảnh"
+        model_name: "Tên"
+        quantity_in_cart: "Số lượng"
+        price: "Giá thuê"
+        price_per_day: "Giá theo ngày"
+        actions: "Hành động"
+        quantity_available: "Số lượng có sẵn:"
+        delete: "Xóa"
+        confirm_delete: "Bạn có chắc chắn không?"
+        total_price: "Tổng giá:"
+        checkout: "Thuê xe"
+        empty: "Giỏ hàng của bạn trống."
+        rental_duration: "Thời gian thuê (Ngày)"
+        out_of_stock: "Đã hết xe"
+      checkout: 
+        title: Thông tin nhận xe
+        name: Tên liên hệ
+        phone_number: Số điện thoại
+        delivery_location: Địa điểm nhận xe
+        cancel: Hủy
+        confirm: Xác nhận
+        reason: Lý do từ chối đơn
+    rentals: 
+      index: 
+        title: Đơn đặt xe
+        name: Tên liên hệ
+        phone_number: Số điện thoại
+        delivery_location: Địa điểm nhận xe
+        start_datetime: Nhận xe
+        end_datetime: Trả xe
+        total_price: Tổng giá
+        status: Trạng thái
+        approve: Chấp nhận
+        reject: Từ chối
+        cancel: Hủy đơn
+        view: Chi tiết
+        confirm_reject: Xác nhận
+        reject_reason: Lý do
+        reason: Lý do từ chối đơn
+        search_name: Tên
+        search_phone: SĐT
+        search: Tìm
+        start_date: Nhận xe
+        end_date: Trả xe
+      show: 
+        rental_details: Chi tiết đơn
+        title: Đơn đặt xe
+        name: Tên liên hệ
+        phone_number: Số điện thoại
+        delivery_location: Địa điểm nhận xe
+        start_datetime: Nhận xe
+        end_datetime: Trả xe
+        total_price: Tổng giá
+        status: Trạng thái
+        approve: Chấp nhận
+        reject: Từ chối
+        cancel: Hủy đơn
+        view: Chi tiết
+        vehicles: Danh sách xe
+        back_to_index: Quay lại
+        decline_reason: Lý do từ chối đơn
   controller:
     vehicle_detail:
       create:
@@ -127,6 +210,35 @@ vi:
       update:
         success: "Cập nhật giá thành công!"
         error: "Cập nhật giá thất bại."
+    cart_items: 
+      create: 
+        created_success: "Đã thêm xe vào giỏ hàng"
+    rentals: 
+      create:
+        success: "Tạo đơn thuê thành công"
+        failure: "Tạo đơn thuê thất bại"
+        not_enough_vehicles: "Số lượng xe không đủ"
+        error: "Lỗi: %{message}"
+      approve:
+        success: "Đơn thuê đã được chấp nhận"
+        error: "Lỗi chấp nhận đơn thuê"
+      reject:
+        success: "Đơn thuê đã bị từ chối"
+        error: "Lỗi từ chối đơn thuê"
+      cancel:
+        success: "Đơn thuê đã bị hủy"
+        error: "Lỗi hủy đơn thuê"
+      not_found: "Không tìm thấy đơn thuê này"
+      unauthorized: "Bạn không có quyền thực hiện hành động này"
+  models: 
+    rental: 
+      statuses: 
+        pending: "Đang chờ"
+        approved: "Chấp nhận"
+        rejected: "Từ chối"
+        canceled: "Hủy đơn"
+        renting: "Đang thuê"
+        returned: "Đã trả xe"
   activerecord:
     models:
       vehicle_detail: "Thông tin xe"
@@ -179,3 +291,7 @@ vi:
             model_id:
               blank: "phải được chọn"
           base:
+  errors:
+    minimum_duration: "Thời gian thuê tối thiểu là %{hours} giờ."
+    invalid_datetime: "Ngày giờ không hợp lệ. Vui lòng chọn lại."
+    exceeds_available_quantity: "Số lượng xe không hợp lệ. Vui lòng chọn lại"

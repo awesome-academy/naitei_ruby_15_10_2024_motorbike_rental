@@ -8,4 +8,6 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin "popper", to: "popper.js", preload: true
 pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "vehicle_detail_form", to: "vehicle_detail_form.js"
+pin "vehicle_rental", to: "vehicle_rental.js"
+
 pin_all_from "app/javascript/controllers", under: "controllers"

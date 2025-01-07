@@ -1,0 +1,19 @@
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead class="table-light">
+      <tr>
+        <th><%= t("views.rentals.index.name") %></th>
+        <th><%= t("views.rentals.index.phone_number") %></th>
+        <th><%= t("views.rentals.index.delivery_location") %></th>
+        <th><%= t("views.rentals.index.start_datetime") %></th>
+        <th><%= t("views.rentals.index.end_datetime") %></th>
+        <th><%= t("views.rentals.index.total_price") %></th>
+        <th><%= t("views.rentals.index.status") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "rental", collection: @rentals %>
+    </tbody>
+  </table>
+  <%== pagy_bootstrap_nav(@pagy) %>
+</div>

@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get "rental_vehicles/new"
+  get "rental_vehicles/create"
+  get "rentals/new"
+  get "rentals/create"
   scope "(:locale)", locale: /en|vi/ do
     root "static_pages#home"
-
     get "/home", to: "static_pages#home"
     get "/contact", to: "static_pages#contact"
     resources :vehicle_details do
@@ -11,8 +14,27 @@ Rails.application.routes.draw do
         get "models"
       end
     end
-    resources :models
-    resources :cart_items
     resource :session
+    resources :models
+    resources :cart_items do
+      patch :update_quantity, on: :member
+    end
+
+    namespace :admin do
+      resources :rentals do
+        member do
+          patch :approve
+          patch :reject
+        end
+      end
+    end
+
+    namespace :user do
+      resources :rentals do
+        member do
+          patch :cancel
+        end
+      end
+    end
   end
 end

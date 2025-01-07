@@ -66,8 +66,4 @@ class VehicleDetailsController < ApplicationController
     flash[:error] = t "controller.vehicle_detail.not_found"
     redirect_to vehicle_details_path
   end
-
-  def authorize_admin
-    redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
-  end
 end

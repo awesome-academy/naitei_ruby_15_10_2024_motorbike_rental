@@ -1,0 +1,27 @@
+<%= provide :title, t("views.cart_items.index.title") %>
+<div class="container my-5">
+  <h1 class="text-center mb-4"><%= t("views.cart_items.index.title") %></h1>
+  <div class="row mb-4">
+    <div class="col-md-6 text-center">
+      <h5><%= t("views.cart_items.index.start_datetime") %></h5>
+      <p class="font-weight-bold text-primary">
+        <%= @start_datetime.present? ? @start_datetime.strftime("%H:%M, %d/%m/%Y") : t("views.cart_items.index.not_specified") %>
+      </p>
+    </div>
+    <div class="col-md-6 text-center">
+      <h5><%= t("views.cart_items.index.end_datetime") %></h5>
+      <p class="font-weight-bold text-primary">
+        <%= @end_datetime.present? ? @end_datetime.strftime("%H:%M, %d/%m/%Y") : t("views.cart_items.index.not_specified") %>
+      </p>
+    </div>
+  </div>
+  <div class="text-center mb-4">
+    <h5><%= t("views.cart_items.index.rental_duration") %></h5>
+    <p class="font-weight-bold text-primary">
+      <%= @rental_durations %>
+    </p>
+  </div>
+
+  <%= render partial: "cart_items_table", locals: { cart_items: current_user.cart_items.includes(:model), start_datetime: @start_datetime, end_datetime: @end_datetime, total_price: @total_price } %>
+  <%= render partial: "checkout_modal", locals: {total_price: @total_price } %>
+</div>
