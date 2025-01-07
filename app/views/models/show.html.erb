@@ -1,5 +1,5 @@
 <%= provide :title, t("views.models.show.title", name: @model.name, brand: @model.brand.name) %>
-<% vehicle_details_available_count = @model.vehicle_details_available_count %>
+<% vehicle_count = @model.vehicle_free_count(@start_datetime, @end_datetime) %>
 <div class="container">
   <div class="row">
     <div class="col-md-7 slider-container">
@@ -16,18 +16,19 @@
         <div class="pricing mb-4">
           <h3 class="text">
             <strong><%= t "views.models.index.price_per_day" %>:</strong>
-            <span style="color: red; font-weight: bold;">
+            <span class="text-danger" style="font-weight: bold;">
               ₫<%= number_with_delimiter(@model.price_per_day, delimiter: ".") %>
             </span>
           </h3>
-            <% if current_user&.admin? %>
+          
+          <% if current_user&.admin? %>
             <%= link_to edit_model_path(@model), class: "btn btn-primary btn-sm mt-2" do %>
               <i class="fas fa-edit"></i> <%= t "views.models.edit.update_button" %>
             <% end %>
           <% end %>
         </div>
 
-        <div class="model-specs">
+        <div class="model-specs mb-4">
           <table class="table table-borderless">
             <tr>
               <th><%= t "views.vehicle_detail.type" %></th>
@@ -37,11 +38,29 @@
               <th><%= t "views.models.show.engine_capacity" %></th>
               <td><%= @model.engine_capacity_name %></td>
             </tr>
+            <tr class="table-info">
+              <th><%= t "views.models.show.rental_start" %></th>
+              <td class="font-weight-bold text-primary">
+                <%= @start_datetime.strftime("%H:%M, %d/%m/%Y")%>
+              </td>
+            </tr>
+            <tr class="table-info">
+              <th><%= t "views.models.show.rental_end" %></th>
+              <td class="font-weight-bold text-primary">
+                <%= @end_datetime.strftime("%H:%M, %d/%m/%Y")%>
+              </td>
+            </tr>
+            <tr class="table-warning">
+              <th><%= t "views.models.show.rental_duration" %></th>
+              <td class="font-weight-bold text-success">
+                <%= @rental_duration %> <%= t "views.models.show.days" %>
+              </td>
+            </tr>
             <tr>
               <th><%= t "views.models.index.vehicle_count" %></th>
               <td>
                 <span class="badge bg-success">
-                  <%= vehicle_details_available_count %> <%= t "views.models.index.vehicles" %>
+                  <%= vehicle_count %> <%= t "views.models.index.vehicles" %>
                 </span>
               </td>
             </tr>
@@ -49,10 +68,64 @@
         </div>
 
         <div class="actions mt-4">
-          <% if vehicle_details_available_count > 0 %>
-            <%= link_to new_vehicle_detail_path(model_id: @model.id), class: "btn btn-success btn-lg w-100" do %>
-              <i class="fas fa-motorcycle"></i> <%= t "views.models.show.rent_now" %>
-            <% end %>
+          <% if vehicle_count > 0 %>
+            <h4 class="mb-3"><%= t "views.models.show.quantity" %></h4>
+            
+            <div data-controller="quantity"
+                data-quantity-price-per-day-value="<%= @model.price_per_day %>"
+                data-quantity-rental-duration-value="<%= @rental_duration %>"
+                data-quantity-max-quantity-value="<%= vehicle_count %>">
+                
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" 
+                            class="btn btn-secondary" 
+                            data-action="quantity#decrease">-</button>
+                    <input type="text" 
+                          data-quantity-target="quantity"
+                          value="1" 
+                          class="form-control mx-2 text-center" 
+                          style="width: 60px;" 
+                          readonly>
+                    <button type="button" 
+                            class="btn btn-secondary" 
+                            data-action="quantity#increase">+</button>
+                </div>
+
+                <div class="mb-3">
+                    <h5><%= t "views.models.show.total_price" %>:</h5>
+                    <span data-quantity-target="totalPrice" 
+                          class="text-danger" 
+                          style="font-size: 20px; font-weight: bold;">
+                      ₫<%= number_with_delimiter(@model.price_per_day * @rental_duration, delimiter: ".") %>
+                    </span>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <%= link_to new_cart_item_path(model_id: @model), 
+                                class: "btn btn-success flex-1 d-flex align-items-center justify-content-center gap-2", 
+                                style: "flex-basis: 60%",
+                                id: "rent-now-btn" do %>
+                        <i class="fas fa-motorcycle"></i>
+                        <span class="flex-grow-1 text-center"><%= t "views.models.show.rent_now" %></span>
+                    <% end %>
+
+                    <%= link_to cart_items_path(
+                                model_id: @model,
+                                cart_item: {
+                                  start_datetime: @start_datetime,
+                                  end_datetime: @end_datetime
+                                }), 
+                                class: "btn btn-outline-primary flex-1 d-flex align-items-center justify-content-center gap-2",
+                                style: "flex-basis: 40%",
+                                data: { 
+                                  turbo_method: :post,
+                                  quantity_target: "cartLink"
+                                } do %>
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="flex-grow-1 text-center"><%= t "views.models.show.add_to_cart" %></span>
+                    <% end %>
+                </div>
+            </div>
           <% else %>
             <button class="btn btn-danger btn-lg w-100 disabled">
               <%= t "views.models.index.out_of_stock" %>

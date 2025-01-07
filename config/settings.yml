@@ -10,6 +10,7 @@ default: &default
     related_to_limit: 3
   rental: 
     rental_limit: 10
+    minimum_duration: 4
 
 development:
   <<: *default

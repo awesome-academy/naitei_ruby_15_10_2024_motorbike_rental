@@ -1,0 +1,26 @@
+<div class="form-group" data-controller="time-selector">
+  <%= label_tag field_name, label_text, class: "fw-bold mb-2" %>
+  <div class="d-flex">
+    <%= date_field_tag "#{field_name}_date",
+        value&.strftime("%Y-%m-%d"),
+        class: "form-control me-2",
+        required: true,
+        data: { 
+          time_selector_target: "dateInput",
+          action: "change->time-selector#updateDateTime"
+        } %>
+    <%= select_tag "#{field_name}_time_select",
+        options_for_select((0..23).flat_map { |hour| 
+          ["#{hour.to_s.rjust(2, '0')}:00", "#{hour.to_s.rjust(2, '0')}:30"]
+        }, value&.strftime("%H:%M")),
+        class: "form-control",
+        required: true,
+        data: {
+          time_selector_target: "timeInput",
+          action: "change->time-selector#updateDateTime"
+        } %>
+    <%= hidden_field_tag field_name,
+        value&.strftime("%Y-%m-%dT%H:%M"),
+        data: { time_selector_target: "hiddenInput" } %>
+  </div>
+</div>

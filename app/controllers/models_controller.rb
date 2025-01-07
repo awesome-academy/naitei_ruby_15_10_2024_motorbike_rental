@@ -1,15 +1,20 @@
 class ModelsController < ApplicationController
   include Pagy::Backend
   before_action :load_model, only: %i[update edit show]
+  before_action :load_time, only: %i[index show]
+  before_action :validate_time_params, only: %i[index show]
   before_action :authorize_admin, only: %i[update edit]
 
   def index
+    session[:start_datetime] = @start_datetime
+    session[:end_datetime] = @end_datetime
     @pagy, @models = pagy(Model.ordered_by_vehicle_count)
   end
 
   def show
     @vehicle_details = @model.vehicle_details.includes(:image_attachment)
     @related_models = Model.related_to(@model.id, @model.brand_id, @model.vehicle_type)
+    @rental_duration = calculate_rental_duration(@start_datetime, @end_datetime)
   end
 
   def edit; end
@@ -34,11 +39,15 @@ class ModelsController < ApplicationController
     redirect_to models_path
   end
 
-  def model_params
-    params.require(:model).permit(:price_per_day)
+  def clear_cart
+    current_user.cart_items.destroy_all
   end
 
   def authorize_admin
     redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
+  end
+
+  def model_params
+    params.require(:model).permit(:price_per_day)
   end
 end

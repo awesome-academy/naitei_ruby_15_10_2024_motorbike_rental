@@ -1,7 +1,6 @@
 class VehicleDetail < ApplicationRecord
   belongs_to :model
   has_many :rental_vehicles, dependent: :destroy
-  has_many :cart_items, dependent: :destroy
   delegate :price_per_day, to: :model
   has_one_attached :image do |attachable|
     attachable.variant :thumb,
@@ -19,6 +18,13 @@ class VehicleDetail < ApplicationRecord
             if: :image_attached?
   scope :ordered_by_newest, -> { order(created_at: :desc) }
   scope :available, -> { where(available: true) }
+  scope :free_in_time_range, lambda { |start_datetime, end_datetime|
+    available.where.not(id: RentalVehicle.joins(:rental).where(
+      "rentals.start_datetime < ? AND rentals.end_datetime > ?",
+      end_datetime, start_datetime
+    ).select(:vehicle_detail_id))
+  }
+
   PERMITTED_PARAMS = %i[
     model_id
     number

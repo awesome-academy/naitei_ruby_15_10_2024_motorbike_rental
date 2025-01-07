@@ -1,12 +1,26 @@
-# db/seeds.rb
-# Motorcycle Brands and Models in Vietnam
-
-# Clear existing data to prevent duplicates
+User.destroy_all
 Brand.destroy_all
 Model.destroy_all
 VehicleDetail.destroy_all
+User.create!(
+  name: "Admin User",
+  email: "pqnad@gmail.com",
+  password: "123456",
+  password_confirmation: "123456",
+  role: :admin,
+  status: :active,
+  phone_number: "0932417536"
+)
 
-# Popular Motorcycle Brands in Vietnam with their models and typical engine capacities
+User.create!(
+  name: "Normal User",
+  email: "pqn@gmail.com",
+  password: "123456",
+  password_confirmation: "123456",
+  role: :user,
+  status: :active,
+  phone_number: "0932417534"
+)
 brands_and_models = [
   {
     name: "Honda",
@@ -37,13 +51,10 @@ brands_and_models = [
     ]
   }
 ]
-
-# Create brands and their models
 brands_and_models.each do |brand_data|
   brand = Brand.create!(name: brand_data[:name])
 
   brand_data[:models].each do |model_data|
-    # Create model with price_per_day
     model = Model.create!(
       name: model_data[:name],
       brand: brand,
@@ -51,8 +62,6 @@ brands_and_models.each do |brand_data|
       vehicle_type: model_data[:vehicle_type],
       engine_capacity: model_data[:engine_capacity]
     )
-
-    # Create multiple vehicle details for each model
     rand(2..4).times do |i|
       VehicleDetail.create!(
         model: model,

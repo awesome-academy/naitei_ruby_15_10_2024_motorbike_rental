@@ -1,27 +1,28 @@
 en:
   sessions:
     login: "Login"
-    email_or_phone_placeholder: "Enter your email or phone number"
-    password_placeholder: "Enter your password"
+    email_or_phone_placeholder: "Enter email or phone number"
+    password_placeholder: "Enter password"
     login_button: "Login"
-    forgot_password: "Forgot your password?"
-    invalid_credentials: "Invalid email or password."
-    login_success: "Logged in successfully."
-    logout_success: "Logged out successfully."
+    forgot_password: "Forgot password?"
+    invalid_credentials: "Invalid credentials."
+    login_success: "Login successful."
+    logout_success: "Logout successful."
     remember_me: "Remember me"
   roles:
-    unauthorized: "You are not authorized to access this page."
+    unauthorized: "You do not have permission to access this page."
   edit: "Edit"
   delete: "Delete"
   confirm_delete: "Are you sure you want to delete"
   title:
-    page_title: "Uncle Ut's Rental"
+    page_title: "Cậu Út Car Rental"
   views:
     navbar:
-      app_name: "Uncle Ut's Rental"
+      app_name: "Cậu Út Car Rental"
       home: "Home"
       register: "Register"
       login: "Login"
+      logout: "Logout"
       contact: "Contact"
       vehicle_list: "Vehicle List"
       model_list: "Model List"
@@ -29,24 +30,24 @@ en:
     static_pages:
       home:
         slide:
-          welcome: "Welcome to Uncle Ut's Rental"
-          accompany: "Accompanying you on every journey."
+          welcome: "Welcome to Cậu Út Car Rental"
+          accompany: "Your companion on every journey."
           service_quality: "Service Quality"
           service_commitment: "Committed to providing the best quality vehicles."
           reasonable_price: "Reasonable Prices"
-          competitive_price: "Competitive pricing suitable for everyone."
+          competitive_price: "Competitive prices suitable for everyone."
           previous: "Previous"
           next: "Next"
       contact:
         title: "Contact"
-        address: "204 Pham Van Dong, An Hai Bac, Son Tra, Da Nang"
+        address: "204 Phạm Văn Đồng, An Hải Bắc Ward, Sơn Trà District, Đà Nẵng City"
         phone: "091 105 91 45"
         email: "thuexecauut@gmail.com"
     vehicle_detail:
       image: "Image"
       model: "Model"
       brand: "Brand"
-      number: "Vehicle Number"
+      number: "License Plate"
       type: "Type"
       price_per_day: "Price per Day"
       availability: "Availability"
@@ -57,22 +58,22 @@ en:
         labels:
           brand: "Brand"
           model: "Model"
-          number: "Vehicle Number"
+          number: "License Plate"
           vehicle_type: "Vehicle Type"
           engine_capacity: "Engine Capacity"
-          price_per_day: "Rental Price per Day"
+          price_per_day: "Price per Day"
           color: "Color"
           image: "Vehicle Image"
           available: "Available"
         placeholders:
-          number: "Enter vehicle number"
-          price_per_day: "Enter rental price per day"
+          number: "Enter license plate"
+          price_per_day: "Enter price per day"
           color: "Enter color"
         prompts:
-          select_brand: "Select Brand"
-          select_model: "Select Model"
-          select_vehicle_type: "Select Vehicle Type"
-          select_engine_capacity: "Select Engine Capacity"
+          select_brand: "Select brand"
+          select_model: "Select model"
+          select_vehicle_type: "Select vehicle type"
+          select_engine_capacity: "Select engine capacity"
         engine_capacities:
           under_50cc: "Under 50cc"
           from_50_to_100cc: "50 - 100cc"
@@ -82,68 +83,99 @@ en:
         vehicle_types:
           scooter: "Scooter"
           manual: "Manual"
-          moto: "Motorbike/Moto"
+          moto: "Motorbike"
         buttons:
           submit: "Submit"
-      index: 
+      index:
         title: "Vehicle List"
-      edit: 
-        title: "Edit Vehicle Information"
-    models: 
+      edit:
+        title: "Edit Vehicle Details"
+    models:
       index:
         title: "Vehicle Models"
         select_brand: "Select Brand"
-        filter: "Filter"
+        filter: "Search Vehicles"
         price_per_day: "Price per Day"
-        vehicle_count: "Vehicle Count"
+        vehicle_count: "Available Count"
         vehicles: "vehicles"
         out_of_stock: "Out of Stock"
         view_details: "View Details"
         image_alt: "Image for %{model_name}"
-      show: 
+        rental_start: "Start Date"
+        rental_end: "End Date"
+      show:
         title: "%{name} - %{brand}"
+        engine_capacity: "Engine Capacity"
         rent_now: "Rent Now"
+        add_to_cart: "Add to Cart"
         related: "Related Vehicles"
+        rental_start: "Start Date"
+        rental_end: "End Date"
+        rental_duration: "Rental Duration"
+        quantity: "Quantity"
+        days: "Days"
+        total_price: "Total Price"
       edit:
         title: "Edit Price for %{name}"
-        price_per_day: "Price Per Day"
-        price_placeholder: "Enter the price per day"
-        price_invalid_feedback: "Price per day is required and must be a valid number."
-        back: "Back to Model"
+        price_per_day: "Price per Day"
+        price_placeholder: "Enter price per day"
+        price_invalid_feedback: "Price is required and must be a valid number."
+        back: "Back"
         update_button: "Update Price"
+    cart_items:
+      index:
+        title: "Your Cart"
+        start_datetime: "Start Date:"
+        end_datetime: "End Date:"
+        not_specified: "Not Specified"
+        model_image: "Image"
+        model_name: "Name"
+        quantity_in_cart: "Quantity"
+        price: "Total Price"
+        price_per_day: "Price per Day"
+        actions: "Actions"
+        quantity_available: "Available Quantity:"
+        delete: "Delete"
+        confirm_delete: "Are you sure?"
+        total_price: "Total Price:"
+        checkout: "Checkout"
+        empty: "Your cart is empty."
   controller:
     vehicle_detail:
       create:
-        success: "Vehicle information has been successfully added"
+        success: "Vehicle details added successfully"
       destroy:
-        success: "Vehicle information has been successfully deleted"
-      update: 
-        success: "Vehicle information has been successfully updated"
-      not_found: "Vehicle information not found"
-    model: 
+        success: "Vehicle details deleted successfully"
+      update:
+        success: "Vehicle details updated successfully"
+        not_found: "Vehicle details not found"
+    model:
       not_found: "Model not found"
       update:
         success: "Price updated successfully!"
         error: "Failed to update price."
+    cart_items:
+      create:
+        created_success: "Vehicle added to cart"
   activerecord:
     models:
-      vehicle_detail: "Vehicle Information"
+      vehicle_detail: "Vehicle Detail"
       attributes:
         vehicle_detail:
           model: "Model"
     attributes:
       vehicle_detail:
-        number: "Vehicle Number"
+        number: "License Plate"
         vehicle_type: "Vehicle Type"
         engine_capacity: "Engine Capacity"
-        price_per_day: "Daily Rental Price"
+        price_per_day: "Daily Price"
         color: "Color"
         model_id: "Model"
       model:
         vehicle_types:
           scooter: "Scooter"
           manual: "Manual"
-          moto: "Motorbike/Moto"
+          moto: "Motorbike"
         engine_capacities:
           under_50cc: "Under 50cc"
           from_50_to_100cc: "50 - 100cc"
@@ -155,7 +187,7 @@ en:
         header:
           one: "1 error occurred:"
           other: "%{count} errors occurred:"
-        body: "Please check the following errors and try again:"
+        body: "Please review the following errors and try again:"
       models:
         vehicle_detail:
           attributes:
@@ -177,3 +209,7 @@ en:
             model_id:
               blank: "must be selected"
           base:
+  errors:
+    minimum_duration: "The minimum rental duration is %{hours} hours."
+    invalid_datetime: "Invalid datetime. Please select again."
+    exceeds_available_quantity: "Invalid vehicle quantity. Please select again."
