@@ -1,9 +1,9 @@
 <div class="form-group" data-controller="time-selector">
   <%= label_tag field_name, label_text, class: "fw-bold mb-2" %>
-  <div class="d-flex">
+  <div class="d-flex gap-2">
     <%= date_field_tag "#{field_name}_date",
         value&.strftime("%Y-%m-%d"),
-        class: "form-control me-2",
+        class: "form-control",
         required: true,
         data: { 
           time_selector_target: "dateInput",

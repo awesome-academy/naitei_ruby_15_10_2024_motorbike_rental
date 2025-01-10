@@ -1,0 +1,45 @@
+<% if rental.pending? %>
+      <div class="modal fade"
+           id="rejectModal-<%= rental.id %>"
+           tabindex="-1"
+           aria-labelledby="rejectModalLabel-<%= rental.id %>"
+           aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="rejectModalLabel-<%= rental.id %>">
+                <%= t("views.rentals.index.reject_reason") %>
+              </h5>
+              <button type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= form_with(url: reject_admin_rental_path(rental),
+                            method: :patch,
+                            class: "text-start") do |f| %>
+                <div class="mb-3">
+                  <%= f.label :decline_reason,
+                              t("views.rentals.index.reason"),
+                              class: "form-label" %>
+                  <%= f.text_area :decline_reason,
+                                  class: "form-control",
+                                  rows: 3,
+                                  required: true %>
+                </div>
+                <div class="text-end">
+                  <button type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal">
+                    <%= t("views.shared.cancel") %>
+                  </button>
+                  <%= f.submit t("views.rentals.index.confirm_reject"),
+                               class: "btn btn-danger ms-2" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+<% end %>

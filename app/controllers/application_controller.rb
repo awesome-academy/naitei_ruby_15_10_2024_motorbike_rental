@@ -1,8 +1,9 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base # rubocop:disable Metrics/ClassLength
   include Pagy::Backend
 
   before_action :set_locale
-  helper_method :current_user, :logged_in?, :load_time, :validate_time_params, :calculate_rental_duration
+  helper_method :current_user, :logged_in?, :load_time, :validate_time_params, :calculate_rental_duration, :clear_cart,
+                :authorize_admin, :logged_in_user
 
   def current_user
     if session[:user_id]
@@ -16,8 +17,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authorize_admin
+    redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
+  end
+
   def logged_in?
     current_user.present?
+  end
+
+  def logged_in_user
+    return if current_user
+
+    redirect_to new_session_path
   end
 
   def load_time
@@ -74,6 +85,10 @@ class ApplicationController < ActionController::Base
     base_days
   end
 
+  def clear_cart
+    current_user.cart_items.destroy_all
+  end
+
   private
 
   def set_locale
@@ -101,6 +116,8 @@ class ApplicationController < ActionController::Base
   def load_time_from_params
     @start_datetime = parse_time(params[:start_datetime])
     @end_datetime = parse_time(params[:end_datetime])
+    return unless logged_in?
+
     clear_cart
   end
 

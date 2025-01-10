@@ -1,7 +1,9 @@
 class CartItemsController < ApplicationController
-  before_action :set_cart_item, only: %i[destroy]
+  before_action :set_cart_item, only: %i[destroy update_quantity]
   before_action :load_time, only: %i[index create]
   before_action :validate_time_params, only: %i[index create]
+  before_action :logged_in_user, only: [:index]
+  before_action :check_cart_item_quantity, only: %i[index]
   def index
     @cart_items = current_user.cart_items.includes(:model)
     @total_price = @cart_items.sum(&:total_price)
@@ -50,6 +52,14 @@ class CartItemsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
+  def update_quantity
+    new_quantity = params[:quantity].to_i
+    available_quantity = @cart_item.model.vehicle_free_count(@cart_item.start_datetime, @cart_item.end_datetime)
+
+    @cart_item.update(quantity: new_quantity) if new_quantity <= available_quantity
+    redirect_back fallback_location: cart_items_path
+  end
+
   private
 
   def set_cart_item
@@ -58,5 +68,15 @@ class CartItemsController < ApplicationController
 
   def cart_item_params
     params.require(:cart_item).permit(:start_datetime, :end_datetime, :quantity, :model_id)
+  end
+
+  def check_cart_item_quantity
+    current_user.cart_items.each do |cart_item|
+      available_quantity = cart_item.model.vehicle_free_count(cart_item.start_datetime, cart_item.end_datetime)
+      next unless cart_item.quantity > available_quantity
+
+      cart_item.update(quantity: available_quantity)
+      cart_item.save
+    end
   end
 end

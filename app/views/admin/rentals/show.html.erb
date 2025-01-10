@@ -1,0 +1,110 @@
+<%= provide :title, t("views.rentals.show.rental_details") %>
+
+<div class="container mx-auto p-4 space-y-8">
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-bold mb-6"><%= t("views.rentals.show.rental_details") %></h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <%= render partial: "update_status", locals: { rental: @rental } %>
+
+        <div class="flex justify-between border-b pb-2 mt-4">
+          <span class="fw-medium"><%= t("views.rentals.show.name") %>:</span>
+          <span><%= @rental.name %></span>
+        </div>
+
+        <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium"><%= t("views.rentals.show.phone_number") %>:</span>
+          <span><%= @rental.phone_number %></span>
+        </div>
+
+        <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium"><%= t("views.rentals.show.start_datetime") %>:</span>
+          <span><%= @rental.start_datetime.strftime("%H:%M, %d/%m/%Y") %></span>
+        </div>
+
+        <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium"><%= t("views.rentals.show.total_price") %>:</span>
+          <span><%= number_with_delimiter(@rental.total_price, delimiter: ".") %> VND</span>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium"><%= t("views.rentals.show.delivery_location") %>:</span>
+          <span class="text-right"><%= @rental.delivery_location %></span>
+        </div>
+
+        <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium"><%= t("views.rentals.show.status") %>:</span>
+          <span class="badge <%= rental_status_color(@rental.status) %>">
+            <%= t("views.rentals.status.#{@rental.status_name}") %>
+          </span>
+        </div>
+
+        <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium"><%= t("views.rentals.show.end_datetime") %>:</span>
+          <span><%= @rental.end_datetime.strftime("%H:%M, %d/%m/%Y") %></span>
+        </div>
+
+        <% if @rental.return_datetime.present? %>
+          <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium"><%= t("views.rentals.show.return_datetime") %>:</span>
+          <span><%= @rental.return_datetime.strftime("%H:%M, %d/%m/%Y") %></span>
+        </div>
+      <% end %>
+      </div>
+    </div>
+
+    <% if @rental.rejected? && @rental.decline_reason.present? %>
+      <div class="mt-6 p-4 bg-red-50 rounded-lg border border-red-200">
+        <p class="flex items-start">
+          <span class="font-medium text-red-700 mr-2">
+            <%= t("views.rentals.show.decline_reason") %>:
+          </span>
+          <span class="text-red-600"><%= @rental.decline_reason %></span>
+        </p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-bold mb-6"><%= t("views.rentals.show.vehicles") %></h2>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="border p-3 text-center"><%= t "views.vehicle_detail.image" %></th>
+            <th class="border p-3 text-center"><%= t "views.vehicle_detail.model" %></th>
+            <th class="border p-3 text-center"><%= t "views.vehicle_detail.brand" %></th>
+            <th class="border p-3 text-center"><%= t "views.vehicle_detail.number" %></th>
+            <th class="border p-3 text-center"><%= t "views.vehicle_detail.type" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @vehicle_details.present? %>
+            <%= render partial: "vehicle_detail", collection: @vehicle_details, as: :vehicle %>
+          <% else %>
+            <tr>
+              <td colspan="5" class="border p-4 text-center text-gray-500">
+                <%= t("views.rentals.show.no_vehicles") %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+    <%= render "proof_table" %>
+  
+  <div>
+    <%= link_to admin_rentals_path, 
+        class: "inline-flex items-center px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" do %>
+      <i class="bi bi-arrow-left mr-2"></i>
+      <%= t("views.rentals.show.back_to_index") %>
+    <% end %>
+  </div>
+</div>
+<%= render partial: "reject_modal", locals: { rental: @rental } %>

@@ -1,0 +1,86 @@
+<div class="bg-white shadow-sm rounded-lg p-6">
+  <h2 class="text-xl font-semibold mb-6"><%= t("views.rentals.show.proofs") %></h2>
+  <div class="mb-8">
+    <%= form_with(model: [:admin, @rental, Proof.new], local: true, class: "space-y-6") do |f| %>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= f.label :image, class: "form-label" %>
+          <%= f.file_field :image, direct_upload: true, 
+              accept: 'image/png,image/jpg,image/jpeg',
+              class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= f.label :storage_type, class: "form-label" %>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <%= f.radio_button :storage_type, 'original', class: "form-check-input" %>
+              <%= f.label :storage_type_original, t("views.proofs.storage_types.original"), class: "form-check-label" %>
+            </div>
+            <div class="form-check">
+              <%= f.radio_button :storage_type, 'copy', class: "form-check-input" %>
+              <%= f.label :storage_type_copy, t("views.proofs.storage_types.copy"), class: "form-check-label" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-end mt-4">
+        <%= f.submit t("views.rentals.show.add_proof"), 
+            class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th><%= t("views.proofs.name") %></th>
+          <th><%= t("views.proofs.image") %></th>
+          <th><%= t("views.proofs.storage_type") %></th>
+          <th><%= t("views.proofs.created_at") %></th>
+          <th><%= t("views.proofs.actions") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rental.proofs.each do |proof| %>
+          <tr>
+            <td><%= proof.name %></td>
+            <td>
+              <% if proof.image.attached? %>
+                <%= image_tag proof.image, class: "img-fluid rounded" %>
+              <% end %>
+            </td>
+            <td>
+              <span class="badge <%= proof.original? ? 'bg-success' : 'bg-info' %>">
+                <%= t("views.proofs.storage_types.#{proof.storage_type}") %>
+              </span>
+            </td>
+            <td><%= proof.created_at.strftime("%H:%M, %d/%m/%Y") %></td>
+            <td>
+              <%= link_to admin_rental_proof_path(@rental, proof),
+                  data: { turbo_method: :delete, turbo_confirm: t("views.proofs.confirm_delete") },
+                  class: "text-danger" do %>
+                <i class="bi bi-trash"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+
+        <% if @rental.proofs.empty? %>
+          <tr>
+            <td colspan="5" class="text-center text-muted">
+              <%= t("views.rentals.show.no_proofs") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get "rentals/create"
   scope "(:locale)", locale: /en|vi/ do
     root "static_pages#home"
-
     get "/home", to: "static_pages#home"
     get "/contact", to: "static_pages#contact"
     resources :vehicle_details do
@@ -15,8 +14,30 @@ Rails.application.routes.draw do
         get "models"
       end
     end
-    resources :models
-    resources :cart_items
     resource :session
+    resources :models
+    resources :cart_items do
+      patch :update_quantity, on: :member
+    end
+
+    namespace :admin do
+      resources :rentals do
+        member do
+          patch :approve
+          patch :reject
+          patch :rent
+          patch :return
+        end
+        resources :proofs, only: %i[create destroy]
+      end
+    end
+
+    namespace :user do
+      resources :rentals do
+        member do
+          patch :cancel
+        end
+      end
+    end
   end
 end

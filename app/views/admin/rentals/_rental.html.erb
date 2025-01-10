@@ -1,0 +1,25 @@
+<tr>
+  <td><%= rental.name %></td>
+  <td><%= rental.phone_number %></td>
+  <td><%= rental.delivery_location %></td>
+  <td><%= rental.start_datetime.strftime("%H:%M, %d/%m/%Y") %></td>
+  <td><%= rental.end_datetime.strftime("%H:%M, %d/%m/%Y") %></td>
+  <td>₫<%= number_with_delimiter(rental.total_price, delimiter: ".") %></td>
+  <td>
+    <span class="badge rounded-pill <%= rental_status_color(rental.status) %>">
+      <%= rental.status_name.capitalize %>
+    </span>
+  </td>
+  <td class="text-end">
+    <div class="btn-group" role="group">
+      <%= render partial: "update_status", locals: { rental: rental } %>
+      <%= link_to admin_rental_path(rental),
+                  class: "btn btn-info btn-sm ms-1" do %>
+        <i class="bi bi-eye"></i>
+        <%= t("views.rentals.index.view") %>
+      <% end %>
+    </div>
+
+    <%= render partial: "reject_modal", locals: { rental: rental } %>
+  </td>
+</tr>

@@ -1,0 +1,36 @@
+<%= provide :title, t("views.rentals.index.title") %>
+
+<div class="container mt-4">
+  <h1 class="mb-4 text-center"><%= t("views.rentals.index.title") %></h1>
+  <div class="row mb-4">
+    <div class="col-md-8 offset-md-2">
+      <%= form_with(url: admin_rentals_path, method: :get, local: true, class: "d-flex") do %>
+        <div class="d-flex w-100">
+          <input type="text" name="search_name" placeholder="<%= t('views.rentals.index.search_name') %>" class="form-control" value="<%= params[:search_name] %>">
+          <input type="text" name="search_phone" placeholder="<%= t('views.rentals.index.search_phone') %>" class="form-control ms-2" value="<%= params[:search_phone] %>">
+          <input type="date" name="start_datetime" placeholder="<%= t('views.rentals.index.start_date') %>" class="form-control ms-2" value="<%= params[:start_datetime] %>">
+          <input type="date" name="end_datetime" placeholder="<%= t('views.rentals.index.end_date') %>" class="form-control ms-2" value="<%= params[:end_datetime] %>">
+          
+          <select name="status" class="form-control ms-2">
+            <option value=""><%= t('views.rentals.index.select_status') %></option>
+            <% Rental.statuses.each do |key, _value| %>
+              <option value="<%= key %>" <%= 'selected' if params[:status] == key %>><%= t("models.rental.statuses.#{key}") %></option>
+            <% end %>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary ms-2">
+          <%= t('views.rentals.index.search') %>
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @rentals.any? %>
+    <%= render partial: "rental_table", locals: { rentals: @rentals } %>
+  <% else %>
+    <div class="alert alert-info">
+      <%= t("views.rentals.index.no_rentals") %>
+    </div>
+  <% end %>
+</div>

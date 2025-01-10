@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "cart_item", collection: cart_items, locals: { start_datetime: params[:start_datetime], end_datetime: params[:end_datetime] } %>
+      <%= render partial: "cart_item", collection: cart_items, locals: { start_datetime: start_datetime, end_datetime: end_datetime } %>
     </tbody>
   </table>
 
@@ -20,7 +20,20 @@
       <%= t("views.cart_items.index.total_price") %> 
       <span id="cart-total-price">₫<%= number_with_delimiter(total_price, delimiter: ".") %></span>
     </h3>
-    <%= link_to t("views.cart_items.index.checkout"), "#", class: "btn btn-lg btn-success" %>
+
+    <% if total_price > 0 %>
+      <%= link_to t("views.cart_items.index.checkout"), "#", 
+        class: "btn btn-lg btn-success",
+        data: {
+          bs_toggle: "modal",
+          bs_target: "#checkoutModal"
+        }
+      %>
+    <% else %>
+      <button class="btn btn-lg btn-success disabled" disabled>
+        <%= t("views.cart_items.index.checkout") %>
+      </button>
+    <% end %>
   </div>
 <% else %>
   <p class="text-center text-muted"><%= t("views.cart_items.index.empty") %></p>

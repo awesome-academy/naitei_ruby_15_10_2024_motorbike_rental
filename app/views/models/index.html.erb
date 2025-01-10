@@ -1,4 +1,5 @@
 <%= provide :title, t("views.models.index.title") %>
+
 <div class="container mt-4">
   <h1 class="text-center mb-4 fs-2 fw-bold">
     <%= t "views.models.index.title" %>
@@ -7,30 +8,75 @@
   <div id="time-error-container" class="mb-3"></div>
   
   <%= form_tag models_path, method: :get, class: "mb-4" do %>
-    <div class="row">
-      <div class="col-md-5">
-        <%= render partial: "shared/datetime_selector", locals: {
-          field_name: "start_datetime",
-          label_text: t("views.models.index.rental_start"),
-          value: @start_datetime
-        } %>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <%= render partial: "shared/datetime_selector", locals: {
+              field_name: "start_datetime",
+              label_text: t("views.models.index.rental_start"),
+              value: @start_datetime
+            } %>
+          </div>
+          <div class="col-md-6">
+            <%= render partial: "shared/datetime_selector", locals: {
+              field_name: "end_datetime",
+              label_text: t("views.models.index.rental_end"),
+              value: @end_datetime
+            } %>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-5">
-        <%= render partial: "shared/datetime_selector", locals: {
-          field_name: "end_datetime",
-          label_text: t("views.models.index.rental_end"),
-          value: @end_datetime
-        } %>
+      <div class="col-md-6">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <%= select_tag :brand_id, 
+                  options_from_collection_for_select(@brands, :id, :name, params[:brand_id]),
+                  class: "form-select",
+                  prompt: t("views.models.index.select_brand") %>
+            </div>
+            <div>
+              <%= select_tag :vehicle_type, 
+                  options_for_select(@vehicle_types.map { |type| 
+                    [t("activerecord.attributes.model.vehicle_types.#{type}"), type] 
+                  }, params[:vehicle_type]),
+                  class: "form-select",
+                  prompt: t("views.models.index.select_vehicle_type") %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <%= number_field_tag :min_price, params[:min_price], 
+                  placeholder: t("views.models.index.min_price"), 
+                  class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= number_field_tag :max_price, params[:max_price], 
+                  placeholder: t("views.models.index.max_price"), 
+                  class: "form-control" %>
+            </div>
+            <div>
+              <%= select_tag :engine_capacity, 
+                  options_for_select(@engine_capacities.map { |capacity| 
+                    [t("activerecord.attributes.model.engine_capacities.#{capacity}"), capacity] 
+                  }, params[:engine_capacity]),
+                  class: "form-select",
+                  prompt: t("views.models.index.select_engine_capacity") %>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-2 d-flex align-items-end">
-        <%= submit_tag t("views.models.index.filter"), class: "btn btn-primary w-100" %>
+      <div class="col-12">
+        <%= submit_tag t("views.models.index.filter"), 
+            class: "btn btn-primary px-4 float-end" %>
       </div>
     </div>
   <% end %>
 
-  <div class="row">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <%= render partial: "model_card", collection: @models, as: :model %>
   </div>
 </div>

@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "vehicle_detail", collection: @vehicle_details, as: :vehicle %>
+    <%= render partial: "vehicle_detail", collection: @vehicle_details, as: :vehicle %>
     </tbody>
   </table>
   <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>

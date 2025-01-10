@@ -1,0 +1,15 @@
+<tr class="hover:bg-gray-50">
+  <td class="border p-2 text-center">
+    <% if vehicle.image.attached? %>
+      <%= image_tag vehicle.image.variant(:thumb), 
+          alt: "#{vehicle.model.name} image", 
+          class: "w-24 h-24 object-cover rounded" %>
+    <% else %>
+      <span class="text-gray-400"><%= t "no_image" %></span>
+    <% end %>
+  </td>
+  <td class="border p-2 text-center"><%= vehicle.model.name %></td>
+  <td class="border p-2 text-center"><%= vehicle.model.brand.name %></td>
+  <td class="border p-2 text-center"><%= vehicle.number %></td>
+  <td class="border p-2 text-center"><%= t "views.vehicle_detail.form.vehicle_types.#{vehicle.model.vehicle_type}" %></td>
+</tr>
