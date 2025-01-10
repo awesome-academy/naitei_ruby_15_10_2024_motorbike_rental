@@ -27,6 +27,7 @@ vi:
       vehicle_list: "Danh sách xe"
       model_list: "Danh sách dòng xe"
       brand_list: "Danh sách hãng xe"
+      rentals: "Đơn đặt xe"
     static_pages:
       home:
         slide:
@@ -93,7 +94,7 @@ vi:
     models: 
       index:
         title: "Các mẫu xe"
-        select_brand: "Chọn hãng xe"
+        select_brand: "Hãng xe"
         filter: "Tìm xe"
         price_per_day: "Giá theo ngày"
         vehicle_count: "Số lượng sẵn có"
@@ -103,6 +104,12 @@ vi:
         image_alt: "Hình ảnh cho %{model_name}"
         rental_start: "Nhận xe"
         rental_end: "Trả xe"
+        min_price: 0đ
+        max_price: 5000.000đ
+        select_vehicle_type: Loại xe
+        select_engine_capacity: Dung tích
+        min_engine_capacity: 0
+        max_engine_capacity: 0
       show: 
         title: "%{name} - %{brand}"
         engine_capacity: "Dung tích động cơ"
@@ -138,10 +145,57 @@ vi:
         delete: "Xóa"
         confirm_delete: "Bạn có chắc chắn không?"
         total_price: "Tổng giá:"
-        checkout: "Tiến hành thanh toán"
+        checkout: "Thuê xe"
         empty: "Giỏ hàng của bạn trống."
         rental_duration: "Thời gian thuê (Ngày)"
         out_of_stock: "Đã hết xe"
+      checkout: 
+        title: Thông tin nhận xe
+        name: Tên liên hệ
+        phone_number: Số điện thoại
+        delivery_location: Địa điểm nhận xe
+        cancel: Hủy
+        confirm: Xác nhận
+        reason: Lý do từ chối đơn
+    rentals: 
+      index: 
+        title: Đơn đặt xe
+        name: Tên liên hệ
+        phone_number: Số điện thoại
+        delivery_location: Địa điểm nhận xe
+        start_datetime: Nhận xe
+        end_datetime: Trả xe
+        total_price: Tổng giá
+        status: Trạng thái
+        approve: Chấp nhận
+        reject: Từ chối
+        cancel: Hủy đơn
+        view: Chi tiết
+        confirm_reject: Xác nhận
+        reject_reason: Lý do
+        reason: Lý do từ chối đơn
+        search_name: Tên
+        search_phone: SĐT
+        search: Tìm
+        start_date: Nhận xe
+        end_date: Trả xe
+      show: 
+        rental_details: Chi tiết đơn
+        title: Đơn đặt xe
+        name: Tên liên hệ
+        phone_number: Số điện thoại
+        delivery_location: Địa điểm nhận xe
+        start_datetime: Nhận xe
+        end_datetime: Trả xe
+        total_price: Tổng giá
+        status: Trạng thái
+        approve: Chấp nhận
+        reject: Từ chối
+        cancel: Hủy đơn
+        view: Chi tiết
+        vehicles: Danh sách xe
+        back_to_index: Quay lại
+        decline_reason: Lý do từ chối đơn
   controller:
     vehicle_detail:
       create:
@@ -159,6 +213,32 @@ vi:
     cart_items: 
       create: 
         created_success: "Đã thêm xe vào giỏ hàng"
+    rentals: 
+      create:
+        success: "Tạo đơn thuê thành công"
+        failure: "Tạo đơn thuê thất bại"
+        not_enough_vehicles: "Số lượng xe không đủ"
+        error: "Lỗi: %{message}"
+      approve:
+        success: "Đơn thuê đã được chấp nhận"
+        error: "Lỗi chấp nhận đơn thuê"
+      reject:
+        success: "Đơn thuê đã bị từ chối"
+        error: "Lỗi từ chối đơn thuê"
+      cancel:
+        success: "Đơn thuê đã bị hủy"
+        error: "Lỗi hủy đơn thuê"
+      not_found: "Không tìm thấy đơn thuê này"
+      unauthorized: "Bạn không có quyền thực hiện hành động này"
+  models: 
+    rental: 
+      statuses: 
+        pending: "Đang chờ"
+        approved: "Chấp nhận"
+        rejected: "Từ chối"
+        canceled: "Hủy đơn"
+        renting: "Đang thuê"
+        returned: "Đã trả xe"
   activerecord:
     models:
       vehicle_detail: "Thông tin xe"

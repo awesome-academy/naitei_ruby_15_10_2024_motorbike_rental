@@ -5,42 +5,43 @@ en:
     password_placeholder: "Enter password"
     login_button: "Login"
     forgot_password: "Forgot password?"
-    invalid_credentials: "Invalid credentials."
+    invalid_credentials: "Invalid login credentials."
     login_success: "Login successful."
     logout_success: "Logout successful."
     remember_me: "Remember me"
   roles:
-    unauthorized: "You do not have permission to access this page."
+    unauthorized: "You are not authorized to access this page."
   edit: "Edit"
   delete: "Delete"
   confirm_delete: "Are you sure you want to delete"
   title:
-    page_title: "Cậu Út Car Rental"
+    page_title: "Uncle Ut Rentals"
   views:
     navbar:
-      app_name: "Cậu Út Car Rental"
+      app_name: "Uncle Ut Rentals"
       home: "Home"
       register: "Register"
       login: "Login"
       logout: "Logout"
       contact: "Contact"
-      vehicle_list: "Vehicle List"
-      model_list: "Model List"
-      brand_list: "Brand List"
+      vehicle_list: "Bike List"
+      model_list: "Bike Models"
+      brand_list: "Bike Brands"
+      rentals: "Bike Rentals"
     static_pages:
       home:
         slide:
-          welcome: "Welcome to Cậu Út Car Rental"
-          accompany: "Your companion on every journey."
+          welcome: "Welcome to Uncle Ut Rentals"
+          accompany: "Accompanying you on every journey."
           service_quality: "Service Quality"
-          service_commitment: "Committed to providing the best quality vehicles."
-          reasonable_price: "Reasonable Prices"
-          competitive_price: "Competitive prices suitable for everyone."
+          service_commitment: "Committed to providing the best quality bikes."
+          reasonable_price: "Reasonable Price"
+          competitive_price: "Competitive prices for everyone."
           previous: "Previous"
           next: "Next"
       contact:
         title: "Contact"
-        address: "204 Phạm Văn Đồng, An Hải Bắc Ward, Sơn Trà District, Đà Nẵng City"
+        address: "204 Pham Van Dong, An Hai Bac Ward, Son Tra District, Da Nang City"
         phone: "091 105 91 45"
         email: "thuexecauut@gmail.com"
     vehicle_detail:
@@ -52,28 +53,28 @@ en:
       price_per_day: "Price per Day"
       availability: "Availability"
       new:
-        title: "Add New Vehicle"
-        button: "Add Vehicle"
+        title: "Add New Bike"
+        button: "Add Bike"
       form:
         labels:
           brand: "Brand"
           model: "Model"
           number: "License Plate"
-          vehicle_type: "Vehicle Type"
+          vehicle_type: "Type"
           engine_capacity: "Engine Capacity"
-          price_per_day: "Price per Day"
+          price_per_day: "Rental Price per Day"
           color: "Color"
-          image: "Vehicle Image"
+          image: "Bike Image"
           available: "Available"
         placeholders:
           number: "Enter license plate"
-          price_per_day: "Enter price per day"
+          price_per_day: "Enter rental price per day"
           color: "Enter color"
         prompts:
-          select_brand: "Select brand"
-          select_model: "Select model"
-          select_vehicle_type: "Select vehicle type"
-          select_engine_capacity: "Select engine capacity"
+          select_brand: "Select Brand"
+          select_model: "Select Model"
+          select_vehicle_type: "Select Type"
+          select_engine_capacity: "Select Engine Capacity"
         engine_capacities:
           under_50cc: "Under 50cc"
           from_50_to_100cc: "50 - 100cc"
@@ -87,51 +88,51 @@ en:
         buttons:
           submit: "Submit"
       index:
-        title: "Vehicle List"
+        title: "Bike List"
       edit:
-        title: "Edit Vehicle Details"
+        title: "Edit Bike Information"
     models:
       index:
-        title: "Vehicle Models"
+        title: "Bike Models"
         select_brand: "Select Brand"
-        filter: "Search Vehicles"
+        filter: "Find Bikes"
         price_per_day: "Price per Day"
-        vehicle_count: "Available Count"
-        vehicles: "vehicles"
+        vehicle_count: "Available Quantity"
+        vehicles: "bikes"
         out_of_stock: "Out of Stock"
         view_details: "View Details"
         image_alt: "Image for %{model_name}"
-        rental_start: "Start Date"
-        rental_end: "End Date"
+        rental_start: "Pick Up"
+        rental_end: "Return"
       show:
         title: "%{name} - %{brand}"
         engine_capacity: "Engine Capacity"
         rent_now: "Rent Now"
         add_to_cart: "Add to Cart"
-        related: "Related Vehicles"
-        rental_start: "Start Date"
-        rental_end: "End Date"
+        related: "Similar Bikes"
+        rental_start: "Pick Up"
+        rental_end: "Return"
         rental_duration: "Rental Duration"
-        quantity: "Quantity"
+        quantity: "Bike Quantity"
         days: "Days"
         total_price: "Total Price"
       edit:
         title: "Edit Price for %{name}"
-        price_per_day: "Price per Day"
-        price_placeholder: "Enter price per day"
-        price_invalid_feedback: "Price is required and must be a valid number."
-        back: "Back"
+        price_per_day: "Rental Price per Day"
+        price_placeholder: "Enter rental price per day"
+        price_invalid_feedback: "Price is required and must be valid."
+        back: "Go Back"
         update_button: "Update Price"
     cart_items:
       index:
         title: "Your Cart"
-        start_datetime: "Start Date:"
-        end_datetime: "End Date:"
+        start_datetime: "Pick Up:"
+        end_datetime: "Return:"
         not_specified: "Not Specified"
         model_image: "Image"
         model_name: "Name"
         quantity_in_cart: "Quantity"
-        price: "Total Price"
+        price: "Rental Price"
         price_per_day: "Price per Day"
         actions: "Actions"
         quantity_available: "Available Quantity:"
@@ -140,35 +141,105 @@ en:
         total_price: "Total Price:"
         checkout: "Checkout"
         empty: "Your cart is empty."
+        rental_duration: "Rental Duration (Days)"
+        out_of_stock: "Out of Stock"
+      checkout:
+        title: "Checkout Information"
+        name: "Contact Name"
+        phone_number: "Phone Number"
+        delivery_location: "Bike Pickup Location"
+        cancel: "Cancel"
+        confirm: "Confirm"
+        reason: "Reason for Declining"
+    rentals:
+      index:
+        title: "Bike Rentals"
+        name: "Contact Name"
+        phone_number: "Phone Number"
+        delivery_location: "Pickup Location"
+        start_datetime: "Pick Up"
+        end_datetime: "Return"
+        total_price: "Total Price"
+        status: "Status"
+        approve: "Approve"
+        reject: "Reject"
+        cancel: "Cancel"
+        view: "View Details"
+        confirm_reject: "Confirm"
+        reject_reason: "Reason"
+        reason: "Reason for Declining"
+      show:
+        rental_details: "Rental Details"
+        title: "Bike Rental"
+        name: "Contact Name"
+        phone_number: "Phone Number"
+        delivery_location: "Pickup Location"
+        start_datetime: "Pick Up"
+        end_datetime: "Return"
+        total_price: "Total Price"
+        status: "Status"
+        approve: "Approve"
+        reject: "Reject"
+        cancel: "Cancel"
+        view: "View Details"
+        vehicles: "Bike List"
+        back_to_index: "Go Back"
+        decline_reason: "Reason for Declining"
   controller:
     vehicle_detail:
       create:
-        success: "Vehicle details added successfully"
+        success: "Bike information added successfully"
       destroy:
-        success: "Vehicle details deleted successfully"
+        success: "Bike information deleted successfully"
       update:
-        success: "Vehicle details updated successfully"
-        not_found: "Vehicle details not found"
+        success: "Bike information updated successfully"
+        not_found: "Bike information not found"
     model:
-      not_found: "Model not found"
+      not_found: "Bike model not found"
       update:
         success: "Price updated successfully!"
-        error: "Failed to update price."
+        error: "Price update failed."
     cart_items:
       create:
-        created_success: "Vehicle added to cart"
+        created_success: "Bike added to cart"
+    rentals:
+      create:
+        success: "Rental created successfully"
+        failure: "Rental creation failed"
+        not_enough_vehicles: "Not enough bikes available"
+        error: "Error: %{message}"
+      approve:
+        success: "Rental approved"
+        error: "Error approving rental"
+      reject:
+        success: "Rental rejected"
+        error: "Error rejecting rental"
+      cancel:
+        success: "Rental canceled"
+        error: "Error canceling rental"
+      not_found: "Rental not found"
+      unauthorized: "You are not authorized to perform this action"
+  models:
+    rental:
+      statuses:
+        pending: "Pending"
+        approved: "Approved"
+        rejected: "Rejected"
+        canceled: "Canceled"
+        renting: "Renting"
+        returned: "Returned"
   activerecord:
     models:
-      vehicle_detail: "Vehicle Detail"
+      vehicle_detail: "Bike Information"
       attributes:
         vehicle_detail:
           model: "Model"
     attributes:
       vehicle_detail:
         number: "License Plate"
-        vehicle_type: "Vehicle Type"
+        vehicle_type: "Type"
         engine_capacity: "Engine Capacity"
-        price_per_day: "Daily Price"
+        price_per_day: "Rental Price per Day"
         color: "Color"
         model_id: "Model"
       model:
@@ -187,7 +258,7 @@ en:
         header:
           one: "1 error occurred:"
           other: "%{count} errors occurred:"
-        body: "Please review the following errors and try again:"
+        body: "Please check the following errors and try again:"
       models:
         vehicle_detail:
           attributes:
@@ -208,8 +279,7 @@ en:
               blank: "cannot be blank"
             model_id:
               blank: "must be selected"
-          base:
   errors:
-    minimum_duration: "The minimum rental duration is %{hours} hours."
-    invalid_datetime: "Invalid datetime. Please select again."
-    exceeds_available_quantity: "Invalid vehicle quantity. Please select again."
+    minimum_duration: "Minimum rental duration is %{hours} hours."
+    invalid_datetime: "Invalid date and time. Please select again."
+    exceeds_available_quantity: "Invalid quantity of bikes."

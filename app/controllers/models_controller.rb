@@ -8,7 +8,15 @@ class ModelsController < ApplicationController
   def index
     session[:start_datetime] = @start_datetime
     session[:end_datetime] = @end_datetime
-    @pagy, @models = pagy(Model.ordered_by_vehicle_count)
+
+    @models = Model.filtered(params[:brand_id], params[:min_price], params[:max_price], params[:vehicle_type],
+                             params[:engine_capacity])
+
+    @pagy, @models = pagy(@models)
+
+    @brands = Brand.all
+    @vehicle_types = Model.vehicle_types.keys
+    @engine_capacities = Model.engine_capacities.keys
   end
 
   def show
@@ -37,14 +45,6 @@ class ModelsController < ApplicationController
 
     flash[:error] = t "controller.model.not_found"
     redirect_to models_path
-  end
-
-  def clear_cart
-    current_user.cart_items.destroy_all
-  end
-
-  def authorize_admin
-    redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
   end
 
   def model_params

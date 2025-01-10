@@ -18,13 +18,16 @@ class VehicleDetail < ApplicationRecord
             if: :image_attached?
   scope :ordered_by_newest, -> { order(created_at: :desc) }
   scope :available, -> { where(available: true) }
+  scope :by_model, ->(model_id) { where(model_id: model_id) if model_id.present? }
   scope :free_in_time_range, lambda { |start_datetime, end_datetime|
     available.where.not(id: RentalVehicle.joins(:rental).where(
-      "rentals.start_datetime < ? AND rentals.end_datetime > ?",
-      end_datetime, start_datetime
+      "rentals.start_datetime < ? AND rentals.end_datetime > ? AND rentals.status NOT IN (?)",
+      end_datetime, start_datetime, [Rental.statuses[:rejected], Rental.statuses[:canceled], Rental.statuses[:returned]]
     ).select(:vehicle_detail_id))
   }
-
+  scope :free_in_time_range_for_model, lambda { |start_datetime, end_datetime, model_id, quantity|
+    free_in_time_range(start_datetime, end_datetime).by_model(model_id).limit(quantity)
+  }
   PERMITTED_PARAMS = %i[
     model_id
     number

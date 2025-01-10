@@ -13,18 +13,16 @@
         <li class="nav-item">
           <%= link_to t("views.navbar.contact"), contact_path, class: "nav-link" %>
         </li>
-        <% if logged_in? %>
-          <li class="nav-item">
-            <%= link_to t("views.navbar.logout"), session_path, data: {turbo_method: :delete }, class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to t("views.navbar.login"), new_session_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to t("views.navbar.register"), "#", class: "nav-link" %>
-          </li>
-        <% end %>
+        <li class="nav-item">
+          <% if logged_in? %>
+            <% if current_user&.admin? %>
+              <%= link_to t("views.navbar.rentals"), admin_rentals_path, class: "nav-link" %>
+            <% end %>
+            <% if current_user&.user? %>
+              <%= link_to t("views.navbar.rentals"), user_rentals_path, class: "nav-link" %>
+            <% end %>
+          <% end %>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="carDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= t "views.navbar.vehicle_list" %>
@@ -38,7 +36,8 @@
           </ul>
         </li>
       </ul>
-            <ul class="navbar-nav">
+
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item cart-icon">
           <%= link_to cart_items_path, class: "nav-link" do %>
             <i class="bi bi-cart" style="font-size: 1.5rem;"></i>
@@ -47,6 +46,19 @@
             <% end %>
           <% end %>
         </li>
+
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to t("views.navbar.logout"), session_path, data: { turbo_method: :delete }, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to t("views.navbar.login"), new_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t("views.navbar.register"), "#", class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

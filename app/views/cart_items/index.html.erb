@@ -22,5 +22,6 @@
     </p>
   </div>
 
-  <%= render partial: "cart_items/cart_items_table", locals: { cart_items: current_user.cart_items.includes(:model), total_price: @total_price } %>
+  <%= render partial: "cart_items_table", locals: { cart_items: current_user.cart_items.includes(:model), start_datetime: @start_datetime, end_datetime: @end_datetime, total_price: @total_price } %>
+  <%= render partial: "checkout_modal", locals: {total_price: @total_price } %>
 </div>

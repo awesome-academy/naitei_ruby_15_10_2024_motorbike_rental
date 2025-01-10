@@ -21,6 +21,15 @@ User.create!(
   status: :active,
   phone_number: "0932417534"
 )
+User.create!(
+  name: "Normal User",
+  email: "pqn2@gmail.com",
+  password: "123456",
+  password_confirmation: "123456",
+  role: :user,
+  status: :active,
+  phone_number: "0932417535"
+)
 brands_and_models = [
   {
     name: "Honda",
