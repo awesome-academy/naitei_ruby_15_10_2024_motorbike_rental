@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_02_074125) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_10_062234) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,12 +74,13 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_02_074125) do
 
   create_table "proofs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.string "image_url"
     t.integer "storage_type"
     t.bigint "user_id", null: false
     t.bigint "rental_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "image_id"
+    t.index ["image_id"], name: "index_proofs_on_image_id"
     t.index ["rental_id"], name: "index_proofs_on_rental_id"
     t.index ["user_id"], name: "index_proofs_on_user_id"
   end
@@ -140,6 +141,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_02_074125) do
   add_foreign_key "cart_items", "models"
   add_foreign_key "cart_items", "users"
   add_foreign_key "models", "brands"
+  add_foreign_key "proofs", "active_storage_attachments", column: "image_id"
   add_foreign_key "proofs", "rentals"
   add_foreign_key "proofs", "users"
   add_foreign_key "rental_vehicles", "rentals"

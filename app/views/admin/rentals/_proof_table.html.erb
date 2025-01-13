@@ -1,0 +1,33 @@
+<div class="bg-white shadow-sm rounded-lg p-6">
+  <h2 class="text-xl font-semibold mb-6"><%= t("views.rentals.show.proofs") %></h2>
+  <div class="mb-8">
+    <%= render partial: "proof_form", locals: { rental: @rental } %>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th><%= t("views.proofs.name") %></th>
+          <th><%= t("views.proofs.image") %></th>
+          <th><%= t("views.proofs.storage_type") %></th>
+          <th><%= t("views.proofs.created_at") %></th>
+          <th><%= t("views.proofs.actions") %></th>
+        </tr>
+      </thead>
+      <tbody>
+          <% if @rental.proofs.empty? %>
+            <tr>
+              <td colspan="5" class="text-center text-muted">
+                <%= t("views.rentals.show.no_proofs") %>
+              </td>
+            </tr>
+          <% else %>
+            <% @rental.proofs.each do |proof| %>
+              <%= render partial: "proof", locals: { proof: proof, rental: @rental } %>
+            <% end %>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

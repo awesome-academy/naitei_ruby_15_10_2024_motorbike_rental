@@ -1,0 +1,21 @@
+<tr>
+  <td><%= proof.name %></td>
+  <td>
+    <% if proof.image.attached? %>
+      <%= image_tag proof.image, class: "img-fluid rounded" %>
+    <% end %>
+  </td>
+  <td>
+    <span class="badge <%= proof.original? ? "bg-success" : "bg-info" %>">
+      <%= t("views.proofs.storage_types.#{proof.storage_type}") %>
+    </span>
+  </td>
+  <td><%= proof.created_at.strftime("%H:%M, %d/%m/%Y") %></td>
+  <td>
+    <%= link_to admin_rental_proof_path(@rental, proof),
+        data: { turbo_method: :delete, turbo_confirm: t("views.proofs.confirm_delete") },
+        class: "text-danger" do %>
+      <i class="bi bi-trash"></i>
+    <% end %>
+  </td>
+</tr>

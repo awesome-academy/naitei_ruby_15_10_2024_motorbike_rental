@@ -1,0 +1,8 @@
+<% if current_user&.user? && rental.pending? %>
+  <%= button_to cancel_user_rental_path(rental),
+                method: :patch,
+                class: "btn btn-warning btn-sm ms-1" do %>
+    <i class="bi bi-x-circle me-1"></i>
+    <%= t("views.rentals.index.cancel") %>
+  <% end %>
+<% end %>
