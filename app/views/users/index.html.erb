@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4"><%= t("views.user.title") %></h1>
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th><%= t("views.user.name") %></th>
+        <th><%= t("views.user.email") %></th>
+        <th><%= t("views.user.phone_number") %></th>
+        <th><%= t("views.user.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.phone_number %></td>
+          <td>
+            <% if current_user&.admin? %>
+              <%= link_to t("views.navbar.rentals"), admin_rentals_path(user_id: user.id), 
+                          class: "btn btn-outline-primary btn-sm" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

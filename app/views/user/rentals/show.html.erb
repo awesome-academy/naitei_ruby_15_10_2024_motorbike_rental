@@ -26,7 +26,7 @@
 
        <div class="flex justify-between border-b pb-2">
          <span class="fw-medium"><%= t("views.rentals.show.total_price") %>:</span>
-         <span><%= number_with_delimiter(@rental.total_price, delimiter: ".") %> VND</span>
+         <span>₫<%= number_with_delimiter(@rental.total_price, delimiter: ".") %></span>
        </div>
      </div>
 
@@ -63,7 +63,7 @@
          <span class="fw-medium text-red-700 mr-2">
            <%= t("views.rentals.show.decline_reason") %>:
          </span>
-         <span class="text-red-600"><%= @rental.decline_reason %></span>
+         <span class="text-red-600"><%= simple_format(@rental.decline_reason) %></span>
        </p>
      </div>
    <% end %>

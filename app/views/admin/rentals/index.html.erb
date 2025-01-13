@@ -4,24 +4,50 @@
   <h1 class="mb-4 text-center"><%= t("views.rentals.index.title") %></h1>
   <div class="row mb-4">
     <div class="col-md-8 offset-md-2">
-      <%= form_with(url: admin_rentals_path, method: :get, local: true, class: "d-flex") do %>
-        <div class="d-flex w-100">
-          <input type="text" name="search_name" placeholder="<%= t('views.rentals.index.search_name') %>" class="form-control" value="<%= params[:search_name] %>">
-          <input type="text" name="search_phone" placeholder="<%= t('views.rentals.index.search_phone') %>" class="form-control ms-2" value="<%= params[:search_phone] %>">
-          <input type="date" name="start_datetime" placeholder="<%= t('views.rentals.index.start_date') %>" class="form-control ms-2" value="<%= params[:start_datetime] %>">
-          <input type="date" name="end_datetime" placeholder="<%= t('views.rentals.index.end_date') %>" class="form-control ms-2" value="<%= params[:end_datetime] %>">
-          
-          <select name="status" class="form-control ms-2">
-            <option value=""><%= t('views.rentals.index.select_status') %></option>
-            <% Rental.statuses.each do |key, _value| %>
-              <option value="<%= key %>" <%= 'selected' if params[:status] == key %>><%= t("models.rental.statuses.#{key}") %></option>
-            <% end %>
-          </select>
+      <%= form_with(url: admin_rentals_path, method: :get, local: true) do %>
+        <div class="row mb-3">
+          <div class="col">
+            <input type="text" name="search_name" placeholder="<%= t("views.rentals.index.search_name") %>" class="form-control" value="<%= params[:search_name] %>">
+          </div>
+          <div class="col">
+            <input type="text" name="search_phone" placeholder="<%= t("views.rentals.index.search_phone") %>" class="form-control" value="<%= params[:search_phone] %>">
+          </div>
+          <div class="col">
+            <input type="email" name="search_email" placeholder="<%= t("views.rentals.index.search_email") %>" class="form-control" value="<%= params[:search_email] %>">
+          </div>
         </div>
-        
-        <button type="submit" class="btn btn-primary ms-2">
-          <%= t('views.rentals.index.search') %>
-        </button>
+
+        <div class="row align-items-center">
+          <div class="col">
+            <input type="date" name="start_datetime" placeholder="<%= t("views.rentals.index.start_date") %>" class="form-control" value="<%= params[:start_datetime] %>">
+          </div>
+          <div class="col">
+            <input type="date" name="end_datetime" placeholder="<%= t("views.rentals.index.end_date") %>" class="form-control" value="<%= params[:end_datetime] %>">
+          </div>
+          <div class="col">
+              <%= select_tag(
+                :status,
+                options_for_select(
+                  Rental.statuses.map { |key, _value| [t("models.rental.statuses.#{key}"), key] },
+                  params[:status]
+                ),
+                { prompt: t("views.rentals.index.select_status"), class: "form-control" }
+              ) %>
+          </div>
+          <div class="col">
+            <div class="form-check form-switch">
+              <input type="checkbox" name="overdue" class="form-check-input" id="overdueToggle" <%= "checked" if params[:overdue] == "on" %> >
+              <label class="form-check-label" for="overdueToggle">
+                <%= t("views.rentals.index.overdue") %>
+              </label>
+            </div>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <%= t("views.rentals.index.search") %>
+            </button>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates :name, :phone_number, :role, :status, presence: true
   validates :role, inclusion: { in: roles.keys }
   validates :status, inclusion: { in: statuses.keys }
+  before_validation :set_default_role_and_status
   def generate_remember_token
     SecureRandom.urlsafe_base64
   end
@@ -31,5 +32,12 @@ class User < ApplicationRecord
   def self.authenticate(login, password)
     user = find_by("email = ? OR phone_number = ?", login, login)
     user&.authenticate(password) ? user : nil
+  end
+
+  private
+
+  def set_default_role_and_status
+    self.role ||= :user
+    self.status ||= :active
   end
 end
