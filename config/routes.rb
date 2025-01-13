@@ -25,7 +25,10 @@ Rails.application.routes.draw do
         member do
           patch :approve
           patch :reject
+          patch :rent
+          patch :return
         end
+        resources :proofs, only: %i[create destroy]
       end
     end
 

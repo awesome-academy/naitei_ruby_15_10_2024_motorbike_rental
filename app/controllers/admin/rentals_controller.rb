@@ -1,7 +1,7 @@
 class Admin::RentalsController < ApplicationController
   include Pagy::Backend
   before_action :authorize_admin
-  before_action :set_rental, only: %i[show approve reject]
+  before_action :set_rental, only: %i[show approve reject rent return]
 
   def index
     @rentals = Rental.filter_by(params).order(created_at: :desc)
@@ -17,21 +17,43 @@ class Admin::RentalsController < ApplicationController
   def approve
     if @rental.pending?
       @rental.update(status: :approved)
-      flash[:success] = t("controller.rentals.approve.success")
+      redirect_to admin_rental_path(@rental), notice: t("views.rentals.update_status.success")
     else
-      flash[:error] = t("controller.rentals.approve.error")
+      redirect_to admin_rental_path(@rental), alert: t("views.rentals.update_status.failed")
     end
-    redirect_to admin_rentals_path
   end
 
   def reject
     if @rental.pending? && params[:decline_reason].present?
       @rental.update(status: :rejected, decline_reason: params[:decline_reason])
-      flash[:success] = t("controller.rentals.reject.success")
+      redirect_to admin_rental_path(@rental), notice: t("views.rentals.update_status.success")
     else
-      flash[:error] = t("controller.rentals.reject.error")
+      redirect_to admin_rental_path(@rental), alert: t("views.rentals.update_status.failed")
     end
-    redirect_to admin_rentals_path
+  end
+
+  def rent
+    if @rental.approved?
+      @rental.update(status: :renting)
+      redirect_to admin_rental_path(@rental), notice: t("views.rentals.update_status.success")
+    else
+      redirect_to admin_rental_path(@rental), alert: t("views.rentals.update_status.failed")
+    end
+  end
+
+  def return
+    if @rental.renting?
+      now = Time.current
+      rate = @rental.total_price / calculate_rental_duration(@rental.start_datetime, @rental.end_datetime)
+      duration = calculate_rental_duration(@rental.start_datetime, now)
+      real_price = duration * rate
+      @rental.update(return_datetime: Time.current)
+      @rental.update(total_price: real_price)
+      @rental.update(status: :returned)
+      redirect_to admin_rental_path(@rental), notice: t("views.rentals.update_status.success")
+    else
+      redirect_to admin_rental_path(@rental), alert: t("views.rentals.update_status.failed")
+    end
   end
 
   private

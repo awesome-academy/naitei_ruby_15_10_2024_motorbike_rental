@@ -4,8 +4,9 @@
   <td>
     <div class="d-flex flex-column align-items-center position-relative">
       <%= image_tag cart_item.model.available_image || "placeholder_image.jpg", 
-          class: "img-thumbnail mb-2 #{'opacity-50' if vehicle_count == 0}", 
-          alt: t("views.models.index.image_alt", model_name: cart_item.model.name) %>
+        class: "img-thumbnail mb-2 #{'opacity-50' if vehicle_count == 0}", 
+        style: "width: 150px; height: 150px;", 
+        alt: t("views.models.index.image_alt", model_name: cart_item.model.name) %>
       <% if vehicle_count == 0 %>
         <div class="position-absolute top-50 start-50 translate-middle bg-danger text-white px-2 py-1 rounded shadow">
           <%= t("views.cart_items.index.out_of_stock") %>

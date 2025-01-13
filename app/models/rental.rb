@@ -10,10 +10,12 @@ class Rental < ApplicationRecord
   scope :search_by_date_range, lambda { |start_date, end_date|
     where("start_datetime >= ? AND end_datetime <= ?", start_date, end_date) if start_date.present? && end_date.present?
   }
+  scope :search_by_status, ->(status) { where(status: status) if status.present? }
   scope :filter_by, lambda { |params|
     search_by_name(params[:search_name])
       .search_by_phone(params[:search_phone])
       .search_by_date_range(params[:start_datetime], params[:end_datetime])
+      .search_by_status(params[:status])
   }
   scope :by_user, ->(user_id) { where(user_id: user_id).order(created_at: :desc) }
   def cancellable?
