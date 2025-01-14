@@ -1,4 +1,19 @@
 en:
+  users:
+    new:
+      title: "Register New User"
+      name: "Full Name"
+      email: "Email Address"
+      phone_number: "Phone Number"
+      password: "Password"
+      password_confirmation: "Confirm Password"
+      register_button: "Register"
+      back_to_home: "Back to Home"
+      errors:
+        header: "There were errors with your submission:"
+  notices:
+    user_registered: "User registered successfully!"
+    user_registration_failed: "There was an error. Please check again."
   sessions:
     login: "Login"
     email_or_phone_placeholder: "Enter email or phone number"
@@ -17,17 +32,29 @@ en:
   title:
     page_title: "Uncle Ut Rentals"
   views:
+    user:
+      title: "User Management"
+      name: "Name"
+      email: "Email"
+      phone_number: "Phone Number"
+      actions: "Actions"
+      show:
+        load_false: "No access rights"
     navbar:
-      app_name: "Uncle Ut Rentals"
+      app_name: "Uncle Ut's Motorbike Rental"
       home: "Home"
       register: "Register"
       login: "Login"
       logout: "Logout"
       contact: "Contact"
-      vehicle_list: "Bike List"
-      model_list: "Bike Models"
-      brand_list: "Bike Brands"
-      rentals: "Bike Rentals"
+      rent_now: "Rent a Motorbike Now"
+      bike_manage: "Bike Management"
+      bike_list: "Bike List"
+      model_list: "Model List"
+      brand_list: "Brand List"
+      user_list: "User Management"
+      rentals: "Rental Orders"
+      profile: "Profile"
     static_pages:
       home:
         slide:
@@ -94,16 +121,22 @@ en:
     models:
       index:
         title: "Bike Models"
-        select_brand: "Select Brand"
+        select_brand: "Brand"
         filter: "Find Bikes"
         price_per_day: "Price per Day"
-        vehicle_count: "Available Quantity"
-        vehicles: "bikes"
+        bike_count: "Available Quantity"
+        bikes: "Bikes"
         out_of_stock: "Out of Stock"
         view_details: "View Details"
         image_alt: "Image for %{model_name}"
         rental_start: "Pick Up"
         rental_end: "Return"
+        min_price: "0đ"
+        max_price: "5000,000đ"
+        select_vehicle_type: "Bike Type"
+        select_engine_capacity: "Engine Capacity"
+        min_engine_capacity: "0"
+        max_engine_capacity: "0"
       show:
         title: "%{name} - %{brand}"
         engine_capacity: "Engine Capacity"
@@ -120,7 +153,7 @@ en:
         title: "Edit Price for %{name}"
         price_per_day: "Rental Price per Day"
         price_placeholder: "Enter rental price per day"
-        price_invalid_feedback: "Price is required and must be valid."
+        price_invalid_feedback: "Price is required and must be a valid number."
         back: "Go Back"
         update_button: "Update Price"
     cart_items:
@@ -152,39 +185,84 @@ en:
         confirm: "Confirm"
         reason: "Reason for Declining"
     rentals:
+      email:
+        dear: "Dear %{name},"
+        approval_message: "Your bike rental order has been accepted."
+        rejection_message: "Your bike rental order has been rejected."
+        reason_for_rejection: "Reason for Rejection"
+        rental_id: "Order ID"
+        start_datetime: "Pick-Up Date"
+        end_datetime: "Return Date"
+        total_price: "Total Price"
+        rented_vehicles: "Rented Bikes"
+        rejection_reason: "With the reason"
+        contact_us: "If you have any questions, please contact us at: "
+        thank_you: "Thank you for using Uncle Ut's Bike Rental service."
+        address: "Address: 204 Pham Van Dong, An Hai Bac Ward, Son Tra District, Da Nang City"
+        phone: "Phone: 091 105 91 45"
+        email: "Email: thuexecauut@gmail.com"
       index:
-        title: "Bike Rentals"
+        id: "ID"
+        title: "Rental Orders"
         name: "Contact Name"
         phone_number: "Phone Number"
-        delivery_location: "Pickup Location"
-        start_datetime: "Pick Up"
-        end_datetime: "Return"
+        delivery_location: "Pick-Up Location"
+        start_datetime: "Pick-Up Date"
+        end_datetime: "Return Date"
+        return_datetime: "Actual Return Time"
         total_price: "Total Price"
         status: "Status"
-        approve: "Approve"
+        approve: "Accept"
         reject: "Reject"
-        cancel: "Cancel"
+        rent: "Rent"
+        return: "Return Bike"
+        cancel: "Cancel Order"
         view: "View Details"
         confirm_reject: "Confirm"
         reject_reason: "Reason"
-        reason: "Reason for Declining"
+        reason: "Reason for Rejection"
+        search_name: "Name"
+        search_phone: "Phone Number"
+        select_status: "Status"
+        search: "Search"
+        start_date: "Pick-Up Date"
+        end_date: "Return Date"
+        no_rentals: "No orders found"
       show:
-        rental_details: "Rental Details"
-        title: "Bike Rental"
+        change_to_renting: "Rent"
+        rental_details: "Order Details"
+        title: "Rental Order"
         name: "Contact Name"
         phone_number: "Phone Number"
-        delivery_location: "Pickup Location"
-        start_datetime: "Pick Up"
-        end_datetime: "Return"
+        delivery_location: "Pick-Up Location"
+        start_datetime: "Pick-Up Date"
+        end_datetime: "Return Date"
+        return_datetime: "Actual Return Time"
         total_price: "Total Price"
         status: "Status"
-        approve: "Approve"
+        approve: "Accept"
         reject: "Reject"
-        cancel: "Cancel"
+        cancel: "Cancel Order"
         view: "View Details"
         vehicles: "Bike List"
-        back_to_index: "Go Back"
-        decline_reason: "Reason for Declining"
+        back_to_index: "Back to List"
+        decline_reason: "Reason for Rejection"
+        proofs: "Proofs"
+        add_proof: "Add Proof"
+        no_proofs: "No proofs available"
+      update_status:
+        success: "Update successful"
+        failed: "Update failed"
+    proofs:
+      name: "Name"
+      image: "Image"
+      created_at: "Date Added"
+      actions: "Actions"
+      confirm_delete: "Are you sure you want to delete this proof?"
+      storage_type: "Storage Type"
+      storage_types:
+        original: "Original"
+        copy: "Copy"
   controller:
     vehicle_detail:
       create:
@@ -219,6 +297,10 @@ en:
         error: "Error canceling rental"
       not_found: "Rental not found"
       unauthorized: "You are not authorized to perform this action"
+    proofs:
+      create:
+        success: "Proof added successfully"
+        failure: "Failed to add proof"
   models:
     rental:
       statuses:
@@ -235,23 +317,27 @@ en:
         vehicle_detail:
           model: "Model"
     attributes:
+      proof:
+        storage_type: "Storage Type"
+        name: "Name"
+        image: "Image"
       vehicle_detail:
         number: "License Plate"
-        vehicle_type: "Type"
+        vehicle_type: "Bike Type"
         engine_capacity: "Engine Capacity"
-        price_per_day: "Rental Price per Day"
+        price_per_day: "Daily Rental Price"
         color: "Color"
         model_id: "Model"
       model:
         vehicle_types:
           scooter: "Scooter"
-          manual: "Manual"
-          moto: "Motorbike"
+          manual: "Manual Bike"
+          moto: "Clutch/Motorbike"
         engine_capacities:
-          under_50cc: "Under 50cc"
-          from_50_to_100cc: "50 - 100cc"
-          from_100_to_175cc: "100 - 175cc"
-          over_175cc: "Over 175cc"
+          under_50cc: "Under 50 cc"
+          from_50_to_100cc: "50 - 100 cc"
+          from_100_to_175cc: "100 - 175 cc"
+          over_175cc: "Over 175 cc"
           unknown: "Unknown"
     errors:
       template:

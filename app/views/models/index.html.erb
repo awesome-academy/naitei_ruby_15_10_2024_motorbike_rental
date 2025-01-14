@@ -9,7 +9,8 @@
   
   <%= form_tag models_path, method: :get, class: "mb-4" do %>
     <div class="row g-3">
-      <div class="col-md-6">
+      
+      <div class="col-md-12">
         <div class="row g-3">
           <div class="col-md-6">
             <%= render partial: "shared/datetime_selector", locals: {
@@ -28,16 +29,19 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <!-- Hãng xe, Loại xe và Dung tích xe -->
+      <div class="col-md-12">
         <div class="row g-3">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="mb-3">
               <%= select_tag :brand_id, 
                   options_from_collection_for_select(@brands, :id, :name, params[:brand_id]),
                   class: "form-select",
                   prompt: t("views.models.index.select_brand") %>
             </div>
-            <div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
               <%= select_tag :vehicle_type, 
                   options_for_select(@vehicle_types.map { |type| 
                     [t("activerecord.attributes.model.vehicle_types.#{type}"), type] 
@@ -46,24 +50,33 @@
                   prompt: t("views.models.index.select_vehicle_type") %>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="mb-3">
-              <%= number_field_tag :min_price, params[:min_price], 
-                  placeholder: t("views.models.index.min_price"), 
-                  class: "form-control" %>
-            </div>
-            <div class="mb-3">
-              <%= number_field_tag :max_price, params[:max_price], 
-                  placeholder: t("views.models.index.max_price"), 
-                  class: "form-control" %>
-            </div>
-            <div>
               <%= select_tag :engine_capacity, 
                   options_for_select(@engine_capacities.map { |capacity| 
                     [t("activerecord.attributes.model.engine_capacities.#{capacity}"), capacity] 
                   }, params[:engine_capacity]),
                   class: "form-select",
                   prompt: t("views.models.index.select_engine_capacity") %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <%= number_field_tag :min_price, params[:min_price], 
+                  placeholder: t("views.models.index.min_price"), 
+                  class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <%= number_field_tag :max_price, params[:max_price], 
+                  placeholder: t("views.models.index.max_price"), 
+                  class: "form-control" %>
             </div>
           </div>
         </div>

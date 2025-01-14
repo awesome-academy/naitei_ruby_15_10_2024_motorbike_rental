@@ -101,13 +101,24 @@
                 </div>
 
                 <div class="d-flex gap-2 mt-4">
-                    <%= link_to new_cart_item_path(model_id: @model), 
-                                class: "btn btn-success flex-1 d-flex align-items-center justify-content-center gap-2", 
-                                style: "flex-basis: 60%",
-                                id: "rent-now-btn" do %>
-                        <i class="fas fa-motorcycle"></i>
-                        <span class="flex-grow-1 text-center"><%= t "views.models.show.rent_now" %></span>
+                    <%= link_to cart_items_path(
+                                  model_id: @model,
+                                  cart_item: {
+                                    start_datetime: @start_datetime,
+                                    end_datetime: @end_datetime,
+                                    quantity: 1,
+                                    rent_now: :true
+                                  }), 
+                                  class: "btn btn-success flex-1 d-flex align-items-center justify-content-center gap-2",
+                                  style: "flex-basis: 40%",
+                                  data: { 
+                                    turbo_method: :post,
+                                    turbo_action: :advance
+                                  } do %>
+                          <i class="fas fa-motorcycle"></i>
+                          <span class="flex-grow-1 text-center"><%= t "views.models.show.rent_now" %></span>
                     <% end %>
+
 
                     <%= link_to cart_items_path(
                                 model_id: @model,

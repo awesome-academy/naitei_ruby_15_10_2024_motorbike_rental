@@ -1,14 +1,38 @@
 vi:
+  admin: 
+    proofs: 
+      create: 
+        success: Thêm bằng chứng thành công
+      destroy: 
+        success: Đã xóa bằng chứng
+  users:
+      new:
+        title: "Đăng ký người dùng mới"
+        name: "Họ và tên"
+        email: "Địa chỉ email"
+        phone_number: "Số điện thoại"
+        password: "Mật khẩu"
+        password_confirmation: "Xác nhận mật khẩu"
+        register_button: "Đăng ký"
+        back_to_home: "Quay lại trang chủ"
+        errors:
+          header: "Đã xảy ra lỗi khi đăng ký:"
+  notices:
+    user_registered: "Đăng ký thành công!"
+    user_registration_failed: "Có lỗi xảy ra, vui lòng kiểm tra lại."
   sessions:
     login: "Đăng nhập"
     email_or_phone_placeholder: "Nhập email hoặc số điện thoại"
     password_placeholder: "Nhập mật khẩu"
     login_button: "Đăng nhập"
     forgot_password: "Quên mật khẩu?"
+    register: Đăng ký
     invalid_credentials: "Sai thông tin đăng nhập."
     login_success: "Đăng nhâp thành công."
     logout_success: "Đăng xuất thành công."
     remember_me: "Ghi nhớ tôi"
+    password: "Mật khẩu"
+    
   roles:
     unauthorized: "Bạn không có quyền truy cập trang này."
   edit: "Sửa"
@@ -17,6 +41,14 @@ vi:
   title:
     page_title: "Thuê xe Cậu Út"
   views:
+    user: 
+      title: "Quản lý người dùng"
+      name: "Tên"
+      email: "Email"
+      phone_number: "Số điện thoại"
+      actions: "Thao tác"
+      show: 
+        load_false: Không có quyền truy cập
     navbar:
       app_name: "Thuê xe Cậu Út"
       home: "Trang chủ"
@@ -24,10 +56,14 @@ vi:
       login: "Đăng nhập"
       logout: "Đăng xuất"
       contact: "Liên hệ"
+      rent_now: "Thuê xe ngay"
+      vehicle_manage: "Quản lý xe"
       vehicle_list: "Danh sách xe"
       model_list: "Danh sách dòng xe"
       brand_list: "Danh sách hãng xe"
+      user_list: "Quản lý người dùng"
       rentals: "Đơn đặt xe"
+      profile: "Trang cá nhân"
     static_pages:
       home:
         slide:
@@ -158,7 +194,24 @@ vi:
         confirm: Xác nhận
         reason: Lý do từ chối đơn
     rentals: 
+      email:
+        dear: "Kính chào %{name},"
+        approval_message: "Đơn đặt xe của bạn đã được chấp nhận."
+        rejection_message: "Đơn đặt xe của bạn đã bị từ chối."
+        reason_for_rejection: Lý do từ chối
+        rental_id: "Mã đơn hàng"
+        start_datetime: "Ngày nhận xe"
+        end_datetime: "Ngày trả xe"
+        total_price: "Tổng tiền"
+        rented_vehicles: "Xe thuê"
+        rejection_reason: "Với lý do"
+        contact_us: "Nếu có thắc mắc hãy liên hệ qua: "
+        thank_you: "Cảm ơn vì đã sử dụng dịch vụ Thuê Xe Cậu Út."
+        address: "Địa chỉ: 204 Phạm Văn Đồng, P. An Hải Bắc, Q. Sơn Trà, TP. Đà Nẵng"
+        phone: "Số điện thoại: 091 105 91 45"
+        email: "Email: thuexecauut@gmail.com"
       index: 
+        id: Mã
         title: Đơn đặt xe
         name: Tên liên hệ
         phone_number: Số điện thoại
@@ -179,7 +232,9 @@ vi:
         reason: Lý do từ chối đơn
         search_name: Tên
         search_phone: SĐT
+        search_email: Email
         select_status: Trạng thái
+        overdue: Trễ hạn
         search: Tìm
         start_date: Nhận xe
         end_date: Trả xe
@@ -237,6 +292,9 @@ vi:
       create: 
         created_success: "Đã thêm xe vào giỏ hàng"
     rentals: 
+      rent: 
+        success: Cập nhật trạng thái thành công
+        failed: Chưa được chấp nhận hoặc thiếu bằng chứng
       create:
         success: "Tạo đơn thuê thành công"
         failure: "Tạo đơn thuê thất bại"
@@ -302,6 +360,23 @@ vi:
           other: "Có %{count} lỗi xảy ra:"
         body: "Vui lòng kiểm tra các lỗi sau và thử lại:"
       models:
+        user:
+          attributes:
+            password:
+              blank: "Mật khẩu không được để trống"
+            email:
+              blank: "Email không được để trống"
+              invalid: "Email không hợp lệ"
+            name:
+              blank: "Họ và tên không được để trống"
+            phone_number:
+              blank: "Số điện thoại không được để trống"
+            role:
+              blank: "Vai trò không được để trống"
+              inclusion: "Vai trò không hợp lệ"
+            status:
+              blank: "Trạng thái không được để trống"
+              inclusion: "Trạng thái không hợp lệ"
         proof:
           attributes:
             storage_type:
@@ -330,7 +405,71 @@ vi:
             model_id:
               blank: "phải được chọn"
           base:
+      messages:
+        blank: "không được để trống"
+        invalid: "không hợp lệ"
+        inclusion: "không nằm trong danh sách cho phép"
   errors:
+    messages: 
+      not_saved: Chưa được lưu
     minimum_duration: "Thời gian thuê tối thiểu là %{hours} giờ."
     invalid_datetime: "Ngày giờ không hợp lệ. Vui lòng chọn lại."
     exceeds_available_quantity: "Số lượng xe không hợp lệ. Vui lòng chọn lại"
+  devise: 
+    links:
+      login: "Đăng nhập"
+      sign_up: "Đăng ký"
+      forgot_password: "Quên mật khẩu?"
+      resend_confirmation: "Không nhận được mail xác nhận?"
+      resend_unlock: "Không nhận được mail mở khóa?"
+      sign_in_with: "Đăng nhập bằng %{provider}"
+    registrations:
+      signed_up: Đã đăng ký thành công
+      new:
+        title: "Đăng ký"
+        name: "Họ và Tên"
+        name_placeholder: "Nhập họ và tên của bạn"
+        phone_number: "Số điện thoại"
+        phone_number_placeholder: "Nhập số điện thoại của bạn"
+        email: "Email"
+        email_placeholder: "Nhập email của bạn"
+        password: "Mật khẩu"
+        password_hint: "Ít nhất %{length} ký tự"
+        password_placeholder: "Nhập mật khẩu của bạn"
+        password_confirmation: "Xác nhận mật khẩu"
+        password_confirmation_placeholder: "Nhập lại mật khẩu của bạn"
+        submit: "Đăng ký"
+    confirmations:
+      new:
+        title: "Gửi lại mail xác nhận"
+        email: "Địa chỉ email"
+        email_placeholder: "Nhập địa chỉ email của bạn"
+        submit: "Gửi lại mail"
+    passwords:
+      forgot_password: "Quên mật khẩu"
+      email: "Email"
+      send_reset_instructions: "Gửi lại mã kích hoạt"
+      change_password: "Thay đổi mật khẩu của bạn"
+      new_password: "Mật khẩu mới"
+      minimum_password_length: "Yêu cầu tối thiểu %{count} ký tự"
+      confirm_new_password: "Xác nhận mật khẩu mới"
+      change_my_password: "Thay đổi mật khẩu của tôi"
+    mailer:
+      confirmation_email:
+        greeting: "Chào mừng <%= @email %>!"
+        instruction: "Bạn có thể xác nhận email tài khoản của mình thông qua liên kết dưới đây:"
+        confirm_link: "Xác nhận tài khoản của tôi"
+      password_changed:
+        greeting: "Xin chào <%= @resource.email %>!"
+        notification: "Chúng tôi liên hệ để thông báo rằng mật khẩu của bạn đã được thay đổi."
+      reset_password:
+        greeting: "Xin chào <%= @resource.email %>!"
+        request_info: "Ai đó đã yêu cầu một liên kết để thay đổi mật khẩu của bạn. Bạn có thể thực hiện điều này thông qua liên kết bên dưới."
+        change_link: "Thay đổi mật khẩu của tôi"
+        ignore_note: "Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này."
+        reminder: "Mật khẩu của bạn sẽ không thay đổi cho đến khi bạn truy cập vào liên kết trên và tạo một mật khẩu mới."
+    failure: 
+      user: 
+        not_found_in_database: Tên tài khoản của bạn hoặc Mật khẩu không đúng, vui lòng thử lại
+        invalid: Không hợp lệ
+        already_authenticated: Đã đăng nhập

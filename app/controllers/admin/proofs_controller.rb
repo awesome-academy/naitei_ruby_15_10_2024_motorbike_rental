@@ -23,7 +23,7 @@ class Admin::ProofsController < ApplicationController
   private
 
   def set_rental
-    @rental = Rental.find_by(id: params[:id])
+    @rental = Rental.find_by(id: params[:rental_id])
     return unless @rental.nil?
 
     flash[:error] = t("controller.rentals.not_found")

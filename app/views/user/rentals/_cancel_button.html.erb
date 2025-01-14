@@ -1,4 +1,4 @@
-<% if current_user&.user? && rental.pending? %>
+<% if current_user&.customer? && rental.pending? %>
   <%= button_to cancel_user_rental_path(rental),
                 method: :patch,
                 class: "btn btn-warning btn-sm ms-1" do %>

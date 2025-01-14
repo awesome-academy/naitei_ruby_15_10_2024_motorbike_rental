@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get "rentals/new"
   get "rentals/create"
   scope "(:locale)", locale: /en|vi/ do
+    devise_for :users, controllers: {
+      confirmations: "users/confirmations"
+    }
     root "static_pages#home"
     get "/home", to: "static_pages#home"
     get "/contact", to: "static_pages#contact"
@@ -14,8 +17,12 @@ Rails.application.routes.draw do
         get "models"
       end
     end
-    resource :session
     resources :models
+    resources :users do
+      member do
+        patch :ban
+      end
+    end
     resources :cart_items do
       patch :update_quantity, on: :member
     end
