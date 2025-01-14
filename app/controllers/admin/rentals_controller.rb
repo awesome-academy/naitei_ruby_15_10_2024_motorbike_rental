@@ -5,7 +5,6 @@ class Admin::RentalsController < ApplicationController
 
   def index
     @rentals = Rental.filter_by(params).order(created_at: :desc)
-
     @pagy, @rentals = pagy(@rentals)
   end
 
@@ -17,6 +16,7 @@ class Admin::RentalsController < ApplicationController
   def approve
     if @rental.pending?
       @rental.update(status: :approved)
+      RentalMailer.approval_email(@rental).deliver_later
       redirect_to admin_rental_path(@rental), notice: t("views.rentals.update_status.success")
     else
       redirect_to admin_rental_path(@rental), alert: t("views.rentals.update_status.failed")
@@ -26,6 +26,7 @@ class Admin::RentalsController < ApplicationController
   def reject
     if @rental.pending? && params[:decline_reason].present?
       @rental.update(status: :rejected, decline_reason: params[:decline_reason])
+      RentalMailer.rejection_email(@rental).deliver_later
       redirect_to admin_rental_path(@rental), notice: t("views.rentals.update_status.success")
     else
       redirect_to admin_rental_path(@rental), alert: t("views.rentals.update_status.failed")
@@ -33,11 +34,11 @@ class Admin::RentalsController < ApplicationController
   end
 
   def rent
-    if @rental.approved?
+    if @rental.can_rent?
       @rental.update(status: :renting)
-      redirect_to admin_rental_path(@rental), notice: t("views.rentals.update_status.success")
+      redirect_to admin_rental_path(@rental), notice: t("controller.rentals.rent.success")
     else
-      redirect_to admin_rental_path(@rental), alert: t("views.rentals.update_status.failed")
+      redirect_to admin_rental_path(@rental), alert: t("controller.rentals.rent.failed")
     end
   end
 

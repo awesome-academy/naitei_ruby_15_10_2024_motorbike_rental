@@ -1,0 +1,18 @@
+<p><%= t("views.rentals.email.dear", name: @user.name) %></p>
+<p><%= t("views.rentals.email.rejection_message") %></p>
+<p><%= t("views.rentals.email.rental_id") %>: <%= @rental.id %></p>
+<p><%= t("views.rentals.email.reason_for_rejection") %>: <%= @rental.decline_reason %></p>
+<p><%= t("views.rentals.email.start_datetime") %>: <%= @rental.start_datetime.strftime("%H:%M, %d/%m/%Y") %></p>
+<p><%= t("views.rentals.email.end_datetime") %>: <%= @rental.end_datetime.strftime("%H:%M, %d/%m/%Y") %></p>
+<p><%= t("views.rentals.email.total_price") %>: ₫<%= number_with_delimiter(@rental.total_price, delimiter: ".") %></p>
+<p><%= t("views.rentals.email.rented_vehicles") %>:</p>
+<ul>
+  <% @vehicle_details.each do |vehicle| %>
+    <li><%= vehicle.model.name %> - <%= vehicle.model.brand.name %> - <%= vehicle.number %></li>
+  <% end %>
+</ul>
+<p><%= t("views.rentals.email.contact_us") %></p>
+<p><%= t("views.rentals.email.address") %></p>
+<p><%= t("views.rentals.email.phone") %></p>
+<p><%= t("views.rentals.email.email") %></p>
+<p><%= t("views.rentals.email.thank_you") %></p>

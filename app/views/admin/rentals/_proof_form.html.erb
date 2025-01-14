@@ -8,7 +8,7 @@
     <div class="col-md-6">
       <%= f.label :image, class: "form-label" %>
       <%= f.file_field :image, direct_upload: true, 
-          accept: 'image/png,image/jpg,image/jpeg',
+          accept: "image/png,image/jpg,image/jpeg",
           class: "form-control" %>
     </div>
 
@@ -16,11 +16,11 @@
       <%= f.label :storage_type, class: "form-label" %>
       <div class="d-flex gap-3">
         <div class="form-check">
-          <%= f.radio_button :storage_type, 'original', class: "form-check-input" %>
+          <%= f.radio_button :storage_type, "original", class: "form-check-input" %>
           <%= f.label :storage_type_original, t("views.proofs.storage_types.original"), class: "form-check-label" %>
         </div>
         <div class="form-check">
-          <%= f.radio_button :storage_type, 'copy', class: "form-check-input" %>
+          <%= f.radio_button :storage_type, "copy", class: "form-check-input" %>
           <%= f.label :storage_type_copy, t("views.proofs.storage_types.copy"), class: "form-check-label" %>
         </div>
       </div>

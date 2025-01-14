@@ -1,10 +1,3 @@
-Style/QuotedSymbols:
-  Enabled: true
-  EnforcedStyle: single_quotes
-  Include:
-    - '**/*.js'
-    - '**/*.html'
-    - '**/*.css'
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   Include:
@@ -27,3 +20,5 @@ Metrics/PerceivedComplexity:
     - 'app/controllers/**/*'
 Style/ClassAndModuleChildren:
   Enabled: false
+Layout/TrailingEmptyLines:
+  Enabled: True

@@ -1,10 +1,32 @@
 vi:
+  admin: 
+    proofs: 
+      create: 
+        success: Thêm bằng chứng thành công
+      destroy: 
+        success: Đã xóa bằng chứng
+  users:
+      new:
+        title: "Đăng ký người dùng mới"
+        name: "Họ và tên"
+        email: "Địa chỉ email"
+        phone_number: "Số điện thoại"
+        password: "Mật khẩu"
+        password_confirmation: "Xác nhận mật khẩu"
+        register_button: "Đăng ký"
+        back_to_home: "Quay lại trang chủ"
+        errors:
+          header: "Đã xảy ra lỗi khi đăng ký:"
+  notices:
+    user_registered: "Đăng ký thành công!"
+    user_registration_failed: "Có lỗi xảy ra, vui lòng kiểm tra lại."
   sessions:
     login: "Đăng nhập"
     email_or_phone_placeholder: "Nhập email hoặc số điện thoại"
     password_placeholder: "Nhập mật khẩu"
     login_button: "Đăng nhập"
     forgot_password: "Quên mật khẩu?"
+    register: Đăng ký
     invalid_credentials: "Sai thông tin đăng nhập."
     login_success: "Đăng nhâp thành công."
     logout_success: "Đăng xuất thành công."
@@ -17,6 +39,14 @@ vi:
   title:
     page_title: "Thuê xe Cậu Út"
   views:
+    user: 
+      title: "Quản lý người dùng"
+      name: "Tên"
+      email: "Email"
+      phone_number: "Số điện thoại"
+      actions: "Thao tác"
+      show: 
+        load_false: Không có quyền truy cập
     navbar:
       app_name: "Thuê xe Cậu Út"
       home: "Trang chủ"
@@ -24,10 +54,14 @@ vi:
       login: "Đăng nhập"
       logout: "Đăng xuất"
       contact: "Liên hệ"
+      rent_now: "Thuê xe ngay"
+      vehicle_manage: "Quản lý xe"
       vehicle_list: "Danh sách xe"
       model_list: "Danh sách dòng xe"
       brand_list: "Danh sách hãng xe"
+      user_list: "Quản lý người dùng"
       rentals: "Đơn đặt xe"
+      profile: "Trang cá nhân"
     static_pages:
       home:
         slide:
@@ -158,7 +192,24 @@ vi:
         confirm: Xác nhận
         reason: Lý do từ chối đơn
     rentals: 
+      email:
+        dear: "Kính chào %{name},"
+        approval_message: "Đơn đặt xe của bạn đã được chấp nhận."
+        rejection_message: "Đơn đặt xe của bạn đã bị từ chối."
+        reason_for_rejection: Lý do từ chối
+        rental_id: "Mã đơn hàng"
+        start_datetime: "Ngày nhận xe"
+        end_datetime: "Ngày trả xe"
+        total_price: "Tổng tiền"
+        rented_vehicles: "Xe thuê"
+        rejection_reason: "Với lý do"
+        contact_us: "Nếu có thắc mắc hãy liên hệ qua: "
+        thank_you: "Cảm ơn vì đã sử dụng dịch vụ Thuê Xe Cậu Út."
+        address: "Địa chỉ: 204 Phạm Văn Đồng, P. An Hải Bắc, Q. Sơn Trà, TP. Đà Nẵng"
+        phone: "Số điện thoại: 091 105 91 45"
+        email: "Email: thuexecauut@gmail.com"
       index: 
+        id: Mã
         title: Đơn đặt xe
         name: Tên liên hệ
         phone_number: Số điện thoại
@@ -179,7 +230,9 @@ vi:
         reason: Lý do từ chối đơn
         search_name: Tên
         search_phone: SĐT
+        search_email: Email
         select_status: Trạng thái
+        overdue: Trễ hạn
         search: Tìm
         start_date: Nhận xe
         end_date: Trả xe
@@ -237,6 +290,9 @@ vi:
       create: 
         created_success: "Đã thêm xe vào giỏ hàng"
     rentals: 
+      rent: 
+        success: Cập nhật trạng thái thành công
+        failed: Chưa được chấp nhận hoặc thiếu bằng chứng
       create:
         success: "Tạo đơn thuê thành công"
         failure: "Tạo đơn thuê thất bại"
@@ -302,6 +358,23 @@ vi:
           other: "Có %{count} lỗi xảy ra:"
         body: "Vui lòng kiểm tra các lỗi sau và thử lại:"
       models:
+        user:
+          attributes:
+            password:
+              blank: "Mật khẩu không được để trống"
+            email:
+              blank: "Email không được để trống"
+              invalid: "Email không hợp lệ"
+            name:
+              blank: "Họ và tên không được để trống"
+            phone_number:
+              blank: "Số điện thoại không được để trống"
+            role:
+              blank: "Vai trò không được để trống"
+              inclusion: "Vai trò không hợp lệ"
+            status:
+              blank: "Trạng thái không được để trống"
+              inclusion: "Trạng thái không hợp lệ"
         proof:
           attributes:
             storage_type:
@@ -330,6 +403,10 @@ vi:
             model_id:
               blank: "phải được chọn"
           base:
+      messages:
+        blank: "không được để trống"
+        invalid: "không hợp lệ"
+        inclusion: "không nằm trong danh sách cho phép"
   errors:
     minimum_duration: "Thời gian thuê tối thiểu là %{hours} giờ."
     invalid_datetime: "Ngày giờ không hợp lệ. Vui lòng chọn lại."

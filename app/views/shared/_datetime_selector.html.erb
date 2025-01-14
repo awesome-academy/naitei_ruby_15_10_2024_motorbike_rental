@@ -11,7 +11,7 @@
         } %>
     <%= select_tag "#{field_name}_time_select",
         options_for_select((0..23).flat_map { |hour| 
-          ["#{hour.to_s.rjust(2, '0')}:00", "#{hour.to_s.rjust(2, '0')}:30"]
+          ["#{hour.to_s.rjust(2, "0")}:00", "#{hour.to_s.rjust(2, "0")}:30"]
         }, value&.strftime("%H:%M")),
         class: "form-control",
         required: true,

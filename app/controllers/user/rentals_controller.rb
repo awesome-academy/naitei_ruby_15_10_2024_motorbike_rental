@@ -1,4 +1,5 @@
 class User::RentalsController < ApplicationController
+  include Pagy::Backend
   before_action :logged_in_user
   before_action :set_rental, only: %i[show cancel]
   before_action :ensure_owner, only: %i[show cancel]

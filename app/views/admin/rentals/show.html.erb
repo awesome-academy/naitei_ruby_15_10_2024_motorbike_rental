@@ -14,6 +14,11 @@
         </div>
 
         <div class="flex justify-between border-b pb-2">
+          <span class="fw-medium">Email: </span>
+          <span><%= @rental.user.email %></span>
+        </div>
+
+        <div class="flex justify-between border-b pb-2">
           <span class="fw-medium"><%= t("views.rentals.show.phone_number") %>:</span>
           <span><%= @rental.phone_number %></span>
         </div>
@@ -25,7 +30,7 @@
 
         <div class="flex justify-between border-b pb-2">
           <span class="fw-medium"><%= t("views.rentals.show.total_price") %>:</span>
-          <span><%= number_with_delimiter(@rental.total_price, delimiter: ".") %> VND</span>
+          <span>₫<%= number_with_delimiter(@rental.total_price, delimiter: ".") %></span>
         </div>
       </div>
 
@@ -56,16 +61,16 @@
       </div>
     </div>
 
-    <% if @rental.rejected? && @rental.decline_reason.present? %>
-      <div class="mt-6 p-4 bg-red-50 rounded-lg border border-red-200">
-        <p class="flex items-start">
-          <span class="font-medium text-red-700 mr-2">
-            <%= t("views.rentals.show.decline_reason") %>:
-          </span>
-          <span class="text-red-600"><%= @rental.decline_reason %></span>
-        </p>
-      </div>
-    <% end %>
+   <% if @rental.rejected? && @rental.decline_reason.present? %>
+     <div class="mt-6 p-4 bg-red-50 rounded-lg border border-red-200">
+       <p class="flex items-start">
+         <span class="fw-medium text-red-700 mr-2">
+           <%= t("views.rentals.show.decline_reason") %>:
+         </span>
+         <span class="text-red-600"><%= simple_format(@rental.decline_reason) %></span>
+       </p>
+     </div>
+   <% end %>
   </div>
 
   <div class="bg-white shadow-md rounded-lg p-6">

@@ -29,7 +29,7 @@
     <%= f.label :image, t("views.vehicle_detail.form.labels.image"), class: "form-label fw-bold" %>
     <%= f.file_field :image, 
         class: "form-control", 
-        accept: Rails.application.config_for(:settings).dig(:image_upload, :allowed_types).join(','), 
+        accept: Rails.application.config_for(:settings).dig(:image_upload, :allowed_types).join(","), 
         direct_upload: true %>
     
     <% if f.object.image.attached? %>
