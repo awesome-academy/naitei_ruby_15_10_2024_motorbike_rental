@@ -18,11 +18,7 @@ Rails.application.routes.draw do
       end
     end
     resources :models
-    resources :users do
-      member do
-        patch :ban
-      end
-    end
+    resources :users
     resources :cart_items do
       patch :update_quantity, on: :member
     end

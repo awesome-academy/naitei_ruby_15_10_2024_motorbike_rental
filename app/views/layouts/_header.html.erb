@@ -13,23 +13,26 @@
         <li class="nav-item">
           <%= link_to t("views.navbar.contact"), contact_path, class: "nav-link" %>
         </li>
-        <% if logged_in? %>
-          <% if current_user&.admin? %>
+        
+        <% if user_signed_in? %>
+          <% if can? :manage, Rental %>
             <li class="nav-item">
               <%= link_to t("views.navbar.rentals"), admin_rentals_path, class: "nav-link" %>
             </li>
-          <% elsif current_user&.customer? %>
+          <% elsif can? :read, Rental %>
             <li class="nav-item">
               <%= link_to t("views.navbar.rentals"), user_rentals_path, class: "nav-link" %>
             </li>
           <% end %>
         <% end %>
-        <% unless current_user&.admin? %>
+
+        <% unless can? :manage, Rental %>
           <li class="nav-item">
             <%= link_to t("views.navbar.rent_now"), models_path, class: "nav-link" %>
           </li>
         <% end %>
-        <% if current_user&.admin? %>
+
+        <% if can? :manage, User %>
           <li class="nav-item">
             <%= link_to t("views.navbar.user_list"), users_path, class: "nav-link" %>
           </li>
@@ -44,6 +47,7 @@
           </li>
         <% end %>
       </ul>
+      
       <ul class="navbar-nav align-items-center">
         <li class="nav-item cart-icon">
           <%= link_to cart_items_path, class: "nav-link" do %>
@@ -53,6 +57,7 @@
             <% end %>
           <% end %>
         </li>
+
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

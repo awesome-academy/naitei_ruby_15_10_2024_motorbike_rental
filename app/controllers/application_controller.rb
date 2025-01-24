@@ -4,23 +4,8 @@ class ApplicationController < ActionController::Base # rubocop:disable Metrics/C
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :logged_in?, :load_time, :validate_time_params, :calculate_rental_duration, :clear_cart,
-                :authorize_admin, :logged_in_user
-  helper_method :user_signed_in?, :current_user
-
-  def authorize_admin
-    redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
-  end
-
-  def logged_in?
-    current_user.present?
-  end
-
-  def logged_in_user
-    return if current_user
-
-    redirect_to new_user_session_path
-  end
+  helper_method :load_time, :validate_time_params, :calculate_rental_duration, :clear_cart
+  helper_method :user_signed_in?, :current_user, :authenticate_user!
 
   def load_time
     if params[:start_datetime].present? && params[:end_datetime].present?
@@ -125,7 +110,7 @@ class ApplicationController < ActionController::Base # rubocop:disable Metrics/C
   def load_time_from_params
     @start_datetime = parse_time(params[:start_datetime])
     @end_datetime = parse_time(params[:end_datetime])
-    return unless logged_in?
+    return unless authenticate_user!
 
     clear_cart
   end
@@ -137,5 +122,14 @@ class ApplicationController < ActionController::Base # rubocop:disable Metrics/C
 
   def parse_time(time_value)
     time_value.is_a?(String) ? Time.zone.parse(time_value) : time_value
+  end
+
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = t "controller.rentals.unauthorized"
+    if user_signed_in?
+      redirect_to root_path
+    else
+      redirect_to new_user_session_path
+    end
   end
 end

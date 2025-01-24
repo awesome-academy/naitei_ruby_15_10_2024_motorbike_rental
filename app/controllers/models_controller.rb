@@ -3,8 +3,7 @@ class ModelsController < ApplicationController
   before_action :load_model, only: %i[update edit show]
   before_action :load_time, only: %i[index show]
   before_action :validate_time_params, only: %i[index show]
-  before_action :authorize_admin, only: %i[update edit]
-
+  load_and_authorize_resource
   def index
     session[:start_datetime] = @start_datetime
     session[:end_datetime] = @end_datetime

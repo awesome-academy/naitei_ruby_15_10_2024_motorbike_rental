@@ -456,7 +456,7 @@ vi:
       change_my_password: "Thay đổi mật khẩu của tôi"
     mailer:
       confirmation_email:
-        greeting: "Chào mừng <%= @email %>!"
+        greeting: "Chào mừng %{email}!"
         instruction: "Bạn có thể xác nhận email tài khoản của mình thông qua liên kết dưới đây:"
         confirm_link: "Xác nhận tài khoản của tôi"
       password_changed:

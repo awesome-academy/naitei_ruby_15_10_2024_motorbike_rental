@@ -5,6 +5,7 @@ gem "active_storage_validations"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "bootstrap", "~> 5.3.0"
+gem "cancancan", "~> 3.0"
 gem "config"
 gem "devise"
 gem "dotenv-rails"
