@@ -2,20 +2,11 @@ class ApplicationController < ActionController::Base # rubocop:disable Metrics/C
   include Pagy::Backend
 
   before_action :set_locale
-  helper_method :current_user, :logged_in?, :load_time, :validate_time_params, :calculate_rental_duration, :clear_cart,
-                :authorize_admin, :logged_in_user
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def current_user
-    if session[:user_id]
-      @current_user ||= User.find_by(id: session[:user_id])
-    elsif cookies.signed[:user_id]
-      user = User.find_by(id: cookies.signed[:user_id])
-      if user&.authenticated?(cookies[:remember_token])
-        session[:user_id] = user.id
-        @current_user = user
-      end
-    end
-  end
+  helper_method :logged_in?, :load_time, :validate_time_params, :calculate_rental_duration, :clear_cart,
+                :authorize_admin, :logged_in_user
+  helper_method :user_signed_in?, :current_user
 
   def authorize_admin
     redirect_to root_path, alert: t("roles.unauthorized") unless current_user&.admin?
@@ -28,7 +19,7 @@ class ApplicationController < ActionController::Base # rubocop:disable Metrics/C
   def logged_in_user
     return if current_user
 
-    redirect_to new_session_path
+    redirect_to new_user_session_path
   end
 
   def load_time
@@ -87,6 +78,24 @@ class ApplicationController < ActionController::Base # rubocop:disable Metrics/C
 
   def clear_cart
     current_user.cart_items.destroy_all
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name phone_number])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name phone_number])
+    devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+      user_params.permit(:email, :password, :remember_me)
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || root_path
+  end
+
+  def after_sign_out_path_for(_resource_or_scope)
+    new_user_session_path
   end
 
   private

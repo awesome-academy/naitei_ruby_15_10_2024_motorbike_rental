@@ -6,6 +6,7 @@ gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "bootstrap", "~> 5.3.0"
 gem "config"
+gem "devise"
 gem "dotenv-rails"
 gem "faker"
 gem "image_processing", "~> 1.2"

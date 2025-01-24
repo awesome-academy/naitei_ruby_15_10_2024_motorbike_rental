@@ -13,19 +13,20 @@
         <li class="nav-item">
           <%= link_to t("views.navbar.contact"), contact_path, class: "nav-link" %>
         </li>
-        <li class="nav-item">
-          <% if logged_in? %>
-            <% if current_user&.admin? %>
+        <% if logged_in? %>
+          <% if current_user&.admin? %>
+            <li class="nav-item">
               <%= link_to t("views.navbar.rentals"), admin_rentals_path, class: "nav-link" %>
-            <% end %>
-            <% if current_user&.user? %>
+            </li>
+          <% elsif current_user&.customer? %>
+            <li class="nav-item">
               <%= link_to t("views.navbar.rentals"), user_rentals_path, class: "nav-link" %>
-            <% end %>
+            </li>
           <% end %>
-        </li>
+        <% end %>
         <% unless current_user&.admin? %>
           <li class="nav-item">
-          <%= link_to t("views.navbar.rent_now"), models_path, class: "nav-link" %>
+            <%= link_to t("views.navbar.rent_now"), models_path, class: "nav-link" %>
           </li>
         <% end %>
         <% if current_user&.admin? %>
@@ -37,7 +38,7 @@
               <%= t "views.navbar.vehicle_manage" %>
             </a>
             <ul class="dropdown-menu" aria-labelledby="carDropdown">
-                <li><%= link_to t("views.navbar.vehicle_list"), vehicle_details_path, class: "dropdown-item" %></li>
+              <li><%= link_to t("views.navbar.vehicle_list"), vehicle_details_path, class: "dropdown-item" %></li>
               <li><%= link_to t("views.navbar.model_list"), models_path, class: "dropdown-item" %></li>
             </ul>
           </li>
@@ -48,28 +49,27 @@
           <%= link_to cart_items_path, class: "nav-link" do %>
             <i class="bi bi-cart" style="font-size: 1.5rem;"></i>
             <% if current_user&.cart_items %>
-              <span class="cart-count"><%= current_user&.cart_items&.sum(:quantity) || 0 %></span>
+              <span class="cart-count"><%= current_user.cart_items.sum(:quantity) || 0 %></span>
             <% end %>
           <% end %>
         </li>
-
-        <% if logged_in? %>
+        <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
-              <%= current_user.name %>
+              <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><%= link_to t("views.navbar.profile"), user_path(current_user), class: "dropdown-item" %></li>
-              <li><%= link_to t("views.navbar.logout"), session_path, data: { turbo_method: :delete }, class: "dropdown-item" %></li>
+              <li>
+                <%= link_to t("views.navbar.profile"), user_path(current_user), class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= link_to t("views.navbar.logout"), destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %>
+              </li>
             </ul>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to t("views.navbar.login"), new_session_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to t("views.navbar.register"), new_user_path, class: "nav-link" %>
+            <%= link_to t("views.navbar.login"), new_user_session_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>

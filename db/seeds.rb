@@ -9,7 +9,6 @@ User.create!(
   password: "123456",
   password_confirmation: "123456",
   role: :admin,
-  status: :active,
   phone_number: "0932417536"
 )
 
@@ -18,8 +17,7 @@ User.create!(
   email: "pqn@gmail.com",
   password: "123456",
   password_confirmation: "123456",
-  role: :user,
-  status: :active,
+  role: :customer,
   phone_number: "0932417534"
 )
 
@@ -28,11 +26,10 @@ User.create!(
   email: "pqn2@gmail.com",
   password: "123456",
   password_confirmation: "123456",
-  role: :user,
-  status: :active,
+  role: :customer,
   phone_number: "0932417535"
 )
-
+User.update_all(confirmed_at: Time.now)
 brands_and_models = [
   {
     name: "Honda",
@@ -123,7 +120,7 @@ end
 puts "Created #{Brand.count} brands"
 puts "Created #{Model.count} models"
 puts "Created #{VehicleDetail.count} vehicle details"
-users = User.where(role: :user)
+users = User.where(role: :customer)
 vehicles = VehicleDetail.all
 statuses = Rental.statuses.keys.reject { |status| status == "rejected" }
 users.each do |user|
