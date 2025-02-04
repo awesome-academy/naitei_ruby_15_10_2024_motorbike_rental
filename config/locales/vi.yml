@@ -132,6 +132,7 @@ vi:
         title: "Các mẫu xe"
         select_brand: "Hãng xe"
         filter: "Tìm xe"
+        clear_filters: "Xóa bộ lọc"
         price_per_day: "Giá theo ngày"
         vehicle_count: "Số lượng sẵn có"
         vehicles: "xe"
