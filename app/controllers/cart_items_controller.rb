@@ -2,7 +2,7 @@ class CartItemsController < ApplicationController # rubocop:disable Metrics/Clas
   before_action :set_cart_item, only: %i[destroy update_quantity]
   before_action :load_time, only: %i[index create]
   before_action :validate_time_params, only: %i[index create]
-  before_action :logged_in_user
+  before_action :authenticate_user!
   before_action :check_cart_item_quantity, only: %i[index]
   def index
     @cart_items = current_user.cart_items.includes(:model)

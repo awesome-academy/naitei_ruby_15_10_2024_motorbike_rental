@@ -1,9 +1,8 @@
 class User::RentalsController < ApplicationController
   include Pagy::Backend
-  before_action :logged_in_user
+  before_action :authenticate_user!
   before_action :set_rental, only: %i[show cancel]
-  before_action :ensure_owner, only: %i[show cancel]
-
+  load_and_authorize_resource
   def index
     @rentals = Rental.by_user(current_user.id).filter_by(params).order(created_at: :desc)
     @pagy, @rentals = pagy(@rentals)
@@ -52,13 +51,6 @@ class User::RentalsController < ApplicationController
 
     flash[:error] = t("controller.rentals.not_found")
     redirect_to user_rentals_path
-  end
-
-  def ensure_owner
-    return if current_user.id == @rental.user_id
-
-    flash[:error] = t("controller.rentals.unauthorized")
-    redirect_to root_path
   end
 
   def rental_params

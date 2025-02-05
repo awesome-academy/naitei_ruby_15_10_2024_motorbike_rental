@@ -1,8 +1,7 @@
 class Admin::RentalsController < ApplicationController
   include Pagy::Backend
-  before_action :authorize_admin
   before_action :set_rental, only: %i[show approve reject rent return]
-
+  load_and_authorize_resource
   def index
     @rentals = Rental.filter_by(params).order(created_at: :desc)
     @pagy, @rentals = pagy(@rentals)
@@ -65,12 +64,5 @@ class Admin::RentalsController < ApplicationController
 
     flash[:error] = t("controller.rentals.not_found")
     redirect_to admin_rentals_path
-  end
-
-  def authorize_admin
-    return if current_user.admin?
-
-    flash[:error] = t("controller.rentals.unauthorized")
-    redirect_to root_path
   end
 end

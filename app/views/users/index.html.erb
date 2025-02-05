@@ -16,10 +16,8 @@
           <td><%= user.email %></td>
           <td><%= user.phone_number %></td>
           <td>
-            <% if current_user&.admin? %>
               <%= link_to t("views.navbar.rentals"), admin_rentals_path(user_id: user.id), 
                           class: "btn btn-outline-primary btn-sm" %>
-            <% end %>
           </td>
         </tr>
       <% end %>

@@ -20,8 +20,8 @@
               ₫<%= number_with_delimiter(@model.price_per_day, delimiter: ".") %>
             </span>
           </h3>
-          
-          <% if current_user&.admin? %>
+
+          <% if can? :update, @model %>
             <%= link_to edit_model_path(@model), class: "btn btn-primary btn-sm mt-2" do %>
               <i class="fas fa-edit"></i> <%= t "views.models.edit.update_button" %>
             <% end %>
@@ -70,12 +70,12 @@
         <div class="actions mt-4">
           <% if vehicle_count > 0 %>
             <h4 class="mb-3"><%= t "views.models.show.quantity" %></h4>
-            
+
             <div data-controller="quantity"
                 data-quantity-price-per-day-value="<%= @model.price_per_day %>"
                 data-quantity-rental-duration-value="<%= @rental_duration %>"
                 data-quantity-max-quantity-value="<%= vehicle_count %>">
-                
+
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" 
                             class="btn btn-secondary" 
@@ -118,7 +118,6 @@
                           <i class="fas fa-motorcycle"></i>
                           <span class="flex-grow-1 text-center"><%= t "views.models.show.rent_now" %></span>
                     <% end %>
-
 
                     <%= link_to cart_items_path(
                                 model_id: @model,

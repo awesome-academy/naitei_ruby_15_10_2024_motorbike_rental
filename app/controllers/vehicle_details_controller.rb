@@ -1,8 +1,7 @@
 class VehicleDetailsController < ApplicationController
   before_action :init_new, only: %i[new create edit]
   before_action :load_vehicle_detail, only: %i[destroy update edit]
-  before_action :authorize_admin
-
+  load_and_authorize_resource
   def index
     @pagy, @vehicle_details = pagy(
       VehicleDetail.includes(model: :brand).ordered_by_newest

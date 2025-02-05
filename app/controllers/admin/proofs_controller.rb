@@ -1,6 +1,6 @@
 class Admin::ProofsController < ApplicationController
   before_action :set_rental
-
+  before_action :authenticate_user!
   def create
     @proof = @rental.proofs.build(proof_params)
     @proof.user = current_user
