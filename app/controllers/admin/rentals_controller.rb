@@ -1,6 +1,7 @@
 class Admin::RentalsController < ApplicationController
   include Pagy::Backend
   before_action :set_rental, only: %i[show approve reject rent return]
+  before_action :authenticate_user!
   load_and_authorize_resource
   def index
     @q = Rental.ransack(params[:q])
