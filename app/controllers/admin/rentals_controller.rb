@@ -3,7 +3,8 @@ class Admin::RentalsController < ApplicationController
   before_action :set_rental, only: %i[show approve reject rent return]
   load_and_authorize_resource
   def index
-    @rentals = Rental.filter_by(params).order(created_at: :desc)
+    @q = Rental.ransack(params[:q])
+    @rentals = @q.result.order(created_at: :desc)
     @pagy, @rentals = pagy(@rentals)
   end
 

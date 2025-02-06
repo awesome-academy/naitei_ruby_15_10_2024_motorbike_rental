@@ -1,95 +1,74 @@
-<%= provide :title, t("views.models.index.title") %>
+<%= search_form_for @q, url: models_path, method: :get, class: "mb-4 p-4 border rounded shadow-sm bg-light" do |f| %>
+  <div class="row g-3">
+    <!-- Bộ lọc ngày -->
+    <div class="col-md-6">
+      <%= render partial: "shared/datetime_selector", locals: {
+        field_name: "start_datetime",
+        label_text: t("views.models.index.rental_start"),
+        value: @start_datetime
+      } %>
+    </div>
+    <div class="col-md-6">
+      <%= render partial: "shared/datetime_selector", locals: {
+        field_name: "end_datetime",
+        label_text: t("views.models.index.rental_end"),
+        value: @end_datetime
+      } %>
+    </div>
 
-<div class="container mt-4">
-  <h1 class="text-center mb-4 fs-2 fw-bold">
-    <%= t "views.models.index.title" %>
-  </h1>
-  
-  <div id="time-error-container" class="mb-3"></div>
-  
-  <%= form_tag models_path, method: :get, class: "mb-4" do %>
-    <div class="row g-3">
-      
-      <div class="col-md-12">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <%= render partial: "shared/datetime_selector", locals: {
-              field_name: "start_datetime",
-              label_text: t("views.models.index.rental_start"),
-              value: @start_datetime
-            } %>
-          </div>
-          <div class="col-md-6">
-            <%= render partial: "shared/datetime_selector", locals: {
-              field_name: "end_datetime",
-              label_text: t("views.models.index.rental_end"),
-              value: @end_datetime
-            } %>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hãng xe, Loại xe và Dung tích xe -->
-      <div class="col-md-12">
-        <div class="row g-3">
-          <div class="col-md-4">
-            <div class="mb-3">
-              <%= select_tag :brand_id, 
-                  options_from_collection_for_select(@brands, :id, :name, params[:brand_id]),
-                  class: "form-select",
-                  prompt: t("views.models.index.select_brand") %>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="mb-3">
-              <%= select_tag :vehicle_type, 
-                  options_for_select(@vehicle_types.map { |type| 
-                    [t("activerecord.attributes.model.vehicle_types.#{type}"), type] 
-                  }, params[:vehicle_type]),
-                  class: "form-select",
-                  prompt: t("views.models.index.select_vehicle_type") %>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="mb-3">
-              <%= select_tag :engine_capacity, 
-                  options_for_select(@engine_capacities.map { |capacity| 
-                    [t("activerecord.attributes.model.engine_capacities.#{capacity}"), capacity] 
-                  }, params[:engine_capacity]),
-                  class: "form-select",
-                  prompt: t("views.models.index.select_engine_capacity") %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="mb-3">
-              <%= number_field_tag :min_price, params[:min_price], 
-                  placeholder: t("views.models.index.min_price"), 
-                  class: "form-control" %>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <%= number_field_tag :max_price, params[:max_price], 
-                  placeholder: t("views.models.index.max_price"), 
-                  class: "form-control" %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <%= submit_tag t("views.models.index.filter"), 
-            class: "btn btn-primary px-4 float-end" %>
+    <!-- Bộ lọc dropdown -->
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= t("views.models.index.select_brand") %></label>
+        <%= f.collection_select :brand_id_eq, @brands, :id, :name, 
+            { include_blank: t("views.models.index.select_brand") }, 
+            { class: "form-select", selected: params[:brand_id_eq] } %>
       </div>
     </div>
-  <% end %>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= t("views.models.index.select_vehicle_type") %></label>
+        <%= f.select :vehicle_type_eq, 
+            Model.vehicle_types.map { |key, value| [t("activerecord.attributes.model.vehicle_types.#{key}"), value] }, 
+            { include_blank: t("views.models.index.select_vehicle_type") }, 
+            { class: "form-select", selected: params[:vehicle_type_eq] } %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= t("views.models.index.select_engine_capacity") %></label>
+        <%= f.select :engine_capacity_eq, 
+            Model.engine_capacities.map { |key, value| [t("activerecord.attributes.model.engine_capacities.#{key}"), value] }, 
+            { include_blank: t("views.models.index.select_engine_capacity") }, 
+            { class: "form-select", selected: params[:engine_capacity_eq] } %>
+      </div>
+    </div>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <!-- Bộ lọc giá -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label"><%= t("views.models.index.min_price") %></label>
+        <%= f.number_field :price_per_day_gteq, 
+            placeholder: t("views.models.index.min_price"), class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label"><%= t("views.models.index.max_price") %></label>
+        <%= f.number_field :price_per_day_lteq, 
+            placeholder: t("views.models.index.max_price"), class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- Nút lọc và xóa bộ lọc -->
+    <div class="col-12 text-end mt-3">
+      <%= f.submit t("views.models.index.filter"), class: "btn btn-primary px-4 me-2" %>
+      <%= link_to t("views.models.index.clear_filters"), models_path, class: "btn btn-outline-secondary px-4" %>
+    </div>
+  </div>
+
+  <!-- Hiển thị danh sách model -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
     <%= render partial: "model_card", collection: @models, as: :model %>
   </div>
-</div>
+<% end %>

@@ -13,4 +13,8 @@ class User < ApplicationRecord
   def set_default_role
     self.role ||= :customer
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id email name phone_number role]
+  end
 end

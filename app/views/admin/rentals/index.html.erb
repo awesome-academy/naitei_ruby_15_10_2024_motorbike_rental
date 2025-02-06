@@ -4,48 +4,53 @@
   <h1 class="mb-4 text-center"><%= t("views.rentals.index.title") %></h1>
   <div class="row mb-4">
     <div class="col-md-8 offset-md-2">
-      <%= form_with(url: admin_rentals_path, method: :get, local: true) do %>
+      <%= search_form_for @q, url: admin_rentals_path, method: :get, html: { class: "form-inline" } do |f| %>
         <div class="row mb-3">
           <div class="col">
-            <input type="text" name="search_name" placeholder="<%= t("views.rentals.index.search_name") %>" class="form-control" value="<%= params[:search_name] %>">
+            <%= f.search_field :name_cont, 
+              placeholder: t("views.rentals.index.search_name"), 
+              class: "form-control" %>
           </div>
           <div class="col">
-            <input type="text" name="search_phone" placeholder="<%= t("views.rentals.index.search_phone") %>" class="form-control" value="<%= params[:search_phone] %>">
+            <%= f.search_field :phone_number_cont, 
+              placeholder: t("views.rentals.index.search_phone"), 
+              class: "form-control" %>
           </div>
           <div class="col">
-            <input type="email" name="search_email" placeholder="<%= t("views.rentals.index.search_email") %>" class="form-control" value="<%= params[:search_email] %>">
+            <%= f.search_field :user_email_cont, 
+              placeholder: t("views.rentals.index.search_email"), 
+              class: "form-control" %>
           </div>
         </div>
 
-        <div class="row align-items-center">
+        <div class="row mb-3">
           <div class="col">
-            <input type="date" name="start_datetime" placeholder="<%= t("views.rentals.index.start_date") %>" class="form-control" value="<%= params[:start_datetime] %>">
+            <%= f.search_field :start_datetime_gteq, 
+              type: "date", 
+              placeholder: t("views.rentals.index.start_date"), 
+              class: "form-control" %>
           </div>
           <div class="col">
-            <input type="date" name="end_datetime" placeholder="<%= t("views.rentals.index.end_date") %>" class="form-control" value="<%= params[:end_datetime] %>">
+            <%= f.search_field :end_datetime_lteq, 
+              type: "date", 
+              placeholder: t("views.rentals.index.end_date"), 
+              class: "form-control" %>
           </div>
           <div class="col">
-              <%= select_tag(
-                :status,
-                options_for_select(
-                  Rental.statuses.map { |key, _value| [t("models.rental.statuses.#{key}"), key] },
-                  params[:status]
-                ),
-                { prompt: t("views.rentals.index.select_status"), class: "form-control" }
-              ) %>
+            <%= f.select :status_eq, 
+              Rental.statuses.map { |key, value| [t("models.rental.statuses.#{key}"), value] },
+              { include_blank: t("views.rentals.index.select_status") },
+              class: "form-select",
+              selected: params.dig(:q, :status_eq)&.to_i %>
           </div>
-          <div class="col">
-            <div class="form-check form-switch">
-              <input type="checkbox" name="overdue" class="form-check-input" id="overdueToggle" <%= "checked" if params[:overdue] == "on" %> >
-              <label class="form-check-label" for="overdueToggle">
-                <%= t("views.rentals.index.overdue") %>
-              </label>
+          <div class="col d-flex align-items-center">
+            <div class="form-check">
+              <%= f.check_box :overdue, { class: "form-check-input" }, "true", "false" %>
+              <%= f.label :overdue, t("views.rentals.index.overdue"), class: "form-check-label ms-1" %>
             </div>
           </div>
           <div class="col-auto">
-            <button type="submit" class="btn btn-primary">
-              <%= t("views.rentals.index.search") %>
-            </button>
+            <%= f.submit t("views.rentals.index.search"), class: "btn btn-primary" %>
           </div>
         </div>
       <% end %>
@@ -55,7 +60,7 @@
   <% if @rentals.any? %>
     <%= render partial: "rental_table", locals: { rentals: @rentals } %>
   <% else %>
-    <div class="alert alert-info">
+    <div class="alert alert-info text-center">
       <%= t("views.rentals.index.no_rentals") %>
     </div>
   <% end %>

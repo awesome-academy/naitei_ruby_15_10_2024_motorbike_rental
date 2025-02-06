@@ -4,7 +4,8 @@ class User::RentalsController < ApplicationController
   before_action :set_rental, only: %i[show cancel]
   load_and_authorize_resource
   def index
-    @rentals = Rental.by_user(current_user.id).filter_by(params).order(created_at: :desc)
+    @q = Rental.by_user(current_user.id).ransack(params[:q])
+    @rentals = @q.result.order(created_at: :desc)
     @pagy, @rentals = pagy(@rentals)
   end
 

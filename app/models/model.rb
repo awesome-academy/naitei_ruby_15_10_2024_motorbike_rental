@@ -10,12 +10,6 @@ class Model < ApplicationRecord
   validates :engine_capacity, presence: true
 
   scope :empty, -> { none }
-  scope :by_brand, ->(brand_id) { where(brand_id: brand_id) if brand_id.present? }
-  scope :by_price_range, lambda { |min_price, max_price|
-    where(price_per_day: min_price..max_price) if min_price.present? && max_price.present?
-  }
-  scope :by_vehicle_type, ->(vehicle_type) { where(vehicle_type: vehicle_type) if vehicle_type.present? }
-  scope :by_engine_capacity, ->(engine_capacity) { where(engine_capacity: engine_capacity) if engine_capacity.present? }
   scope :ordered_by_vehicle_count, lambda {
     left_joins(:vehicle_details)
       .group("models.id")
@@ -25,13 +19,14 @@ class Model < ApplicationRecord
     where("id != ? AND (brand_id = ? OR vehicle_type = ?)", model_id, brand_id, vehicle_type)
       .limit(Rails.application.config_for(:settings).dig(:model, :related_to_limit))
   }
-  scope :filtered, lambda { |brand_id, min_price, max_price, vehicle_type, engine_capacity|
-    by_brand(brand_id)
-      .by_price_range(min_price, max_price)
-      .by_vehicle_type(vehicle_type)
-      .by_engine_capacity(engine_capacity)
-      .ordered_by_vehicle_count
-  }
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name price_per_day vehicle_type engine_capacity brand_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[brand vehicle_details]
+  end
+
   def vehicle_type_name
     I18n.t("activerecord.attributes.model.vehicle_types.#{vehicle_type}")
   end

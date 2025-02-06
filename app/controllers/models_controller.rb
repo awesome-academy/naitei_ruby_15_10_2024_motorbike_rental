@@ -7,12 +7,9 @@ class ModelsController < ApplicationController
   def index
     session[:start_datetime] = @start_datetime
     session[:end_datetime] = @end_datetime
-
-    @models = Model.filtered(params[:brand_id], params[:min_price], params[:max_price], params[:vehicle_type],
-                             params[:engine_capacity])
-
+    @q = Model.ransack(params[:q])
+    @models = @q.result.includes(:brand).ordered_by_vehicle_count
     @pagy, @models = pagy(@models)
-
     @brands = Brand.all
     @vehicle_types = Model.vehicle_types.keys
     @engine_capacities = Model.engine_capacities.keys
