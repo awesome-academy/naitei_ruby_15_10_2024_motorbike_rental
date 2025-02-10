@@ -157,6 +157,8 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.9.1)
+    jwt (2.10.1)
+      base64
     language_server-protocol (3.17.0.4)
     logger (1.6.5)
     loofah (2.24.0)
@@ -380,6 +382,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  jwt
   mimemagic (~> 0.4.0)
   mysql2 (~> 0.5)
   pagy
