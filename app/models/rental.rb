@@ -10,6 +10,7 @@ class Rental < ApplicationRecord
   scope :overdue, lambda {
     where("rentals.status != ? AND end_datetime < ?", statuses[:returned], Time.current)
   }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[user_id name email phone_number start_datetime end_datetime status overdue_eq]
   end
