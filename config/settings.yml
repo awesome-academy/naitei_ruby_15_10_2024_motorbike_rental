@@ -10,7 +10,8 @@ default: &default
   rental: 
     rental_limit: 10
     minimum_duration: 4
-
+  jwt:
+    expiration_time: 24
 development:
   <<: *default
 

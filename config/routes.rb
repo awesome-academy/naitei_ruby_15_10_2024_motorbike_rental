@@ -42,5 +42,15 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :api do
+      namespace :v1 do
+        devise_scope :user do
+          post "auth/sign_in", to: "sessions#create"
+          delete "auth/sign_out", to: "sessions#destroy"
+        end
+        resources :vehicle_details
+      end
+    end
   end
 end
